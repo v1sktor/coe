@@ -24,10 +24,23 @@ import {
   CheckCircle2,
   XCircle,
   Clock,
+  Paperclip,
+  Upload,
+  FileText,
+  Image as ImageIcon,
+  Download,
+  X,
 } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 
 type Status = "pendente" | "aprovado" | "rejeitado";
+
+interface Anexo {
+  path: string;
+  name: string;
+  type: string;
+  size: number;
+}
 
 interface Post {
   id: string;
@@ -39,6 +52,7 @@ interface Post {
   aprovado_por: string | null;
   aprovado_em: string | null;
   motivo_rejeicao: string | null;
+  anexos: Anexo[];
   created_at: string;
 }
 
@@ -60,6 +74,19 @@ const statusStyle: Record<Status, { label: string; cls: string; icon: any }> = {
   },
 };
 
+const MAX_MB = 15;
+const ACCEPT =
+  ".pdf,.png,.jpg,.jpeg,.webp,.gif,application/pdf,image/png,image/jpeg,image/webp,image/gif";
+
+function isImage(type: string) {
+  return type.startsWith("image/");
+}
+function fmtSize(b: number) {
+  if (b < 1024) return `${b} B`;
+  if (b < 1024 * 1024) return `${(b / 1024).toFixed(1)} KB`;
+  return `${(b / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 export default function CCOMSOC() {
   const { user } = useAuth();
   const { allowed: canManage } = usePermission("ccomsoc.manage");
@@ -71,6 +98,8 @@ export default function CCOMSOC() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Post | null>(null);
   const [form, setForm] = useState({ titulo: "", resumo: "", corpo: "" });
+  const [anexos, setAnexos] = useState<Anexo[]>([]);
+  const [uploading, setUploading] = useState(false);
 
   // rejection
   const [rejectingId, setRejectingId] = useState<string | null>(null);
@@ -82,7 +111,13 @@ export default function CCOMSOC() {
       .select("*")
       .order("created_at", { ascending: false });
     if (error) toast.error(error.message);
-    else setPosts((data ?? []) as Post[]);
+    else
+      setPosts(
+        (data ?? []).map((p: any) => ({
+          ...p,
+          anexos: Array.isArray(p.anexos) ? p.anexos : [],
+        })) as Post[]
+      );
   }
   useEffect(() => {
     load();
@@ -91,22 +126,87 @@ export default function CCOMSOC() {
   function startCreate() {
     setEditing(null);
     setForm({ titulo: "", resumo: "", corpo: "" });
+    setAnexos([]);
     setOpen(true);
   }
   function startEdit(p: Post) {
     setEditing(p);
     setForm({ titulo: p.titulo, resumo: p.resumo ?? "", corpo: p.corpo });
+    setAnexos(p.anexos ?? []);
     setOpen(true);
+  }
+
+  async function handleUpload(files: FileList | null) {
+    if (!files || !files.length || !user) return;
+    setUploading(true);
+    const folder = editing?.id ?? `tmp/${user.id}/${Date.now()}`;
+    const added: Anexo[] = [];
+    for (const file of Array.from(files)) {
+      if (file.size > MAX_MB * 1024 * 1024) {
+        toast.error(`${file.name}: excede ${MAX_MB}MB`);
+        continue;
+      }
+      const safeName = file.name.replace(/[^\w.\-]+/g, "_");
+      const path = `ccomsoc/${folder}/${crypto.randomUUID()}-${safeName}`;
+      const { error } = await supabase.storage
+        .from("documentos")
+        .upload(path, file, { contentType: file.type, upsert: false });
+      if (error) {
+        toast.error(`${file.name}: ${error.message}`);
+        continue;
+      }
+      added.push({ path, name: file.name, type: file.type, size: file.size });
+    }
+    setUploading(false);
+    if (!added.length) return;
+    const next = [...anexos, ...added];
+    setAnexos(next);
+    // Persiste imediatamente se estiver editando um post existente
+    if (editing) {
+      const { error } = await supabase
+        .from("ccomsoc_posts")
+        .update({ anexos: next as any })
+        .eq("id", editing.id);
+      if (error) toast.error(error.message);
+      else {
+        toast.success(`${added.length} anexo(s) adicionado(s)`);
+        load();
+      }
+    } else {
+      toast.success(`${added.length} anexo(s) prontos`);
+    }
+  }
+
+  async function removeAnexo(a: Anexo) {
+    if (!confirm(`Remover anexo "${a.name}"?`)) return;
+    await supabase.storage.from("documentos").remove([a.path]);
+    const next = anexos.filter((x) => x.path !== a.path);
+    setAnexos(next);
+    if (editing) {
+      await supabase
+        .from("ccomsoc_posts")
+        .update({ anexos: next as any })
+        .eq("id", editing.id);
+      load();
+    }
+  }
+
+  async function openAnexo(a: Anexo) {
+    const { data, error } = await supabase.storage
+      .from("documentos")
+      .createSignedUrl(a.path, 3600);
+    if (error || !data?.signedUrl) return toast.error(error?.message ?? "Erro");
+    window.open(data.signedUrl, "_blank");
   }
 
   async function save() {
     if (!form.titulo.trim()) return toast.error("Título obrigatório");
     if (editing) {
-      // Se autor edita rejeitado, volta para pendente para nova análise
       const payload: any = {
         titulo: form.titulo,
         resumo: form.resumo || null,
         corpo: form.corpo,
+        anexos: anexos as any,
       };
       if (editing.autor_id === user?.id && editing.status === "rejeitado") {
         payload.status = "pendente";
@@ -125,6 +225,7 @@ export default function CCOMSOC() {
         corpo: form.corpo,
         autor_id: user?.id,
         status: "pendente",
+        anexos: anexos as any,
       });
       if (error) return toast.error(error.message);
       toast.success("Post enviado para aprovação");
@@ -135,6 +236,9 @@ export default function CCOMSOC() {
 
   async function remove(p: Post) {
     if (!confirm(`Excluir "${p.titulo}"?`)) return;
+    if (p.anexos?.length) {
+      await supabase.storage.from("documentos").remove(p.anexos.map((a) => a.path));
+    }
     const { error } = await supabase.from("ccomsoc_posts").delete().eq("id", p.id);
     if (error) return toast.error(error.message);
     toast.success("Excluído");
@@ -244,6 +348,11 @@ export default function CCOMSOC() {
                           >
                             <Icon className="h-3 w-3" /> {s.label}
                           </Badge>
+                          {p.anexos?.length > 0 && (
+                            <Badge variant="outline" className="gap-1">
+                              <Paperclip className="h-3 w-3" /> {p.anexos.length}
+                            </Badge>
+                          )}
                           {isAuthor && (
                             <Badge variant="outline" className="text-xs">
                               Meu post
@@ -290,11 +399,38 @@ export default function CCOMSOC() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="space-y-2">
+                  <CardContent className="space-y-3">
                     {p.resumo && (
                       <p className="text-sm text-muted-foreground italic">{p.resumo}</p>
                     )}
                     <p className="whitespace-pre-wrap text-sm">{p.corpo}</p>
+
+                    {p.anexos?.length > 0 && (
+                      <div className="mt-2 space-y-1.5">
+                        <p className="text-xs uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+                          <Paperclip className="h-3 w-3" /> Anexos
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {p.anexos.map((a) => (
+                            <button
+                              key={a.path}
+                              onClick={() => openAnexo(a)}
+                              className="flex items-center gap-2 rounded-md border border-border bg-card/50 px-3 py-1.5 text-xs hover:bg-card hover:border-primary/50 transition"
+                              title={`${a.name} · ${fmtSize(a.size)}`}
+                            >
+                              {isImage(a.type) ? (
+                                <ImageIcon className="h-3.5 w-3.5 text-primary" />
+                              ) : (
+                                <FileText className="h-3.5 w-3.5 text-primary" />
+                              )}
+                              <span className="max-w-[200px] truncate">{a.name}</span>
+                              <Download className="h-3 w-3 opacity-60" />
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                     {p.status === "rejeitado" && p.motivo_rejeicao && (
                       <div className="mt-3 rounded-md border border-red-500/40 bg-red-500/10 p-3 text-sm">
                         <p className="text-red-300 font-semibold uppercase tracking-wide text-xs mb-1">
@@ -320,7 +456,7 @@ export default function CCOMSOC() {
 
       {/* Dialog criar/editar */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editing ? "Editar post" : "Novo post"}</DialogTitle>
           </DialogHeader>
@@ -347,6 +483,78 @@ export default function CCOMSOC() {
                 onChange={(e) => setForm({ ...form, corpo: e.target.value })}
               />
             </div>
+
+            {/* Anexos */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label className="flex items-center gap-2">
+                  <Paperclip className="h-4 w-4" /> Anexos (PDF / imagens)
+                </Label>
+                <label className="cursor-pointer">
+                  <input
+                    type="file"
+                    multiple
+                    accept={ACCEPT}
+                    className="hidden"
+                    disabled={uploading}
+                    onChange={(e) => {
+                      handleUpload(e.target.files);
+                      e.target.value = "";
+                    }}
+                  />
+                  <span className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5 text-xs hover:bg-accent">
+                    <Upload className="h-3.5 w-3.5" />
+                    {uploading ? "Enviando..." : "Adicionar arquivos"}
+                  </span>
+                </label>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Até {MAX_MB}MB por arquivo. PDF, PNG, JPG, WEBP, GIF.
+              </p>
+              {anexos.length > 0 && (
+                <ul className="space-y-1.5">
+                  {anexos.map((a) => (
+                    <li
+                      key={a.path}
+                      className="flex items-center justify-between gap-2 rounded-md border border-border bg-card/50 px-3 py-2 text-sm"
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        {isImage(a.type) ? (
+                          <ImageIcon className="h-4 w-4 text-primary shrink-0" />
+                        ) : (
+                          <FileText className="h-4 w-4 text-primary shrink-0" />
+                        )}
+                        <span className="truncate">{a.name}</span>
+                        <span className="text-xs text-muted-foreground shrink-0">
+                          {fmtSize(a.size)}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 shrink-0">
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="h-7 w-7"
+                          onClick={() => openAnexo(a)}
+                          title="Abrir"
+                        >
+                          <Download className="h-3.5 w-3.5" />
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="h-7 w-7 text-destructive"
+                          onClick={() => removeAnexo(a)}
+                          title="Remover"
+                        >
+                          <X className="h-3.5 w-3.5" />
+                        </Button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
             {!editing && (
               <p className="text-xs text-muted-foreground">
                 O post será enviado como <strong>pendente</strong> e ficará visível para o
@@ -363,7 +571,9 @@ export default function CCOMSOC() {
             <Button variant="ghost" onClick={() => setOpen(false)}>
               Cancelar
             </Button>
-            <Button onClick={save}>Salvar</Button>
+            <Button onClick={save} disabled={uploading}>
+              Salvar
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
