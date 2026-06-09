@@ -81,6 +81,38 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
+        <SidebarGroup>
+          <SidebarGroupLabel className="font-display uppercase tracking-widest text-primary text-xs">
+            {!collapsed && (
+              <span className="flex items-center gap-2">
+                <BookOpen className="h-4 w-4" />
+                DOCUMENTAÇÃO
+              </span>
+            )}
+            {collapsed && <BookOpen className="h-4 w-4 text-primary" />}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {docItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink
+                      to={item.url}
+                      end
+                      className="hover:bg-sidebar-accent/80 transition-colors"
+                      activeClassName="bg-sidebar-accent text-primary font-medium border-l-2 border-primary"
+                    >
+                      <item.icon className="mr-2 h-4 w-4" />
+                      {!collapsed && <span>{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+
         {isAdmin && (
           <SidebarGroup>
             <SidebarGroupLabel className="font-display uppercase tracking-widest text-accent text-xs">
