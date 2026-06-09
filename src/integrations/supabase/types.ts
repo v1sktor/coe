@@ -91,6 +91,63 @@ export type Database = {
           },
         ]
       }
+      apresentacao_content: {
+        Row: {
+          chave: string
+          conteudo: string
+          id: string
+          ordem: number
+          titulo: string | null
+          updated_at: string
+        }
+        Insert: {
+          chave: string
+          conteudo?: string
+          id?: string
+          ordem?: number
+          titulo?: string | null
+          updated_at?: string
+        }
+        Update: {
+          chave?: string
+          conteudo?: string
+          id?: string
+          ordem?: number
+          titulo?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      apresentacao_docs: {
+        Row: {
+          arquivo_url: string
+          created_at: string
+          descricao: string | null
+          id: string
+          ordem: number
+          titulo: string
+          updated_at: string
+        }
+        Insert: {
+          arquivo_url: string
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          ordem?: number
+          titulo: string
+          updated_at?: string
+        }
+        Update: {
+          arquivo_url?: string
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          ordem?: number
+          titulo?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       cargo_permissoes: {
         Row: {
           cargo_id: string
@@ -150,6 +207,132 @@ export type Database = {
           imagem_url?: string | null
           nivel_hierarquico?: number
           nome?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      ccomsoc_posts: {
+        Row: {
+          anexos: Json
+          autor_id: string | null
+          capa_url: string | null
+          corpo: string
+          created_at: string
+          id: string
+          publicado: boolean
+          resumo: string | null
+          titulo: string
+          updated_at: string
+        }
+        Insert: {
+          anexos?: Json
+          autor_id?: string | null
+          capa_url?: string | null
+          corpo?: string
+          created_at?: string
+          id?: string
+          publicado?: boolean
+          resumo?: string | null
+          titulo: string
+          updated_at?: string
+        }
+        Update: {
+          anexos?: Json
+          autor_id?: string | null
+          capa_url?: string | null
+          corpo?: string
+          created_at?: string
+          id?: string
+          publicado?: boolean
+          resumo?: string | null
+          titulo?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      diretrizes_coe: {
+        Row: {
+          ano: number | null
+          corpo: string
+          created_at: string
+          criado_por: string | null
+          id: string
+          numero: string | null
+          pdf_url: string | null
+          publicado: boolean
+          tags: string[]
+          titulo: string
+          updated_at: string
+          vigencia_fim: string | null
+          vigencia_inicio: string | null
+        }
+        Insert: {
+          ano?: number | null
+          corpo?: string
+          created_at?: string
+          criado_por?: string | null
+          id?: string
+          numero?: string | null
+          pdf_url?: string | null
+          publicado?: boolean
+          tags?: string[]
+          titulo: string
+          updated_at?: string
+          vigencia_fim?: string | null
+          vigencia_inicio?: string | null
+        }
+        Update: {
+          ano?: number | null
+          corpo?: string
+          created_at?: string
+          criado_por?: string | null
+          id?: string
+          numero?: string | null
+          pdf_url?: string | null
+          publicado?: boolean
+          tags?: string[]
+          titulo?: string
+          updated_at?: string
+          vigencia_fim?: string | null
+          vigencia_inicio?: string | null
+        }
+        Relationships: []
+      }
+      estaticas: {
+        Row: {
+          anexos: Json
+          created_at: string
+          criado_por: string | null
+          efetivo_previsto: number | null
+          fim: string | null
+          id: string
+          inicio: string
+          local: string
+          observacoes: string | null
+          updated_at: string
+        }
+        Insert: {
+          anexos?: Json
+          created_at?: string
+          criado_por?: string | null
+          efetivo_previsto?: number | null
+          fim?: string | null
+          id?: string
+          inicio: string
+          local: string
+          observacoes?: string | null
+          updated_at?: string
+        }
+        Update: {
+          anexos?: Json
+          created_at?: string
+          criado_por?: string | null
+          efetivo_previsto?: number | null
+          fim?: string | null
+          id?: string
+          inicio?: string
+          local?: string
+          observacoes?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -513,6 +696,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      has_permission_or_admin: {
+        Args: { _permission: string; _user_id: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

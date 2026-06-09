@@ -17,6 +17,10 @@ const CTB = lazy(() => import("./pages/CTB"));
 const Timings = lazy(() => import("./pages/Timings"));
 const Relatorios = lazy(() => import("./pages/Relatorios"));
 const RsoNovo = lazy(() => import("./pages/RsoNovo"));
+const CCOMSOC = lazy(() => import("./pages/CCOMSOC"));
+const Estaticas = lazy(() => import("./pages/Estaticas"));
+const Diretrizes = lazy(() => import("./pages/Diretrizes"));
+const Apresentacao = lazy(() => import("./pages/Apresentacao"));
 const AdminCargos = lazy(() => import("./pages/admin/AdminCargos"));
 const AdminPatentes = lazy(() => import("./pages/admin/AdminPatentes"));
 const AdminUsuarios = lazy(() => import("./pages/admin/AdminUsuarios"));
@@ -38,6 +42,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
 
             {/* Rotas públicas */}
+            <Route path="/apresentacao" element={<Apresentacao />} />
             <Route element={<PublicLayout />}>
               <Route path="/hierarquia" element={<Hierarquia />} />
               <Route path="/rso/novo" element={<RsoNovo />} />
@@ -52,6 +57,9 @@ const App = () => (
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/timings" element={<Timings />} />
                 <Route path="/relatorios" element={<Relatorios />} />
+                <Route path="/ccomsoc" element={<CCOMSOC />} />
+                <Route path="/estaticas" element={<Estaticas />} />
+                <Route path="/diretrizes" element={<Diretrizes />} />
               </Route>
             </Route>
 
