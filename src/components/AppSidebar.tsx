@@ -1,4 +1,4 @@
-import { Shield, Network, Clock, FileText, LayoutDashboard, LogOut, Settings, Users, ScrollText, Star } from "lucide-react";
+import { Shield, Network, Clock, FileText, LayoutDashboard, LogOut, Settings, Users, ScrollText, Star, Megaphone, MapPin, BookOpen } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -20,6 +20,13 @@ const menuItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Timings", url: "/timings", icon: Clock },
   { title: "Relatórios / RSO", url: "/relatorios", icon: FileText },
+  { title: "Estáticas", url: "/estaticas", icon: MapPin },
+];
+
+const docItems = [
+  { title: "CCOMSOC", url: "/ccomsoc", icon: Megaphone },
+  { title: "Diretrizes COE", url: "/diretrizes", icon: ScrollText },
+  { title: "Apresentação 4º BPChq", url: "/apresentacao", icon: BookOpen },
 ];
 
 const adminItems = [
