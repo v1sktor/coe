@@ -1,0 +1,124 @@
+import { Shield, Network, Clock, FileText, LayoutDashboard, LogOut, Settings, Users, ScrollText, Star } from "lucide-react";
+import { NavLink } from "@/components/NavLink";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarFooter,
+  useSidebar,
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+
+const menuItems = [
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Timings", url: "/timings", icon: Clock },
+  { title: "Relatórios / RSO", url: "/relatorios", icon: FileText },
+];
+
+const adminItems = [
+  { title: "Hierarquia", url: "/admin/hierarquia", icon: Network },
+  { title: "Patentes", url: "/admin/patentes", icon: Star },
+  { title: "Usuários", url: "/admin/usuarios", icon: Users },
+  { title: "Logs de Atividade", url: "/admin/logs", icon: ScrollText },
+];
+
+export function AppSidebar() {
+  const { state } = useSidebar();
+  const collapsed = state === "collapsed";
+  const { isAdmin, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
+  return (
+    <Sidebar collapsible="icon">
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel className="font-display uppercase tracking-widest text-primary text-xs">
+            {!collapsed && (
+              <span className="flex items-center gap-2">
+                <Shield className="h-4 w-4" />
+                COMANDO
+              </span>
+            )}
+            {collapsed && <Shield className="h-4 w-4 text-primary" />}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {menuItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink
+                      to={item.url}
+                      end
+                      className="hover:bg-sidebar-accent/80 transition-colors"
+                      activeClassName="bg-sidebar-accent text-primary font-medium border-l-2 border-primary"
+                    >
+                      <item.icon className="mr-2 h-4 w-4" />
+                      {!collapsed && <span>{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {isAdmin && (
+          <SidebarGroup>
+            <SidebarGroupLabel className="font-display uppercase tracking-widest text-accent text-xs">
+              {!collapsed && (
+                <span className="flex items-center gap-2">
+                  <Settings className="h-4 w-4" />
+                  ADMIN
+                </span>
+              )}
+              {collapsed && <Settings className="h-4 w-4 text-accent" />}
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {adminItems.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <NavLink
+                        to={item.url}
+                        end
+                        className="hover:bg-sidebar-accent/80 transition-colors"
+                        activeClassName="bg-sidebar-accent text-accent font-medium border-l-2 border-accent"
+                      >
+                        <item.icon className="mr-2 h-4 w-4" />
+                        {!collapsed && <span>{item.title}</span>}
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
+      </SidebarContent>
+      <SidebarFooter>
+        {!collapsed && (
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-muted-foreground hover:text-destructive"
+            onClick={handleLogout}
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            Sair
+          </Button>
+        )}
+      </SidebarFooter>
+    </Sidebar>
+  );
+}

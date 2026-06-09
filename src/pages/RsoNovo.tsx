@@ -1,0 +1,435 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ChevronLeft, ChevronRight, Send, CheckCircle, Shield, Car, Users, Timer, Package, AlertTriangle, Square, ArrowLeft, Receipt } from "lucide-react";
+import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import HierarchySelect from "@/components/rso/HierarchySelect";
+import CounterField from "@/components/rso/CounterField";
+import PatrolTimer, { usePatrolTimer } from "@/components/rso/PatrolTimer";
+import AitField, { type AitItem } from "@/components/rso/AitField";
+
+interface Membro {
+  id: string;
+  membro_nome: string;
+  cargo_nome?: string;
+}
+
+const STEPS = [
+  { title: "Responsável", icon: Shield },
+  { title: "Unidade", icon: Car },
+  { title: "Bate Ponto", icon: Timer },
+  { title: "Apreendidos", icon: Package },
+  { title: "Ocorrências", icon: AlertTriangle },
+  { title: "AIT", icon: Receipt },
+];
+
+const RsoNovo = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const [step, setStep] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
+  const [membros, setMembros] = useState<Membro[]>([]);
+  const [submitting, setSubmitting] = useState(false);
+  const patrol = usePatrolTimer();
+  const [aits, setAits] = useState<AitItem[]>([]);
+
+  const [form, setForm] = useState({
+    responsavel_id: "",
+    prefixo_viatura: "",
+    prefixo_unidade: "",
+    encarregado_id: "",
+    motorista_id: "",
+    homem3_id: "",
+    homem4_id: "",
+    homem5_id: "",
+    armas_curtas: 0,
+    armas_longas: 0,
+    municoes_curtas: "",
+    municoes_longas: "",
+    drogas: "",
+    bombas_caseiras: "",
+    lockpicks: "",
+    dinheiro_ilicito: "",
+    outros_ilicitos: "",
+    roubos_residencias: 0,
+    caixa_eletronico: 0,
+    roubo_veiculo: 0,
+    pinote_apoio: 0,
+    o11_disparo: 0,
+    acoes_setada: 0,
+    trafico_drogas: 0,
+    chamados_190: 0,
+    prisoes_bopm: "",
+    multas_descricao: "",
+    outras_ocorrencias: "",
+  });
+
+  useEffect(() => {
+    const fetchMembros = async () => {
+      const { data } = await supabase.from("hierarquia").select("*, cargos(nome)").order("ordem");
+      if (data) setMembros(data.map((h: any) => ({ id: h.id, membro_nome: h.membro_nome, cargo_nome: h.cargos?.nome })));
+    };
+    fetchMembros();
+  }, []);
+
+  const set = (field: string, value: any) => setForm((p) => ({ ...p, [field]: value }));
+
+  const patrolStarted = patrol.isRunning || !!localStorage.getItem("patrol_timer_submitted_start");
+
+  const canNext = () => {
+    if (step === 0) return !!form.responsavel_id;
+    if (step === 1) return !!form.prefixo_viatura && !!form.prefixo_unidade && !!form.encarregado_id && !!form.motorista_id;
+    // Step 2 (Bate Ponto): basta a patrulha ter sido iniciada — pode avançar com cronômetro rodando.
+    // O cronômetro continua visível como widget flutuante até ser finalizado.
+    if (step === 2) return patrolStarted;
+    return true;
+  };
+
+  const handleSubmit = async () => {
+    if (patrol.isRunning) {
+      toast({ title: "Atenção", description: "Finalize o cronômetro de patrulha antes de enviar.", variant: "destructive" });
+      return;
+    }
+
+    const patrolStart = localStorage.getItem("patrol_timer_submitted_start");
+    const patrolEnd = localStorage.getItem("patrol_timer_submitted_end");
+
+    if (!patrolStart || !patrolEnd) {
+      toast({ title: "Atenção", description: "Você precisa iniciar e finalizar a patrulha antes de enviar.", variant: "destructive" });
+      return;
+    }
+
+    const responsavel = membros.find((m) => m.id === form.responsavel_id);
+
+    setSubmitting(true);
+    const { data: rsoData, error } = await supabase.from("rsos").insert({
+      autor_nome: responsavel?.membro_nome || "Desconhecido",
+      descricao: `RSO - Viatura ${form.prefixo_viatura} - Unidade ${form.prefixo_unidade}`,
+      local: form.prefixo_unidade,
+      data_ocorrencia: new Date().toISOString().split("T")[0],
+      responsavel_id: form.responsavel_id,
+      prefixo_viatura: form.prefixo_viatura,
+      prefixo_unidade: form.prefixo_unidade,
+      encarregado_id: form.encarregado_id,
+      motorista_id: form.motorista_id,
+      homem3_id: form.homem3_id || null,
+      homem4_id: form.homem4_id || null,
+      homem5_id: form.homem5_id || null,
+      patrulha_inicio: patrolStart,
+      patrulha_fim: patrolEnd,
+      armas_curtas: form.armas_curtas,
+      armas_longas: form.armas_longas,
+      municoes_curtas: form.municoes_curtas || null,
+      municoes_longas: form.municoes_longas || null,
+      drogas: form.drogas || null,
+      bombas_caseiras: form.bombas_caseiras || null,
+      lockpicks: form.lockpicks || null,
+      dinheiro_ilicito: form.dinheiro_ilicito || null,
+      outros_ilicitos: form.outros_ilicitos || null,
+      roubos_residencias: form.roubos_residencias,
+      caixa_eletronico: form.caixa_eletronico,
+      roubo_veiculo: form.roubo_veiculo,
+      pinote_apoio: form.pinote_apoio,
+      o11_disparo: form.o11_disparo,
+      acoes_setada: form.acoes_setada,
+      trafico_drogas: form.trafico_drogas,
+      chamados_190: form.chamados_190,
+      prisoes_bopm: form.prisoes_bopm || null,
+      multas_descricao: form.multas_descricao || null,
+      outras_ocorrencias: form.outras_ocorrencias || null,
+    } as any).select("id").single();
+
+    setSubmitting(false);
+
+    if (error) {
+      toast({ title: "Erro ao enviar", description: error.message, variant: "destructive" });
+      return;
+    }
+
+    // Save AITs linked to this RSO
+    if (aits.length > 0 && rsoData?.id) {
+      const aitRows = aits.map((a) => ({
+        rso_id: rsoData.id,
+        artigo: a.artigo,
+        descricao: a.descricao,
+        valor: a.valor,
+        nome_multado: a.nome_multado,
+        rg_multado: a.rg_multado || null,
+        data_infracao: a.data_infracao,
+        observacoes: a.observacoes || null,
+      }));
+      const { error: aitErr } = await supabase.from("ait").insert(aitRows);
+      if (aitErr) {
+        toast({
+          title: "RSO enviado, mas houve erro nos AITs",
+          description: aitErr.message,
+          variant: "destructive",
+        });
+      }
+    }
+
+    localStorage.removeItem("patrol_timer_submitted_start");
+    localStorage.removeItem("patrol_timer_submitted_end");
+    setSubmitted(true);
+    toast({ title: "RSO Enviado", description: "Seu relatório foi registrado com sucesso." });
+  };
+
+  if (submitted) {
+    return (
+      <div className="max-w-lg mx-auto mt-12 text-center space-y-4">
+        <CheckCircle className="h-16 w-16 text-primary mx-auto" />
+        <h2 className="font-display text-2xl font-bold uppercase">RSO Registrado</h2>
+        <p className="text-muted-foreground">Seu relatório foi enviado e será analisado pelo comando.</p>
+        <Button variant="outline" onClick={() => navigate("/")}>
+          Voltar ao Início
+        </Button>
+      </div>
+    );
+  }
+
+  const renderStepIndicator = () => (
+    <div className="flex items-center justify-center gap-1 mb-6">
+      {STEPS.map((s, i) => {
+        const Icon = s.icon;
+        return (
+          <div key={i} className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-display uppercase tracking-wider transition-colors ${i === step ? "bg-primary text-primary-foreground" : i < step ? "bg-primary/20 text-primary" : "bg-secondary text-muted-foreground"}`}>
+            <Icon className="h-3 w-3" />
+            <span className="hidden sm:inline">{s.title}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  const renderStep0 = () => (
+    <div className="space-y-4">
+      <HierarchySelect label="Responsável pelo RSO" value={form.responsavel_id} onChange={(v) => set("responsavel_id", v)} membros={membros} required />
+    </div>
+  );
+
+  const renderStep1 = () => (
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Prefixo da Viatura *</Label>
+          <Input value={form.prefixo_viatura} onChange={(e) => set("prefixo_viatura", e.target.value)} placeholder="Ex: Trail 21" className="bg-secondary border-border" />
+        </div>
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Prefixo da Unidade *</Label>
+          <Input value={form.prefixo_unidade} onChange={(e) => set("prefixo_unidade", e.target.value)} placeholder="Ex: 4° BPRv" className="bg-secondary border-border" />
+        </div>
+      </div>
+
+      <div className="pt-4">
+        <h3 className="font-display text-sm uppercase tracking-wider text-foreground mb-4 flex items-center gap-2">
+          <Users className="h-4 w-4 text-primary" /> Composição da Guarnição
+        </h3>
+        <div className="space-y-3">
+          <HierarchySelect label="Encarregado" value={form.encarregado_id} onChange={(v) => set("encarregado_id", v)} membros={membros} required />
+          <HierarchySelect label="Motorista" value={form.motorista_id} onChange={(v) => set("motorista_id", v)} membros={membros} required />
+          <HierarchySelect label="3° Homem" value={form.homem3_id} onChange={(v) => set("homem3_id", v)} membros={membros} />
+          <HierarchySelect label="4° Homem" value={form.homem4_id} onChange={(v) => set("homem4_id", v)} membros={membros} />
+          <HierarchySelect label="5° Homem" value={form.homem5_id} onChange={(v) => set("homem5_id", v)} membros={membros} />
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderStep2 = () => (
+    <div className="space-y-4">
+      <PatrolTimer
+        onStart={() => {}}
+        onStop={(startTime, endTime) => {
+          localStorage.setItem("patrol_timer_submitted_start", startTime);
+          localStorage.setItem("patrol_timer_submitted_end", endTime);
+          toast({ title: "Patrulha finalizada", description: "Tempo registrado. Continue preenchendo o RSO." });
+        }}
+      />
+      {!patrol.isRunning && localStorage.getItem("patrol_timer_submitted_start") && (
+        <p className="text-center text-sm text-primary font-medium">✓ Tempo de patrulha registrado</p>
+      )}
+    </div>
+  );
+
+  const renderStep3 = () => (
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Quantidade de Armas Curtas</Label>
+          <Select value={String(form.armas_curtas)} onValueChange={(v) => set("armas_curtas", Number(v))}>
+            <SelectTrigger className="bg-secondary border-border"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              {Array.from({ length: 101 }, (_, i) => (
+                <SelectItem key={i} value={String(i)}>{i}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Quantidade de Armas Longas</Label>
+          <Select value={String(form.armas_longas)} onValueChange={(v) => set("armas_longas", Number(v))}>
+            <SelectTrigger className="bg-secondary border-border"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              {Array.from({ length: 101 }, (_, i) => (
+                <SelectItem key={i} value={String(i)}>{i}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Munições Armas Curtas</Label>
+          <Input value={form.municoes_curtas} onChange={(e) => set("municoes_curtas", e.target.value)} placeholder="Quantidade/descrição" className="bg-secondary border-border" />
+        </div>
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Munições Armas Longas</Label>
+          <Input value={form.municoes_longas} onChange={(e) => set("municoes_longas", e.target.value)} placeholder="Quantidade/descrição" className="bg-secondary border-border" />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Drogas</Label>
+          <Input value={form.drogas} onChange={(e) => set("drogas", e.target.value)} className="bg-secondary border-border" />
+        </div>
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Bombas Caseiras</Label>
+          <Input value={form.bombas_caseiras} onChange={(e) => set("bombas_caseiras", e.target.value)} className="bg-secondary border-border" />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Lockpicks</Label>
+          <Input value={form.lockpicks} onChange={(e) => set("lockpicks", e.target.value)} className="bg-secondary border-border" />
+        </div>
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Dinheiro Ilícito</Label>
+          <Input value={form.dinheiro_ilicito} onChange={(e) => set("dinheiro_ilicito", e.target.value)} className="bg-secondary border-border" />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <Label className="text-xs uppercase tracking-wider text-muted-foreground">Outros Ilícitos</Label>
+        <Textarea value={form.outros_ilicitos} onChange={(e) => set("outros_ilicitos", e.target.value)} placeholder="Descreva outros itens apreendidos..." className="bg-secondary border-border min-h-[80px]" />
+      </div>
+    </div>
+  );
+
+  const renderStep4 = () => (
+    <div className="space-y-4">
+      <CounterField label="Roubos à Residências" value={form.roubos_residencias} onChange={(v) => set("roubos_residencias", v)} />
+      <CounterField label="Caixa Eletrônico" value={form.caixa_eletronico} onChange={(v) => set("caixa_eletronico", v)} />
+      <CounterField label="Roubo de Veículo" value={form.roubo_veiculo} onChange={(v) => set("roubo_veiculo", v)} />
+      <CounterField label="Pinote/Apoio" value={form.pinote_apoio} onChange={(v) => set("pinote_apoio", v)} />
+      <CounterField label="O11 (Disparo)" value={form.o11_disparo} onChange={(v) => set("o11_disparo", v)} />
+      <CounterField label="Ações Setada" value={form.acoes_setada} onChange={(v) => set("acoes_setada", v)} />
+      <CounterField label="Tráfico de Drogas" value={form.trafico_drogas} onChange={(v) => set("trafico_drogas", v)} />
+      <CounterField label="190" value={form.chamados_190} onChange={(v) => set("chamados_190", v)} />
+
+      <div className="pt-4 space-y-4">
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Prisões (BOPM)</Label>
+          <Textarea value={form.prisoes_bopm} onChange={(e) => set("prisoes_bopm", e.target.value)} placeholder="Descreva as prisões com BOPM..." className="bg-secondary border-border min-h-[60px]" />
+        </div>
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Multas</Label>
+          <Textarea value={form.multas_descricao} onChange={(e) => set("multas_descricao", e.target.value)} placeholder="Descreva as multas aplicadas..." className="bg-secondary border-border min-h-[60px]" />
+        </div>
+        <div className="space-y-2">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Outras Ocorrências</Label>
+          <Textarea value={form.outras_ocorrencias} onChange={(e) => set("outras_ocorrencias", e.target.value)} placeholder="Descreva outras ocorrências..." className="bg-secondary border-border min-h-[60px]" />
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderStep5 = () => (
+    <div className="space-y-4">
+      <p className="text-sm text-muted-foreground">
+        Registre aqui cada multa (AIT) aplicada durante a patrulha. Selecione a infração no CTB e
+        informe os dados do multado.
+      </p>
+      <AitField value={aits} onChange={setAits} />
+    </div>
+  );
+
+  const stepRenderers = [renderStep0, renderStep1, renderStep2, renderStep3, renderStep4, renderStep5];
+  const StepIcon = STEPS[step].icon;
+
+  return (
+    <div className="max-w-2xl mx-auto space-y-6">
+      <Button variant="ghost" size="sm" asChild className="-ml-2">
+        <Link to="/">
+          <ArrowLeft className="mr-1 h-4 w-4" /> Voltar ao início
+        </Link>
+      </Button>
+      <div>
+        <h1 className="font-display text-3xl font-bold uppercase tracking-wide">Novo RSO</h1>
+        <p className="text-muted-foreground mt-1">Relatório de Serviço / Ocorrência</p>
+      </div>
+
+      {renderStepIndicator()}
+
+      <Card className="bg-card border-border">
+        <CardHeader>
+          <CardTitle className="font-display uppercase tracking-wide text-sm flex items-center gap-2">
+            <StepIcon className="h-4 w-4 text-primary" />
+            {STEPS[step].title}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {stepRenderers[step]()}
+
+          <div className="flex justify-between mt-6 pt-4 border-t border-border">
+            {step > 0 ? (
+              <Button variant="outline" onClick={() => setStep(step - 1)}>
+                <ChevronLeft className="mr-1 h-4 w-4" /> Voltar
+              </Button>
+            ) : <div />}
+
+            {step < STEPS.length - 1 ? (
+              <Button onClick={() => setStep(step + 1)} disabled={!canNext()}>
+                Próximo <ChevronRight className="ml-1 h-4 w-4" />
+              </Button>
+            ) : (
+              <Button onClick={handleSubmit} disabled={submitting || patrol.isRunning} className="font-display uppercase tracking-widest">
+                <Send className="mr-2 h-4 w-4" /> Finalizar e Enviar
+              </Button>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Timer widget - appears on all steps when running */}
+      {step !== 2 && patrol.isRunning && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-card border border-border rounded-xl shadow-2xl px-6 py-3 flex items-center gap-4">
+          <Timer className="h-5 w-5 text-primary animate-pulse" />
+          <span className="font-mono text-lg font-bold text-foreground">
+            {(() => {
+              const h = Math.floor(patrol.elapsed / 3600);
+              const m = Math.floor((patrol.elapsed % 3600) / 60);
+              const s = patrol.elapsed % 60;
+              return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+            })()}
+          </span>
+          <Button size="sm" variant="destructive" onClick={() => {
+            const result = patrol.stop();
+            localStorage.setItem("patrol_timer_submitted_start", result.startTime);
+            localStorage.setItem("patrol_timer_submitted_end", result.endTime);
+            toast({ title: "Patrulha finalizada", description: "Tempo registrado." });
+          }} className="font-display uppercase tracking-wider text-xs">
+            <Square className="mr-1 h-3 w-3" /> Finalizar
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default RsoNovo;
