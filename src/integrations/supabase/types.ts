@@ -214,37 +214,49 @@ export type Database = {
       ccomsoc_posts: {
         Row: {
           anexos: Json
+          aprovado_em: string | null
+          aprovado_por: string | null
           autor_id: string | null
           capa_url: string | null
           corpo: string
           created_at: string
           id: string
+          motivo_rejeicao: string | null
           publicado: boolean
           resumo: string | null
+          status: string
           titulo: string
           updated_at: string
         }
         Insert: {
           anexos?: Json
+          aprovado_em?: string | null
+          aprovado_por?: string | null
           autor_id?: string | null
           capa_url?: string | null
           corpo?: string
           created_at?: string
           id?: string
+          motivo_rejeicao?: string | null
           publicado?: boolean
           resumo?: string | null
+          status?: string
           titulo: string
           updated_at?: string
         }
         Update: {
           anexos?: Json
+          aprovado_em?: string | null
+          aprovado_por?: string | null
           autor_id?: string | null
           capa_url?: string | null
           corpo?: string
           created_at?: string
           id?: string
+          motivo_rejeicao?: string | null
           publicado?: boolean
           resumo?: string | null
+          status?: string
           titulo?: string
           updated_at?: string
         }
