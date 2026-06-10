@@ -22,15 +22,20 @@ interface RsoRow {
   prefixo_unidade?: string;
   patrulha_inicio?: string;
   patrulha_fim?: string;
-  armas_curtas?: number;
-  armas_longas?: number;
-  municoes_curtas?: string;
-  municoes_longas?: string;
-  drogas?: string;
-  bombas_caseiras?: string;
-  lockpicks?: string;
-  dinheiro_ilicito?: string;
+  ilicito_cocaina?: number;
+  ilicito_ecstasy?: number;
+  ilicito_cigarros?: number;
+  ilicito_pistolas?: number;
+  ilicito_fuzis?: number;
+  ilicito_submetralhadoras?: number;
+  ilicito_mun_pistola?: number;
+  ilicito_mun_fuzil?: number;
+  ilicito_mun_sub?: number;
+  ilicito_lockpicks?: number;
+  ilicito_bombas?: number;
+  ilicito_dinheiro_marcado?: number;
   outros_ilicitos?: string;
+  roubo_caixa_registradora?: number;
   roubos_residencias?: number;
   caixa_eletronico?: number;
   roubo_veiculo?: number;
@@ -214,20 +219,25 @@ const Relatorios = () => {
               </Section>
 
               <Section title="Apreendidos">
-                <Info label="Armas Curtas" value={viewRso.armas_curtas} />
-                <Info label="Armas Longas" value={viewRso.armas_longas} />
-                <Info label="Munições Curtas" value={viewRso.municoes_curtas} />
-                <Info label="Munições Longas" value={viewRso.municoes_longas} />
-                <Info label="Drogas" value={viewRso.drogas} />
-                <Info label="Bombas Caseiras" value={viewRso.bombas_caseiras} />
-                <Info label="Lockpicks" value={viewRso.lockpicks} />
-                <Info label="Dinheiro Ilícito" value={viewRso.dinheiro_ilicito} />
+                <Info label="Cocaína" value={viewRso.ilicito_cocaina} />
+                <Info label="Ecstasy" value={viewRso.ilicito_ecstasy} />
+                <Info label="Cigarros" value={viewRso.ilicito_cigarros} />
+                <Info label="Pistolas" value={viewRso.ilicito_pistolas} />
+                <Info label="Fuzis" value={viewRso.ilicito_fuzis} />
+                <Info label="Submetralhadoras" value={viewRso.ilicito_submetralhadoras} />
+                <Info label="Mun. Pistola" value={viewRso.ilicito_mun_pistola} />
+                <Info label="Mun. Fuzil" value={viewRso.ilicito_mun_fuzil} />
+                <Info label="Mun. Sub" value={viewRso.ilicito_mun_sub} />
+                <Info label="Lockpicks" value={viewRso.ilicito_lockpicks} />
+                <Info label="Bombas Caseiras" value={viewRso.ilicito_bombas} />
+                <Info label="Dinheiro Marcado" value={viewRso.ilicito_dinheiro_marcado} />
                 <Info label="Outros Ilícitos" value={viewRso.outros_ilicitos} />
               </Section>
 
               <Section title="Ocorrências">
                 <Info label="Roubos à Residências" value={viewRso.roubos_residencias} />
                 <Info label="Caixa Eletrônico" value={viewRso.caixa_eletronico} />
+                <Info label="Roubo Cx. Registradora" value={viewRso.roubo_caixa_registradora} />
                 <Info label="Roubo de Veículo" value={viewRso.roubo_veiculo} />
                 <Info label="Pinote/Apoio" value={viewRso.pinote_apoio} />
                 <Info label="O11 (Disparo)" value={viewRso.o11_disparo} />
