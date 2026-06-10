@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 import { ChevronLeft, ChevronRight, Send, CheckCircle, Shield, Car, Users, Timer, Package, AlertTriangle, Square, ArrowLeft, Receipt } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -49,17 +49,22 @@ const RsoNovo = () => {
     homem3_id: "",
     homem4_id: "",
     homem5_id: "",
-    armas_curtas: 0,
-    armas_longas: 0,
-    municoes_curtas: "",
-    municoes_longas: "",
-    drogas: "",
-    bombas_caseiras: "",
-    lockpicks: "",
-    dinheiro_ilicito: "",
+    ilicito_cocaina: 0,
+    ilicito_ecstasy: 0,
+    ilicito_cigarros: 0,
+    ilicito_pistolas: 0,
+    ilicito_fuzis: 0,
+    ilicito_submetralhadoras: 0,
+    ilicito_mun_pistola: 0,
+    ilicito_mun_fuzil: 0,
+    ilicito_mun_sub: 0,
+    ilicito_lockpicks: 0,
+    ilicito_bombas: 0,
+    ilicito_dinheiro_marcado: 0,
     outros_ilicitos: "",
     roubos_residencias: 0,
     caixa_eletronico: 0,
+    roubo_caixa_registradora: 0,
     roubo_veiculo: 0,
     pinote_apoio: 0,
     o11_disparo: 0,
@@ -124,17 +129,22 @@ const RsoNovo = () => {
       homem5_id: form.homem5_id || null,
       patrulha_inicio: patrolStart,
       patrulha_fim: patrolEnd,
-      armas_curtas: form.armas_curtas,
-      armas_longas: form.armas_longas,
-      municoes_curtas: form.municoes_curtas || null,
-      municoes_longas: form.municoes_longas || null,
-      drogas: form.drogas || null,
-      bombas_caseiras: form.bombas_caseiras || null,
-      lockpicks: form.lockpicks || null,
-      dinheiro_ilicito: form.dinheiro_ilicito || null,
+      ilicito_cocaina: form.ilicito_cocaina,
+      ilicito_ecstasy: form.ilicito_ecstasy,
+      ilicito_cigarros: form.ilicito_cigarros,
+      ilicito_pistolas: form.ilicito_pistolas,
+      ilicito_fuzis: form.ilicito_fuzis,
+      ilicito_submetralhadoras: form.ilicito_submetralhadoras,
+      ilicito_mun_pistola: form.ilicito_mun_pistola,
+      ilicito_mun_fuzil: form.ilicito_mun_fuzil,
+      ilicito_mun_sub: form.ilicito_mun_sub,
+      ilicito_lockpicks: form.ilicito_lockpicks,
+      ilicito_bombas: form.ilicito_bombas,
+      ilicito_dinheiro_marcado: form.ilicito_dinheiro_marcado,
       outros_ilicitos: form.outros_ilicitos || null,
       roubos_residencias: form.roubos_residencias,
       caixa_eletronico: form.caixa_eletronico,
+      roubo_caixa_registradora: form.roubo_caixa_registradora,
       roubo_veiculo: form.roubo_veiculo,
       pinote_apoio: form.pinote_apoio,
       o11_disparo: form.o11_disparo,
@@ -259,59 +269,37 @@ const RsoNovo = () => {
   );
 
   const renderStep3 = () => (
-    <div className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Quantidade de Armas Curtas</Label>
-          <Select value={String(form.armas_curtas)} onValueChange={(v) => set("armas_curtas", Number(v))}>
-            <SelectTrigger className="bg-secondary border-border"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              {Array.from({ length: 101 }, (_, i) => (
-                <SelectItem key={i} value={String(i)}>{i}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Quantidade de Armas Longas</Label>
-          <Select value={String(form.armas_longas)} onValueChange={(v) => set("armas_longas", Number(v))}>
-            <SelectTrigger className="bg-secondary border-border"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              {Array.from({ length: 101 }, (_, i) => (
-                <SelectItem key={i} value={String(i)}>{i}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+    <div className="space-y-6">
+      <div>
+        <p className="font-display text-xs uppercase tracking-widest text-primary mb-3">Entorpecentes</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <CounterField label="Cocaína" value={form.ilicito_cocaina} onChange={(v) => set("ilicito_cocaina", v)} />
+          <CounterField label="Ecstasy" value={form.ilicito_ecstasy} onChange={(v) => set("ilicito_ecstasy", v)} />
+          <CounterField label="Cigarros" value={form.ilicito_cigarros} onChange={(v) => set("ilicito_cigarros", v)} />
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Munições Armas Curtas</Label>
-          <Input value={form.municoes_curtas} onChange={(e) => set("municoes_curtas", e.target.value)} placeholder="Quantidade/descrição" className="bg-secondary border-border" />
-        </div>
-        <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Munições Armas Longas</Label>
-          <Input value={form.municoes_longas} onChange={(e) => set("municoes_longas", e.target.value)} placeholder="Quantidade/descrição" className="bg-secondary border-border" />
+      <div>
+        <p className="font-display text-xs uppercase tracking-widest text-primary mb-3">Armamento</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <CounterField label="Pistolas" value={form.ilicito_pistolas} onChange={(v) => set("ilicito_pistolas", v)} />
+          <CounterField label="Fuzis" value={form.ilicito_fuzis} onChange={(v) => set("ilicito_fuzis", v)} />
+          <CounterField label="Submetralhadoras" value={form.ilicito_submetralhadoras} onChange={(v) => set("ilicito_submetralhadoras", v)} />
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Drogas</Label>
-          <Input value={form.drogas} onChange={(e) => set("drogas", e.target.value)} className="bg-secondary border-border" />
-        </div>
-        <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Bombas Caseiras</Label>
-          <Input value={form.bombas_caseiras} onChange={(e) => set("bombas_caseiras", e.target.value)} className="bg-secondary border-border" />
+      <div>
+        <p className="font-display text-xs uppercase tracking-widest text-primary mb-3">Munições</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <CounterField label="Mun. Pistola" value={form.ilicito_mun_pistola} onChange={(v) => set("ilicito_mun_pistola", v)} />
+          <CounterField label="Mun. Fuzil" value={form.ilicito_mun_fuzil} onChange={(v) => set("ilicito_mun_fuzil", v)} />
+          <CounterField label="Mun. Sub" value={form.ilicito_mun_sub} onChange={(v) => set("ilicito_mun_sub", v)} />
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Lockpicks</Label>
-          <Input value={form.lockpicks} onChange={(e) => set("lockpicks", e.target.value)} className="bg-secondary border-border" />
-        </div>
-        <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Dinheiro Ilícito</Label>
-          <Input value={form.dinheiro_ilicito} onChange={(e) => set("dinheiro_ilicito", e.target.value)} className="bg-secondary border-border" />
+      <div>
+        <p className="font-display text-xs uppercase tracking-widest text-primary mb-3">Equipamentos & Valores</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <CounterField label="Lockpicks" value={form.ilicito_lockpicks} onChange={(v) => set("ilicito_lockpicks", v)} />
+          <CounterField label="Bombas Caseiras" value={form.ilicito_bombas} onChange={(v) => set("ilicito_bombas", v)} />
+          <CounterField label="Dinheiro Marcado" value={form.ilicito_dinheiro_marcado} onChange={(v) => set("ilicito_dinheiro_marcado", v)} />
         </div>
       </div>
       <div className="space-y-2">
@@ -325,6 +313,7 @@ const RsoNovo = () => {
     <div className="space-y-4">
       <CounterField label="Roubos à Residências" value={form.roubos_residencias} onChange={(v) => set("roubos_residencias", v)} />
       <CounterField label="Caixa Eletrônico" value={form.caixa_eletronico} onChange={(v) => set("caixa_eletronico", v)} />
+      <CounterField label="Roubo Cx. Registradora" value={form.roubo_caixa_registradora} onChange={(v) => set("roubo_caixa_registradora", v)} />
       <CounterField label="Roubo de Veículo" value={form.roubo_veiculo} onChange={(v) => set("roubo_veiculo", v)} />
       <CounterField label="Pinote/Apoio" value={form.pinote_apoio} onChange={(v) => set("pinote_apoio", v)} />
       <CounterField label="O11 (Disparo)" value={form.o11_disparo} onChange={(v) => set("o11_disparo", v)} />
