@@ -191,8 +191,8 @@ const Index = () => {
             <div className="mt-6 pt-4 border-t border-accent/40 grid grid-cols-2 gap-2">
               <NavCard to="/hierarquia" icon={Network} title="Hierarquia" desc="Estrutura de oficiais e praças do batalhão." />
               <NavCard to="/diretrizes" icon={ScrollText} title="Regulamento" desc="Manuais internos, viaturas e fardamentos." />
+              <NavCard to="/ccomsoc" icon={Megaphone} title="CCOMSOC" desc="Comunicação Social do COE — notícias e releases." />
               <NavCard to="/admin/usuarios" icon={Settings} title="Administração" desc="Membros e responsáveis pelo gerenciamento." />
-              <NavCard to="/dashboard" icon={UserCircle} title="Meu Perfil" desc="Altere sua senha e veja suas permissões." />
             </div>
           </div>
 
