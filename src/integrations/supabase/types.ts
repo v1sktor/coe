@@ -496,6 +496,18 @@ export type Database = {
           homem4_id: string | null
           homem5_id: string | null
           id: string
+          ilicito_bombas: number
+          ilicito_cigarros: number
+          ilicito_cocaina: number
+          ilicito_dinheiro_marcado: number
+          ilicito_ecstasy: number
+          ilicito_fuzis: number
+          ilicito_lockpicks: number
+          ilicito_mun_fuzil: number
+          ilicito_mun_pistola: number
+          ilicito_mun_sub: number
+          ilicito_pistolas: number
+          ilicito_submetralhadoras: number
           local: string
           lockpicks: string | null
           motivo_rejeicao: string | null
@@ -513,6 +525,7 @@ export type Database = {
           prefixo_viatura: string | null
           prisoes_bopm: string | null
           responsavel_id: string | null
+          roubo_caixa_registradora: number
           roubo_veiculo: number | null
           roubos_residencias: number | null
           status: string
@@ -541,6 +554,18 @@ export type Database = {
           homem4_id?: string | null
           homem5_id?: string | null
           id?: string
+          ilicito_bombas?: number
+          ilicito_cigarros?: number
+          ilicito_cocaina?: number
+          ilicito_dinheiro_marcado?: number
+          ilicito_ecstasy?: number
+          ilicito_fuzis?: number
+          ilicito_lockpicks?: number
+          ilicito_mun_fuzil?: number
+          ilicito_mun_pistola?: number
+          ilicito_mun_sub?: number
+          ilicito_pistolas?: number
+          ilicito_submetralhadoras?: number
           local: string
           lockpicks?: string | null
           motivo_rejeicao?: string | null
@@ -558,6 +583,7 @@ export type Database = {
           prefixo_viatura?: string | null
           prisoes_bopm?: string | null
           responsavel_id?: string | null
+          roubo_caixa_registradora?: number
           roubo_veiculo?: number | null
           roubos_residencias?: number | null
           status?: string
@@ -586,6 +612,18 @@ export type Database = {
           homem4_id?: string | null
           homem5_id?: string | null
           id?: string
+          ilicito_bombas?: number
+          ilicito_cigarros?: number
+          ilicito_cocaina?: number
+          ilicito_dinheiro_marcado?: number
+          ilicito_ecstasy?: number
+          ilicito_fuzis?: number
+          ilicito_lockpicks?: number
+          ilicito_mun_fuzil?: number
+          ilicito_mun_pistola?: number
+          ilicito_mun_sub?: number
+          ilicito_pistolas?: number
+          ilicito_submetralhadoras?: number
           local?: string
           lockpicks?: string | null
           motivo_rejeicao?: string | null
@@ -603,6 +641,7 @@ export type Database = {
           prefixo_viatura?: string | null
           prisoes_bopm?: string | null
           responsavel_id?: string | null
+          roubo_caixa_registradora?: number
           roubo_veiculo?: number | null
           roubos_residencias?: number | null
           status?: string
@@ -708,6 +747,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_rso_indicadores: { Args: never; Returns: Json }
       has_permission_or_admin: {
         Args: { _permission: string; _user_id: string }
         Returns: boolean
