@@ -1,13 +1,28 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Shield, Lock, ChevronRight, Network, FileText, Scale, Crosshair, Radio, Activity } from "lucide-react";
+import { Shield, Lock, ChevronRight, Network, Crosshair, Radio, Activity, Package, Siren, ScrollText, Settings, UserCircle } from "lucide-react";
 import logo from "@/assets/logo-bprv.png";
 import heroBanner from "@/assets/coe-hero.jpg";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const now = new Date();
   const time = now.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
   const date = now.toLocaleDateString("pt-BR");
+
+  const [ind, setInd] = useState<Record<string, number> | null>(null);
+
+  useEffect(() => {
+    (supabase.rpc as any)("get_rso_indicadores").then(({ data }: { data: Record<string, number> | null }) => {
+      if (data) setInd(data);
+    });
+  }, []);
+
+  const fmt = (key: string) => {
+    const v = ind?.[key];
+    return typeof v === "number" && v > 0 ? v.toLocaleString("pt-BR") : "—";
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background relative overflow-hidden">
@@ -112,7 +127,7 @@ const Index = () => {
           </div>
         </div>
 
-        {/* RIGHT: Tactical info panel */}
+        {/* RIGHT: Analisador RSO */}
         <div className="relative animate-slide-left" style={{ animationDelay: "0.4s" }}>
           <div className="relative card-tactical bg-card/50 backdrop-blur-md p-6 shadow-elevated">
             {/* Corner brackets */}
@@ -121,26 +136,63 @@ const Index = () => {
             <Bracket pos="bl" />
             <Bracket pos="br" />
 
-            <div className="flex items-center justify-between border-b border-accent/40 pb-3 mb-4">
+            <div className="flex items-center justify-between border-b border-accent/40 pb-3 mb-3">
               <div className="flex items-center gap-2">
                 <Activity className="h-3 w-3 text-primary animate-pulse" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground">Status Tático</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">Resultado de Serviço Operacional</span>
               </div>
               <span className="font-mono text-[10px] text-foreground/60">{date}</span>
             </div>
 
-            <div className="space-y-4">
-              <StatRow label="Operação" value="ATIVA" highlight />
-              <StatRow label="Comando" value="4º BPCHQ" />
-              <StatRow label="Unidade" value="COE" />
-              <StatRow label="Frequência" value="VHF · 156.800" />
-              <StatRow label="Código" value="QAP · QSL" />
+            <h2 className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-foreground">Indicadores Gerais — RSO</h2>
+            <p className="mt-1 text-[11px] text-muted-foreground">Totais consolidados de todos os relatórios aprovados do batalhão.</p>
+
+            {/* Ilícitos Apreendidos */}
+            <div className="mt-4">
+              <div className="flex items-center gap-2 mb-1.5">
+                <Package className="h-3 w-3 text-primary" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary-glow">Ilícitos Apreendidos</span>
+              </div>
+              <div className="grid grid-cols-2 gap-x-6">
+                <IndItem label="Cocaína" value={fmt("cocaina")} />
+                <IndItem label="Ecstasy" value={fmt("ecstasy")} />
+                <IndItem label="Cigarros" value={fmt("cigarros")} />
+                <IndItem label="Pistolas" value={fmt("pistolas")} />
+                <IndItem label="Fuzis" value={fmt("fuzis")} />
+                <IndItem label="Submetralhadoras" value={fmt("submetralhadoras")} />
+                <IndItem label="Mun. Pistola" value={fmt("mun_pistola")} />
+                <IndItem label="Mun. Fuzil" value={fmt("mun_fuzil")} />
+                <IndItem label="Mun. Sub" value={fmt("mun_sub")} />
+                <IndItem label="Lockpicks" value={fmt("lockpicks")} />
+                <IndItem label="Bombas Caseiras" value={fmt("bombas_caseiras")} />
+                <IndItem label="Dinheiro Marcado" value={fmt("dinheiro_marcado")} />
+              </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-accent/40 grid grid-cols-3 gap-2">
-              <QuickLink to="/hierarquia" icon={Network} label="Efetivo" />
-              <QuickLink to="/ctb" icon={Scale} label="CTB" />
-              <QuickLink to="/rso/novo" icon={FileText} label="RSO" />
+            {/* Ocorrências */}
+            <div className="mt-5">
+              <div className="flex items-center gap-2 mb-1.5">
+                <Siren className="h-3 w-3 text-primary" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary-glow">Ocorrências</span>
+              </div>
+              <div className="grid grid-cols-2 gap-x-6">
+                <IndItem label="Chamados 190" value={fmt("chamados_190")} />
+                <IndItem label="Roubo Cx. Eletrônico" value={fmt("roubo_caixa_eletronico")} />
+                <IndItem label="Roubo Cx. Registr." value={fmt("roubo_caixa_registradora")} />
+                <IndItem label="Roubo Residência" value={fmt("roubo_residencia")} />
+                <IndItem label="Roubo Veículos" value={fmt("roubo_veiculos")} />
+                <IndItem label="Apoios" value={fmt("apoios")} />
+                <IndItem label="Tráfico" value={fmt("trafico")} />
+                <IndItem label="Ações" value={fmt("acoes")} />
+              </div>
+            </div>
+
+            {/* Acessos rápidos */}
+            <div className="mt-6 pt-4 border-t border-accent/40 grid grid-cols-2 gap-2">
+              <NavCard to="/hierarquia" icon={Network} title="Hierarquia" desc="Estrutura de oficiais e praças do batalhão." />
+              <NavCard to="/diretrizes" icon={ScrollText} title="Regulamento" desc="Manuais internos, viaturas e fardamentos." />
+              <NavCard to="/admin/usuarios" icon={Settings} title="Administração" desc="Membros e responsáveis pelo gerenciamento." />
+              <NavCard to="/dashboard" icon={UserCircle} title="Meu Perfil" desc="Altere sua senha e veja suas permissões." />
             </div>
           </div>
 
@@ -191,23 +243,23 @@ const NavBtn = ({ to, label }: { to: string; label: string }) => (
   </Button>
 );
 
-const StatRow = ({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) => (
-  <div className="flex items-center justify-between font-mono text-[11px]">
-    <span className="uppercase tracking-[0.3em] text-muted-foreground">{label}</span>
-    <span className={`uppercase tracking-[0.2em] ${highlight ? "text-primary-glow flex items-center gap-2" : "text-foreground"}`}>
-      {highlight && <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />}
-      {value}
-    </span>
+const IndItem = ({ label, value }: { label: string; value: string }) => (
+  <div className="flex items-center justify-between gap-2 border-b border-border/40 py-1 font-mono text-[10px]">
+    <span className="uppercase tracking-[0.12em] text-muted-foreground truncate">{label}</span>
+    <span className={value === "—" ? "text-muted-foreground/60" : "text-primary-glow font-medium"}>{value}</span>
   </div>
 );
 
-const QuickLink = ({ to, icon: Icon, label }: { to: string; icon: any; label: string }) => (
+const NavCard = ({ to, icon: Icon, title, desc }: { to: string; icon: any; title: string; desc: string }) => (
   <Link
     to={to}
-    className="flex flex-col items-center gap-1.5 p-3 border border-accent/40 bg-background/40 hover:border-primary/60 hover:bg-card/60 transition-all hover:-translate-y-0.5 group rounded-md"
+    className="flex flex-col gap-1 p-3 border border-accent/40 bg-background/40 hover:border-primary/60 hover:bg-card/60 transition-all hover:-translate-y-0.5 group rounded-md"
   >
-    <Icon className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-    <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground group-hover:text-foreground">{label}</span>
+    <span className="flex items-center gap-2">
+      <Icon className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+      <span className="font-display text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">{title}</span>
+    </span>
+    <span className="text-[10px] leading-snug text-muted-foreground">{desc}</span>
   </Link>
 );
 
