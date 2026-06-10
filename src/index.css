@@ -6,60 +6,60 @@
 
 @layer base {
   :root {
-    /* ROTA - Black & Steel Grey */
-    --background: 0 0% 4%;
-    --foreground: 0 0% 92%;
+    /* COE 4º BPChq — Preto fosco & Verde Musgo militar */
+    --background: 0 0% 7%;
+    --foreground: 0 0% 96%;
 
-    --card: 0 0% 7%;
-    --card-foreground: 0 0% 92%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 92%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 96%;
 
-    /* Steel grey - primary accent */
-    --primary: 0 0% 78%;
-    --primary-foreground: 0 0% 6%;
-    --primary-glow: 0 0% 90%;
+    /* Verde oliva claro — accent principal (#6B8E23) */
+    --primary: 80 60% 35%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 80 55% 48%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 92%;
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 0 0% 96%;
 
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 62%;
 
-    /* Subtle steel accent */
-    --accent: 0 0% 22%;
-    --accent-foreground: 0 0% 95%;
+    /* Verde musgo (#4B5320) */
+    --accent: 69 44% 23%;
+    --accent-foreground: 0 0% 96%;
 
     --destructive: 0 70% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 14%;
-    --input: 0 0% 12%;
-    --ring: 0 0% 70%;
+    --border: 75 12% 17%;
+    --input: 0 0% 14%;
+    --ring: 80 60% 35%;
 
-    --radius: 0.375rem;
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 5%;
-    --sidebar-foreground: 0 0% 75%;
-    --sidebar-primary: 0 0% 85%;
-    --sidebar-primary-foreground: 0 0% 6%;
-    --sidebar-accent: 0 0% 11%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 0 0% 13%;
-    --sidebar-ring: 0 0% 70%;
+    --sidebar-foreground: 0 0% 78%;
+    --sidebar-primary: 80 60% 35%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 75 18% 11%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 75 12% 14%;
+    --sidebar-ring: 80 60% 35%;
 
     --success: 142 60% 45%;
     --warning: 38 95% 55%;
     --danger: 0 75% 50%;
 
     /* Premium gradients & shadows */
-    --gradient-tactical: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 3%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(0 0% 78%) 0%, hsl(0 0% 55%) 100%);
-    --gradient-blue: linear-gradient(135deg, hsl(0 0% 22%) 0%, hsl(0 0% 10%) 100%);
-    --gradient-hero: radial-gradient(ellipse at center, hsl(0 0% 10%) 0%, hsl(0 0% 2%) 75%);
+    --gradient-tactical: linear-gradient(135deg, hsl(0 0% 12%) 0%, hsl(0 0% 6%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(80 60% 35%) 0%, hsl(69 44% 23%) 100%);
+    --gradient-blue: linear-gradient(135deg, hsl(69 44% 23%) 0%, hsl(0 0% 10%) 100%);
+    --gradient-hero: radial-gradient(ellipse at center, hsl(75 15% 9%) 0%, hsl(0 0% 5%) 75%);
 
-    --shadow-gold: 0 8px 32px -8px hsl(0 0% 0% / 0.8);
+    --shadow-gold: 0 8px 32px -8px hsl(80 60% 25% / 0.45);
     --shadow-tactical: 0 12px 40px -12px hsl(0 0% 0% / 0.7);
     --shadow-elevated: 0 20px 60px -20px hsl(0 0% 0% / 0.9);
 
@@ -75,8 +75,8 @@
   body {
     @apply bg-background text-foreground font-sans;
     background-image:
-      radial-gradient(circle at 20% 0%, hsl(0 0% 18% / 0.4) 0%, transparent 55%),
-      radial-gradient(circle at 80% 100%, hsl(0 0% 14% / 0.35) 0%, transparent 55%);
+      radial-gradient(circle at 20% 0%, hsl(75 25% 14% / 0.35) 0%, transparent 55%),
+      radial-gradient(circle at 80% 100%, hsl(80 30% 12% / 0.3) 0%, transparent 55%);
     background-attachment: fixed;
   }
 
@@ -107,14 +107,14 @@
     background-size: 48px 48px;
   }
 
-  /* Diagonal hazard stripes (rodovia) */
+  /* Diagonal stripes táticas (camuflagem) */
   .bg-hazard-stripes {
     background-image: repeating-linear-gradient(
       45deg,
-      hsl(0 0% 78%) 0,
-      hsl(0 0% 78%) 12px,
-      hsl(0 0% 6%) 12px,
-      hsl(0 0% 6%) 24px
+      hsl(69 44% 23%) 0,
+      hsl(69 44% 23%) 12px,
+      hsl(0 0% 7%) 12px,
+      hsl(0 0% 7%) 24px
     );
   }
 
@@ -127,6 +127,19 @@
       hsl(var(--primary)) 50%,
       hsl(var(--primary) / 0.6) 80%,
       transparent 100%);
+  }
+
+  /* Premium card — borda sutil verde musgo + hover suave */
+  .card-tactical {
+    border: 1px solid hsl(var(--accent) / 0.45);
+    background: hsl(var(--card));
+    border-radius: var(--radius);
+    transition: border-color 0.3s var(--transition-smooth), box-shadow 0.3s var(--transition-smooth), transform 0.3s var(--transition-smooth);
+  }
+  .card-tactical:hover {
+    border-color: hsl(var(--primary) / 0.6);
+    box-shadow: var(--shadow-gold);
+    transform: translateY(-2px);
   }
 }
 

@@ -9,12 +9,12 @@ export function AppLayout() {
       <div className="min-h-screen flex w-full">
         <AppSidebar />
         <div className="flex-1 flex flex-col">
-          <header className="h-14 flex items-center border-b border-border px-4 bg-card">
+          <header className="h-14 flex items-center border-b border-accent/40 px-4 bg-card">
             <SidebarTrigger className="mr-4" />
             <div className="flex items-center gap-2">
               <Shield className="h-5 w-5 text-primary" />
               <span className="font-display text-lg font-semibold uppercase tracking-wider text-foreground">
-                ROTA · Tobias de Aguiar
+                COE · 4º BPChq
               </span>
             </div>
           </header>
