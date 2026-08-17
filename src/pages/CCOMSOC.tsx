@@ -303,24 +303,29 @@ export default function CCOMSOC() {
             Comunicação Social do 4º BPChq · workflow de aprovação
           </p>
         </div>
-        <Button onClick={startCreate}>
-          <Plus className="mr-2 h-4 w-4" /> Novo post
-        </Button>
+        {canManage && (
+          <Button onClick={startCreate}>
+            <Plus className="mr-2 h-4 w-4" /> Novo post
+          </Button>
+        )}
       </div>
 
       <Tabs value={tab} onValueChange={(v) => setTab(v as any)}>
-        <TabsList>
-          <TabsTrigger value="todos">Todos ({counts.todos})</TabsTrigger>
-          <TabsTrigger value="pendente">
-            Pendentes ({counts.pendente})
-          </TabsTrigger>
-          <TabsTrigger value="aprovado">Aprovados ({counts.aprovado})</TabsTrigger>
-          <TabsTrigger value="rejeitado">
-            Rejeitados ({counts.rejeitado})
-          </TabsTrigger>
-        </TabsList>
+        {canManage && (
+          <TabsList>
+            <TabsTrigger value="todos">Todos ({counts.todos})</TabsTrigger>
+            <TabsTrigger value="pendente">
+              Pendentes ({counts.pendente})
+            </TabsTrigger>
+            <TabsTrigger value="aprovado">Aprovados ({counts.aprovado})</TabsTrigger>
+            <TabsTrigger value="rejeitado">
+              Rejeitados ({counts.rejeitado})
+            </TabsTrigger>
+          </TabsList>
+        )}
 
         <TabsContent value={tab} className="mt-4">
+
           <div className="grid gap-4">
             {visible.length === 0 && (
               <p className="text-muted-foreground text-sm">Nenhum post nesta aba.</p>
@@ -329,9 +334,9 @@ export default function CCOMSOC() {
               const s = statusStyle[p.status];
               const Icon = s.icon;
               const isAuthor = p.autor_id === user?.id;
-              const canEdit =
-                canManage || (isAuthor && p.status !== "aprovado");
-              const canDelete = canEdit;
+              const canEdit = canManage;
+              const canDelete = canManage;
+
               return (
                 <Card key={p.id}>
                   <CardHeader>
