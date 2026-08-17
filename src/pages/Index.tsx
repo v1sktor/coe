@@ -53,7 +53,7 @@ const Index = () => {
           </div>
           <div className="flex flex-col leading-none">
             <span className="font-display text-lg font-bold uppercase tracking-[0.22em] text-foreground">
-              COE
+              COE - GATE
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.32em] text-primary-glow mt-1">
               4º BPChq
@@ -98,7 +98,7 @@ const Index = () => {
 
           <h1 className="font-display font-bold uppercase leading-[0.82] tracking-tight">
             <span className="block text-7xl md:text-9xl lg:text-[10rem] text-foreground drop-shadow-[0_8px_32px_rgba(0,0,0,0.9)] animate-slide-up" style={{ animationDelay: "0.3s" }}>
-              COE
+              COE - GATE
             </span>
             <span className="block text-2xl md:text-4xl lg:text-5xl text-muted-foreground/80 mt-3 animate-slide-up" style={{ animationDelay: "0.4s" }}>
               <span className="text-primary">/</span> 4º Batalhão de Choque
