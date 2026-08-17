@@ -46,7 +46,9 @@ const App = () => (
             <Route element={<PublicLayout />}>
               <Route path="/hierarquia" element={<Hierarquia />} />
               <Route path="/rso/novo" element={<RsoNovo />} />
+              <Route path="/ccomsoc" element={<CCOMSOC />} />
             </Route>
+
 
             {/* Rotas públicas (full page custom) */}
             <Route path="/ctb" element={<CTB />} />
@@ -57,7 +59,6 @@ const App = () => (
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/timings" element={<Timings />} />
                 <Route path="/relatorios" element={<Relatorios />} />
-                <Route path="/ccomsoc" element={<CCOMSOC />} />
                 <Route path="/estaticas" element={<Estaticas />} />
                 <Route path="/diretrizes" element={<Diretrizes />} />
               </Route>
