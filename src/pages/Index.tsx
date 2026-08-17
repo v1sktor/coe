@@ -53,7 +53,7 @@ const Index = () => {
           </div>
           <div className="flex flex-col leading-none">
             <span className="font-display text-lg font-bold uppercase tracking-[0.22em] text-foreground">
-              COE
+              COE - GATE
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.32em] text-primary-glow mt-1">
               4º BPChq
