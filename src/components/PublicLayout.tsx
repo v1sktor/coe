@@ -1,6 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
 import { Shield } from "lucide-react";
-import logo from "@/assets/logo-bprv.png";
+import logoAsset from "@/assets/logo-coe.png.asset.json";
+const logo = logoAsset.url;
 
 export function PublicLayout() {
   return (

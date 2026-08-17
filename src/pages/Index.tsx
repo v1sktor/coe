@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Shield, Lock, ChevronRight, Network, Crosshair, Radio, Activity, Package, Siren, ScrollText, Settings, UserCircle, Megaphone } from "lucide-react";
-import logo from "@/assets/logo-bprv.png";
+import logoAsset from "@/assets/logo-coe.png.asset.json";
+const logo = logoAsset.url;
 import heroBanner from "@/assets/coe-hero.jpg";
 import { supabase } from "@/integrations/supabase/client";
 
