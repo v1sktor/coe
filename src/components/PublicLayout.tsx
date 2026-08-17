@@ -12,13 +12,13 @@ export function PublicLayout() {
       <header className="relative z-10 border-b border-border/60 backdrop-blur-md bg-background/60">
         <div className="px-6 lg:px-10 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="" className="h-9 w-9 object-contain grayscale brightness-110" />
+            <img src={logo} alt="Brasão COE 4º BPChq" className="h-9 w-9 object-contain" />
             <div className="flex flex-col leading-none">
               <span className="font-display text-base font-bold uppercase tracking-[0.22em] text-foreground">
-                ROTA
+                COE - GATE
               </span>
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground mt-0.5">
-                Tobias de Aguiar
+                4º BPChq
               </span>
             </div>
           </Link>
