@@ -64,6 +64,8 @@ const Index = () => {
           <NavBtn to="/hierarquia" label="Efetivo" />
           <NavBtn to="/ctb" label="CTB" />
           <NavBtn to="/rso/novo" label="RSO" />
+          <NavBtn to="/ccomsoc" label="CCOMSOC" />
+
           <Button asChild size="sm" className="ml-2 md:ml-4 font-display uppercase tracking-[0.18em] text-[10px] md:text-[11px] px-2 md:px-3 bg-primary text-primary-foreground hover:bg-primary-glow transition-all duration-300 hover:scale-105">
             <Link to="/login"><Lock className="mr-1 md:mr-2 h-3 w-3" />Acesso</Link>
           </Button>
