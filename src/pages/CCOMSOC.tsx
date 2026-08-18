@@ -300,7 +300,7 @@ export default function CCOMSOC() {
             <Megaphone className="h-7 w-7 text-primary" /> CCOMSOC
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
-            Comunicação Social do 4º BPChq · workflow de aprovação
+            Comunicação Social do GER · workflow de aprovação
           </p>
         </div>
         {canManage && (
