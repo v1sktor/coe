@@ -1,0 +1,5 @@
+UPDATE public.apresentacao_content SET conteudo = 'GER', updated_at = now() WHERE chave = 'hero_titulo';
+UPDATE public.apresentacao_content SET conteudo = 'Grupo Especial de Reação · Polícia Civil do Estado de São Paulo', updated_at = now() WHERE chave = 'hero_subtitulo';
+UPDATE public.apresentacao_content SET conteudo = 'Atuar em operações policiais de alto risco, cumprimento de mandados, resgate de reféns e apoio tático às unidades da Polícia Civil, com técnica, disciplina e respeito aos direitos fundamentais.', updated_at = now() WHERE chave = 'missao';
+UPDATE public.apresentacao_content SET conteudo = 'O GER — Grupo Especial de Reação — é a unidade tática de elite da Polícia Civil do Estado de São Paulo, formada por policiais civis especializados em intervenções de alta complexidade, contraterrorismo, gerenciamento de crises e apoio operacional às delegacias e departamentos da instituição.', updated_at = now() WHERE chave = 'historia';
+UPDATE public.apresentacao_content SET conteudo = 'Para informações institucionais, entre em contato pelos canais oficiais do GER / Polícia Civil de São Paulo.', updated_at = now() WHERE chave = 'contato';
