@@ -11,6 +11,8 @@ import { useToast } from "@/hooks/use-toast";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [isFirstAccess, setIsFirstAccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const { login, loading, isAuthenticated } = useAuth();
@@ -26,6 +28,24 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    if (isFirstAccess) {
+      const { supabase } = await import("@/integrations/supabase/client");
+      const { error: invokeError, data } = await supabase.functions.invoke("bootstrap-admin", {
+        body: { email, password, nome: name },
+      });
+
+      if (invokeError || data?.error) {
+        setIsSubmitting(false);
+        toast({
+          title: "Não foi possível criar o administrador",
+          description: data?.error || invokeError?.message || "Verifique os dados informados.",
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+
     const error = await login(email, password);
     setIsSubmitting(false);
     if (error) {
@@ -42,8 +62,12 @@ const Login = () => {
             <Shield className="h-10 w-10 text-primary" />
           </div>
           <div>
-            <h1 className="font-display text-3xl font-bold uppercase tracking-widest">Acesso Administrativo</h1>
-            <p className="text-muted-foreground text-sm mt-2">Acesso restrito a pessoal autorizado</p>
+            <h1 className="font-display text-3xl font-bold uppercase tracking-widest">
+              {isFirstAccess ? "Primeiro Administrador" : "Acesso Administrativo"}
+            </h1>
+            <p className="text-muted-foreground text-sm mt-2">
+              {isFirstAccess ? "Crie o acesso inicial do GER" : "Acesso restrito a pessoal autorizado"}
+            </p>
           </div>
         </div>
 
@@ -56,6 +80,12 @@ const Login = () => {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
+              {isFirstAccess && (
+                <div className="space-y-2">
+                  <Label htmlFor="admin-name" className="text-xs uppercase tracking-wider text-muted-foreground">Nome</Label>
+                  <Input id="admin-name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome do administrador" className="bg-secondary border-border" required />
+                </div>
+              )}
               <div className="space-y-2">
                 <Label htmlFor="login-email" className="text-xs uppercase tracking-wider text-muted-foreground">Email</Label>
                 <div className="relative">
@@ -71,7 +101,15 @@ const Login = () => {
                 </div>
               </div>
               <Button type="submit" disabled={isSubmitting || loading} className="w-full font-display uppercase tracking-widest">
-                {isSubmitting || loading ? "Entrando..." : "Acessar Sistema"}
+                {isSubmitting || loading ? "Processando..." : isFirstAccess ? "Criar e acessar" : "Acessar sistema"}
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                className="w-full text-muted-foreground"
+                onClick={() => setIsFirstAccess((current) => !current)}
+              >
+                {isFirstAccess ? "Já tenho acesso" : "Configurar primeiro administrador"}
               </Button>
             </form>
           </CardContent>
