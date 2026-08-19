@@ -60,7 +60,7 @@ const Login = () => {
                 <Label htmlFor="login-email" className="text-xs uppercase tracking-wider text-muted-foreground">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input id="login-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="usuario@comando.mil.br" className="pl-10 bg-secondary border-border" required />
+                  <Input id="login-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="usuario@policiacivil.sp.gov.br" className="pl-10 bg-secondary border-border" required />
                 </div>
               </div>
               <div className="space-y-2">
