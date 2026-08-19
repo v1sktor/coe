@@ -24,7 +24,7 @@ const menuItems = [
 ];
 
 const docItems = [
-  { title: "CCOMSOC", url: "/ccomsoc", icon: Megaphone },
+  { title: "APCS", url: "/ccomsoc", icon: Megaphone },
   { title: "Diretrizes GER", url: "/diretrizes", icon: ScrollText },
   { title: "Apresentação GER", url: "/apresentacao", icon: BookOpen },
 ];

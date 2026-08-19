@@ -65,7 +65,7 @@ const Index = () => {
           <NavBtn to="/hierarquia" label="Efetivo" />
           <NavBtn to="/ctb" label="CTB" />
           <NavBtn to="/rso/novo" label="RSO" />
-          <NavBtn to="/ccomsoc" label="CCOMSOC" />
+          <NavBtn to="/ccomsoc" label="APCS" />
 
           <Button asChild size="sm" className="ml-2 md:ml-4 font-display uppercase tracking-[0.18em] text-[10px] md:text-[11px] px-2 md:px-3 bg-primary text-primary-foreground hover:bg-primary-glow transition-all duration-300 hover:scale-105">
             <Link to="/login"><Lock className="mr-1 md:mr-2 h-3 w-3" />Acesso</Link>
@@ -194,7 +194,7 @@ const Index = () => {
             <div className="mt-6 pt-4 border-t border-accent/40 grid grid-cols-2 gap-2">
               <NavCard to="/hierarquia" icon={Network} title="Hierarquia" desc="Estrutura de comando e efetivo do GER." />
               <NavCard to="/diretrizes" icon={ScrollText} title="Regulamento" desc="Manuais internos, viaturas e fardamentos." />
-              <NavCard to="/ccomsoc" icon={Megaphone} title="CCOMSOC" desc="Comunicação Social do GER — notícias e releases." />
+              <NavCard to="/ccomsoc" icon={Megaphone} title="APCS" desc="Assessoria de Imprensa e Comunicação Social — notícias e releases." />
               <NavCard to="/admin/usuarios" icon={Settings} title="Administração" desc="Membros e responsáveis pelo gerenciamento." />
             </div>
           </div>
