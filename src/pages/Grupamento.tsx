@@ -6,8 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { supabase } from "@/integrations/supabase/client";
-import logoAsset from "@/assets/logo-coe.png.asset.json";
-const logo = logoAsset.url;
+import logo from "@/assets/logo-pcsp.png";
 
 type Grupamento = "TOR" | "ROCAM";
 
