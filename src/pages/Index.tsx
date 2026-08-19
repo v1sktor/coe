@@ -179,7 +179,7 @@ const Index = () => {
                 <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary-glow">Ocorrências</span>
               </div>
               <div className="grid grid-cols-2 gap-x-6">
-                <IndItem label="Chamados 190" value={fmt("chamados_190")} />
+                <IndItem label="CHAMADOS" value={fmt("chamados_190")} />
                 <IndItem label="Roubo Cx. Eletrônico" value={fmt("roubo_caixa_eletronico")} />
                 <IndItem label="Roubo Cx. Registr." value={fmt("roubo_caixa_registradora")} />
                 <IndItem label="Roubo Residência" value={fmt("roubo_residencia")} />
