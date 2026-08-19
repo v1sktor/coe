@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import logoAsset from "@/assets/logo-coe.png.asset.json";
-const logo = logoAsset.url;
+import logo from "@/assets/logo-pcsp.png";
 import { MULTAS_CTB as MULTAS, SEV_META, formatBRL, type Severity } from "@/lib/ctb-multas";
 
 export default function CTB() {
