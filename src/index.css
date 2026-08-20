@@ -114,12 +114,13 @@
   .bg-hazard-stripes {
     background-image: repeating-linear-gradient(
       45deg,
-      hsl(45 53% 55%) 0,
-      hsl(45 53% 55%) 12px,
+      hsl(0 0% 88%) 0,
+      hsl(0 0% 88%) 12px,
       hsl(0 0% 5%) 12px,
       hsl(0 0% 5%) 24px
     );
   }
+
 
   .border-gold { border-color: hsl(var(--primary) / 0.4); }
 
