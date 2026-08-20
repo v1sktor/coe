@@ -122,7 +122,7 @@ export default function Apresentacao() {
   }
 
   const get = (key: string) => blocks.find((b) => b.chave === key);
-  const heroTitulo = get("hero_titulo")?.conteudo ?? "GER";
+  const heroTitulo = get("hero_titulo")?.conteudo ?? "GARRA";
   const heroSubtitulo = get("hero_subtitulo")?.conteudo ?? "";
   const missao = get("missao");
   const historia = get("historia");
@@ -141,7 +141,7 @@ export default function Apresentacao() {
           <Link to="/" className="flex items-center gap-3">
             <Shield className="h-7 w-7 text-primary" />
             <span className="font-display text-base font-bold uppercase tracking-[0.22em]">
-              GER
+              GARRA
             </span>
           </Link>
           <Button asChild size="sm" variant="outline">
@@ -274,7 +274,7 @@ export default function Apresentacao() {
       </main>
 
       <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-        GER · Grupo Especial de Reação · Polícia Civil do Estado de São Paulo
+        GARRA · DOPE · Polícia Civil do Estado de São Paulo
       </footer>
 
       {/* Dialog: bloco */}

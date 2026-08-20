@@ -14,7 +14,7 @@ export function AppLayout() {
             <div className="flex items-center gap-2">
               <Shield className="h-5 w-5 text-primary" />
               <span className="font-display text-lg font-semibold uppercase tracking-wider text-foreground">
-                GER · Polícia Civil SP
+                GARRA · Polícia Civil SP
               </span>
             </div>
           </header>
