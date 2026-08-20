@@ -1,9 +1,9 @@
 # Project Memory
 
 ## Core
-GER — Grupo Especial de Reação, Polícia Civil do Estado de São Paulo. Lema: "Reação imediata, resultado certo."
+GARRA — Grupo Armado de Repressão a Roubos e Assaltos, DOPE / Polícia Civil do Estado de São Paulo. Lema: "Garra e determinação, resposta imediata."
 Tema: preto #0d0d0d fundo, grafite #1a1a1a cards, dourado #c9a84c primary, dourado claro #f0d78c glow. Oswald headings, JetBrains Mono data. Sem animações exageradas.
-Nomenclatura da Polícia Civil (não usar patentes militares, PMESP, BPChq, COE).
+Nomenclatura da Polícia Civil (não usar patentes militares, PMESP, BPChq, COE, nem GER).
 Supabase backend (Auth, DB, Storage).
 No public user registration. Admins create accounts (auto-confirmed via Edge Functions).
 

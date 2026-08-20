@@ -141,7 +141,7 @@ export default function Diretrizes() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-display text-3xl uppercase tracking-wider flex items-center gap-3">
-            <ScrollText className="h-7 w-7 text-primary" /> Diretrizes do GER
+            <ScrollText className="h-7 w-7 text-primary" /> Diretrizes do GARRA
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
             Documentos oficiais do Comando de Operações Especiais

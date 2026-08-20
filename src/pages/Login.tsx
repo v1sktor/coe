@@ -66,7 +66,7 @@ const Login = () => {
               {isFirstAccess ? "Primeiro Administrador" : "Acesso Administrativo"}
             </h1>
             <p className="text-muted-foreground text-sm mt-2">
-              {isFirstAccess ? "Crie o acesso inicial do GER" : "Acesso restrito a pessoal autorizado"}
+              {isFirstAccess ? "Crie o acesso inicial do GARRA" : "Acesso restrito a pessoal autorizado"}
             </p>
           </div>
         </div>
