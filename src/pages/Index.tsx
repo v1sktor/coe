@@ -56,7 +56,7 @@ const Index = () => {
               GARRA
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.32em] text-primary-glow mt-1">
-              Polícia Civil SP
+              DOPE · Polícia Civil SP
             </span>
           </div>
         </Link>
