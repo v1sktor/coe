@@ -17,7 +17,7 @@ export function PublicLayout() {
                 GARRA
               </span>
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground mt-0.5">
-                Polícia Civil SP
+                DOPE · Polícia Civil SP
               </span>
             </div>
           </Link>
