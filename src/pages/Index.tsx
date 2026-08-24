@@ -205,6 +205,34 @@ const Index = () => {
         </div>
       </main>
 
+      {/* Unidades da Polícia Civil */}
+      <section className="relative z-10 px-6 lg:px-16 pb-12">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-px w-10 bg-primary/60" />
+          <h2 className="font-display text-sm font-semibold uppercase tracking-[0.28em] text-foreground">
+            Unidades Especializadas
+          </h2>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {UNIDADES.map((u) => (
+            <div
+              key={u.sigla}
+              className="card-tactical bg-card/50 backdrop-blur-md p-4 flex flex-col gap-1"
+            >
+              <span className="font-display text-lg font-bold uppercase tracking-[0.18em] text-foreground">
+                {u.sigla}
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-primary-glow leading-snug">
+                {u.nome}
+              </span>
+              <span className="text-[11px] text-muted-foreground leading-snug mt-1">{u.descricao}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+
+
       {/* Ticker */}
       <div className="relative z-10 border-y border-accent/40 bg-background/60 backdrop-blur-md overflow-hidden">
         <div className="flex animate-ticker whitespace-nowrap py-2.5 font-mono text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
