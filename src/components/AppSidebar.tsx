@@ -25,8 +25,8 @@ const menuItems = [
 
 const docItems = [
   { title: "APCS", url: "/ccomsoc", icon: Megaphone },
-  { title: "Diretrizes GARRA", url: "/diretrizes", icon: ScrollText },
-  { title: "Apresentação GARRA", url: "/apresentacao", icon: BookOpen },
+  { title: "Diretrizes", url: "/diretrizes", icon: ScrollText },
+  { title: "Apresentação", url: "/apresentacao", icon: BookOpen },
 ];
 
 const adminItems = [

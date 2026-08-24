@@ -26,11 +26,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background relative overflow-hidden">
-      {/* Full-screen hero banner — operadores GARRA em ação */}
+      {/* Full-screen hero banner — operadores da Polícia Civil em ação */}
       <div className="absolute inset-0 pointer-events-none">
         <img
           src={heroBanner}
-          alt="Operadores do GARRA da Polícia Civil de São Paulo em ação"
+          alt="Operadores das unidades especializadas da Polícia Civil de São Paulo em ação"
           width={1920}
           height={1080}
           className="w-full h-full object-cover"
@@ -49,14 +49,14 @@ const Index = () => {
         <Link to="/" className="flex items-center gap-3 group">
           <div className="relative">
             <div className="absolute inset-0 bg-primary/15 blur-xl rounded-full group-hover:bg-primary/35 transition-all duration-500" />
-            <img src={logo} alt="GARRA - DOPE" className="relative h-10 w-10 object-contain group-hover:scale-110 transition-transform duration-500" />
+            <img src={logo} alt="Brasão da Polícia Civil do Estado de São Paulo" className="relative h-10 w-10 object-contain group-hover:scale-110 transition-transform duration-500" />
           </div>
           <div className="flex flex-col leading-none">
             <span className="font-display text-lg font-bold uppercase tracking-[0.22em] text-foreground">
-              GARRA
+              Polícia Civil
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.32em] text-primary-glow mt-1">
-              DOPE · Polícia Civil SP
+              Estado de São Paulo
             </span>
           </div>
         </Link>
@@ -93,24 +93,24 @@ const Index = () => {
           {/* Ranking line above */}
           <div className="flex items-center gap-3 mb-3 animate-slide-right" style={{ animationDelay: "0.2s" }}>
             <div className="h-px w-10 bg-primary/60" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-primary-glow">Polícia Civil SP · Grupo Armado de Repressão a Roubos e Assaltos</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-primary-glow">Estado de São Paulo · Unidades Especializadas</span>
           </div>
 
           <h1 className="font-display font-bold uppercase leading-[0.82] tracking-tight">
             <span className="block text-7xl md:text-9xl lg:text-[10rem] text-foreground drop-shadow-[0_8px_32px_rgba(0,0,0,0.9)] animate-slide-up" style={{ animationDelay: "0.3s" }}>
-              GARRA
+              Polícia Civil
             </span>
             <span className="block text-2xl md:text-4xl lg:text-5xl text-muted-foreground/80 mt-3 animate-slide-up" style={{ animationDelay: "0.4s" }}>
-              <span className="text-primary">/</span> Grupo Armado de Repressão a Roubos e Assaltos
+              <span className="text-primary">/</span> Estado de São Paulo
             </span>
           </h1>
 
           <div className="mt-8 max-w-lg animate-slide-up" style={{ animationDelay: "0.5s" }}>
             <p className="text-base text-muted-foreground leading-relaxed border-l-2 border-primary/60 pl-4">
-              Grupo Armado de Repressão a Roubos e Assaltos — unidade tática de elite da Polícia Civil do Estado de São Paulo, dedicada a operações de alto risco.
+              Portal operacional e administrativo das unidades especializadas da Polícia Civil do Estado de São Paulo — GOE, GARRA, GER, DEIC, SAP e demais departamentos.
             </p>
             <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.35em] text-foreground/70 pl-4">
-              "Garra e determinação, resposta imediata."
+              "Investigar, proteger e servir."
             </p>
           </div>
 
@@ -191,7 +191,7 @@ const Index = () => {
 
             {/* Acessos rápidos */}
             <div className="mt-6 pt-4 border-t border-accent/40 grid grid-cols-2 gap-2">
-              <NavCard to="/hierarquia" icon={Network} title="Hierarquia" desc="Estrutura de comando e efetivo do GARRA." />
+              <NavCard to="/hierarquia" icon={Network} title="Hierarquia" desc="Estrutura de comando e efetivo das unidades." />
               <NavCard to="/diretrizes" icon={ScrollText} title="Regulamento" desc="Manuais internos, viaturas e fardamentos." />
               <NavCard to="/ccomsoc" icon={Megaphone} title="APCS" desc="Assessoria de Imprensa e Comunicação Social — notícias e releases." />
               <NavCard to="/admin/usuarios" icon={Settings} title="Administração" desc="Membros e responsáveis pelo gerenciamento." />
@@ -228,7 +228,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="relative z-10 backdrop-blur-md bg-background/40">
         <div className="px-6 lg:px-12 py-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.32em] text-muted-foreground/70">
-          <span>GARRA · Polícia Civil SP · {now.getFullYear()}</span>
+          <span>Polícia Civil do Estado de São Paulo · {now.getFullYear()}</span>
           <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-primary animate-blink" /> Sistema Restrito</span>
         </div>
       </footer>
