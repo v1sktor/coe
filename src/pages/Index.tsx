@@ -5,6 +5,7 @@ import { Shield, Lock, ChevronRight, Network, Crosshair, Radio, Activity, Packag
 import logo from "@/assets/logo-pcsp.png";
 import heroBanner from "@/assets/ger-hero.jpg";
 import { supabase } from "@/integrations/supabase/client";
+import { UNIDADES } from "@/lib/unidades";
 
 const Index = () => {
   const now = new Date();
