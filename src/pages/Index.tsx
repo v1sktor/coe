@@ -47,7 +47,7 @@ const Index = () => {
             <TopLink to="/" label="Início" />
             <TopLink to="/hierarquia" label="Efetivo" />
             <TopLink to="/ccomsoc" label="Comunicação" />
-            <TopLink to="/ctb" label="CTB" />
+            <TopLink to="/ctb" label="Código Penal" />
             <TopLink to="/apresentacao" label="Institucional" />
             <Link
               to="/login"

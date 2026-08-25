@@ -16,18 +16,22 @@ export default function CTB() {
     const q = search.trim().toLowerCase();
     return MULTAS.filter((m) => {
       const matchSev = filter === "all" || m.severity === filter;
-      const matchQ = !q || m.descricao.toLowerCase().includes(q) || m.artigo.toLowerCase().includes(q);
+      const matchQ =
+        !q ||
+        m.descricao.toLowerCase().includes(q) ||
+        m.titulo.toLowerCase().includes(q) ||
+        m.artigo.toLowerCase().includes(q);
       return matchSev && matchQ;
     });
   }, [search, filter]);
 
   const stats = useMemo(() => ({
     total: MULTAS.length,
-    gravissima: MULTAS.filter((m) => m.severity === "gravissima").length,
-    grave: MULTAS.filter((m) => m.severity === "grave").length,
-    media: MULTAS.filter((m) => m.severity === "media").length,
+    artigos: new Set(MULTAS.map((m) => m.artigo)).size,
+    minValor: Math.min(...MULTAS.map((m) => m.valor)),
     maxValor: Math.max(...MULTAS.map((m) => m.valor)),
   }), []);
+
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
@@ -65,16 +69,17 @@ export default function CTB() {
                 <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-primary">Tabela Oficial · Atualizada</span>
               </div>
               <h1 className="font-display text-5xl md:text-7xl font-bold uppercase tracking-tight leading-none text-glow-gold">
-                CTB
+                Código Penal
               </h1>
               <p className="font-display text-base md:text-lg uppercase tracking-[0.2em] text-primary/90">
-                Código de Trânsito Brasileiro
+                Trânsito
               </p>
               <div className="flex items-center gap-3">
                 <div className="h-px flex-1 gold-divider max-w-[120px]" />
                 <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
                   Tabela de Infrações & Multas
                 </span>
+
               </div>
               <p className="text-sm md:text-base text-muted-foreground max-w-2xl leading-relaxed">
                 Valores oficiais aplicados pelo Governo Federal. Consulte abaixo os artigos, a descrição
@@ -89,8 +94,8 @@ export default function CTB() {
       <section className="relative z-10 px-6 lg:px-10 pb-6">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
           <StatCard icon={FileText} label="Total" value={String(stats.total).padStart(2, "0")} />
-          <StatCard icon={AlertTriangle} label="Gravíssimas" value={String(stats.gravissima).padStart(2, "0")} accent="destructive" />
-          <StatCard icon={AlertTriangle} label="Graves" value={String(stats.grave).padStart(2, "0")} accent="primary" />
+          <StatCard icon={AlertTriangle} label="Artigos" value={String(stats.artigos).padStart(2, "0")} accent="primary" />
+          <StatCard icon={DollarSign} label="Menor Multa" value={formatBRL(stats.minValor)} />
           <StatCard icon={DollarSign} label="Maior Multa" value={formatBRL(stats.maxValor)} />
         </div>
       </section>
@@ -109,10 +114,9 @@ export default function CTB() {
           </div>
           <div className="flex gap-2">
             <FilterChip active={filter === "all"} onClick={() => setFilter("all")} label="Todas" />
-            <FilterChip active={filter === "gravissima"} onClick={() => setFilter("gravissima")} label="Gravíssimas" />
-            <FilterChip active={filter === "grave"} onClick={() => setFilter("grave")} label="Graves" />
-            <FilterChip active={filter === "media"} onClick={() => setFilter("media")} label="Médias" />
+            <FilterChip active={filter === "transito"} onClick={() => setFilter("transito")} label="Trânsito" />
           </div>
+
         </div>
       </section>
 
@@ -150,9 +154,15 @@ export default function CTB() {
                     </Badge>
                   </div>
 
-                  <p className="text-sm text-foreground leading-relaxed min-h-[3.5rem]">
-                    {m.descricao}
-                  </p>
+                  <div className="space-y-1 min-h-[5rem]">
+                    <p className="font-display text-base font-bold uppercase tracking-wide text-foreground">
+                      {m.titulo}
+                    </p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {m.descricao}
+                    </p>
+                  </div>
+
 
                   <div className="pt-3 border-t border-border/60 flex items-end justify-between gap-2">
                     <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
@@ -179,7 +189,7 @@ export default function CTB() {
       {/* Footer */}
       <footer className="relative z-10 border-t border-border/60 backdrop-blur-md bg-background/60">
         <div className="px-6 lg:px-10 py-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-          Tabela CTB · Valores oficiais · 4° BPRv
+          Código Penal · Trânsito · Polícia Civil SP
         </div>
       </footer>
     </div>
