@@ -1,4 +1,4 @@
-export type Severity = "transito" | "pessoa" | "patrimonio" | "administracao";
+export type Severity = "transito" | "pessoa" | "patrimonio" | "administracao" | "ordem";
 
 export interface MultaCTB {
   artigo: string;
@@ -8,6 +8,8 @@ export interface MultaCTB {
   severity: Severity;
   /** Pena em meses (aplicável aos crimes contra a pessoa) */
   pena?: number;
+  /** Serviços comunitários (horas/unidades) */
+  servicos?: number;
 }
 
 export const MULTAS_CTB: MultaCTB[] = [
