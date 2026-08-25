@@ -17,6 +17,7 @@ export const UNIDADES: Unidade[] = [
   { sigla: "CORREGEPOL", nome: "Corregedoria Geral da Polícia Civil", descricao: "Fiscalização e apuração disciplinar." },
   { sigla: "CERCO", nome: "Serviço de Cerco e Bloqueio", descricao: "Cerco, bloqueio e contenção em ocorrências." },
   { sigla: "IML", nome: "Instituto Médico Legal", descricao: "Perícias médico-legais e necroscópicas." },
+  { sigla: "DGP", nome: "Delegacia Geral de Polícia", descricao: "Direção geral e comando da Polícia Civil." },
 ];
 
 export const UNIDADE_SIGLAS = UNIDADES.map((u) => u.sigla);
