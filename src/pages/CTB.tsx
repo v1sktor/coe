@@ -113,11 +113,13 @@ export default function CTB() {
               className="pl-9 bg-card/50 border-border/60 backdrop-blur-md font-mono text-sm"
             />
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <FilterChip active={filter === "all"} onClick={() => setFilter("all")} label="Todas" />
             <FilterChip active={filter === "transito"} onClick={() => setFilter("transito")} label="Trânsito" />
             <FilterChip active={filter === "pessoa"} onClick={() => setFilter("pessoa")} label="Contra a pessoa" />
+            <FilterChip active={filter === "patrimonio"} onClick={() => setFilter("patrimonio")} label="Contra o patrimônio" />
           </div>
+
 
 
         </div>
