@@ -1,4 +1,4 @@
-export type Severity = "transito" | "pessoa";
+export type Severity = "transito" | "pessoa" | "patrimonio";
 
 export interface MultaCTB {
   artigo: string;
@@ -41,7 +41,18 @@ export const MULTAS_CTB: MultaCTB[] = [
   { artigo: "Art. 147", titulo: "Ameaça", descricao: "Ameaçar alguém, por qualquer meio, de causar mal injusto e grave.", valor: 600, pena: 20, severity: "pessoa" },
   { artigo: "Art. 148", titulo: "Sequestro e cárcere privado", descricao: "Privar alguém de sua liberdade mediante sequestro ou cárcere privado.", valor: 1500, pena: 45, severity: "pessoa" },
   { artigo: "Art. 287", titulo: "Incitação e/ou apologia ao crime", descricao: "Fazer apologia de fato criminoso ou de autor de crime, ou incentivar a prática de crimes.", valor: 850, pena: 25, severity: "pessoa" },
+
+  // ===== Crimes contra o patrimônio =====
+  { artigo: "Art. 155 I", titulo: "Furto qualificado", descricao: "Subtrair, para si ou para outrem, coisa alheia móvel.", valor: 550, pena: 30, severity: "patrimonio" },
+  { artigo: "Art. 155", titulo: "Furto", descricao: "Subtrair, para si ou para outrem, coisa alheia móvel.", valor: 350, pena: 25, severity: "patrimonio" },
+  { artigo: "Art. 157", titulo: "Roubo", descricao: "Subtrair coisa alheia móvel, para si ou para outrem, mediante violência ou grave ameaça.", valor: 750, pena: 40, severity: "patrimonio" },
+  { artigo: "Art. 157-B", titulo: "Roubo seguido de morte (latrocínio)", descricao: "Subtrair coisa alheia móvel, para si ou outrem, mediante violência ou grave ameaça, com resultado morte.", valor: 1000, pena: 50, severity: "patrimonio" },
+  { artigo: "Art. 157 II", titulo: "Roubo qualificado", descricao: "Apropriar-se de bens, valores ou dinheiro sob sua responsabilidade.", valor: 900, pena: 50, severity: "patrimonio" },
+  { artigo: "Art. 171", titulo: "Estelionato", descricao: "Obter, para si ou outrem, vantagem ilícita, em prejuízo alheio, por meio de fraude, erro, artifício ou ardil.", valor: 2500, pena: 12, severity: "patrimonio" },
+  { artigo: "Art. 126", titulo: "Desmonte de veículos", descricao: "Adquirir, receber, transportar, desmontar, conduzir ou ocultar automotor terrestre.", valor: 2500, pena: 10, severity: "patrimonio" },
+  { artigo: "Art. 180", titulo: "Recepção", descricao: "Adquirir, receber, transportar, conduzir ou ocultar, em proveito próprio ou alheio, coisa que saiba ser produto de crime.", valor: 2500, pena: 10, severity: "patrimonio" },
 ];
+
 
 export const formatBRL = (v: number) =>
   new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(v);
