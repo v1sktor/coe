@@ -1,5 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import { Shield } from "lucide-react";
+import { BackButton } from "@/components/BackButton";
 import logo from "@/assets/logo-pcsp.png";
 
 export function PublicLayout() {
