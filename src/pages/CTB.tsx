@@ -93,8 +93,8 @@ export default function CTB() {
       <section className="relative z-10 px-6 lg:px-10 pb-6">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
           <StatCard icon={FileText} label="Total" value={String(stats.total).padStart(2, "0")} />
-          <StatCard icon={AlertTriangle} label="Gravíssimas" value={String(stats.gravissima).padStart(2, "0")} accent="destructive" />
-          <StatCard icon={AlertTriangle} label="Graves" value={String(stats.grave).padStart(2, "0")} accent="primary" />
+          <StatCard icon={AlertTriangle} label="Artigos" value={String(stats.artigos).padStart(2, "0")} accent="primary" />
+          <StatCard icon={DollarSign} label="Menor Multa" value={formatBRL(stats.minValor)} />
           <StatCard icon={DollarSign} label="Maior Multa" value={formatBRL(stats.maxValor)} />
         </div>
       </section>
@@ -113,10 +113,9 @@ export default function CTB() {
           </div>
           <div className="flex gap-2">
             <FilterChip active={filter === "all"} onClick={() => setFilter("all")} label="Todas" />
-            <FilterChip active={filter === "gravissima"} onClick={() => setFilter("gravissima")} label="Gravíssimas" />
-            <FilterChip active={filter === "grave"} onClick={() => setFilter("grave")} label="Graves" />
-            <FilterChip active={filter === "media"} onClick={() => setFilter("media")} label="Médias" />
+            <FilterChip active={filter === "transito"} onClick={() => setFilter("transito")} label="Trânsito" />
           </div>
+
         </div>
       </section>
 
