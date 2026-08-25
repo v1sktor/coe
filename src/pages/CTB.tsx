@@ -72,8 +72,9 @@ export default function CTB() {
                 Código Penal
               </h1>
               <p className="font-display text-base md:text-lg uppercase tracking-[0.2em] text-primary/90">
-                Trânsito
+                Trânsito & Crimes contra a pessoa
               </p>
+
               <div className="flex items-center gap-3">
                 <div className="h-px flex-1 gold-divider max-w-[120px]" />
                 <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
@@ -115,7 +116,9 @@ export default function CTB() {
           <div className="flex gap-2">
             <FilterChip active={filter === "all"} onClick={() => setFilter("all")} label="Todas" />
             <FilterChip active={filter === "transito"} onClick={() => setFilter("transito")} label="Trânsito" />
+            <FilterChip active={filter === "pessoa"} onClick={() => setFilter("pessoa")} label="Contra a pessoa" />
           </div>
+
 
         </div>
       </section>
@@ -166,12 +169,13 @@ export default function CTB() {
 
                   <div className="pt-3 border-t border-border/60 flex items-end justify-between gap-2">
                     <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                      Valor da Multa
+                      {m.pena !== undefined ? `Pena · ${m.pena} meses` : "Valor da Multa"}
                     </span>
                     <span className="font-display text-2xl font-bold text-primary text-glow-gold tabular-nums">
                       {formatBRL(m.valor)}
                     </span>
                   </div>
+
                 </CardContent>
               </Card>
             );
