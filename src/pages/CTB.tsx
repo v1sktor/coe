@@ -189,7 +189,7 @@ export default function CTB() {
       {/* Footer */}
       <footer className="relative z-10 border-t border-border/60 backdrop-blur-md bg-background/60">
         <div className="px-6 lg:px-10 py-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-          Tabela CTB · Valores oficiais · 4° BPRv
+          Código Penal · Trânsito · Polícia Civil SP
         </div>
       </footer>
     </div>
