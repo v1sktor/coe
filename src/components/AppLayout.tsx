@@ -24,6 +24,9 @@ export function AppLayout() {
                 </span>
               </div>
             </Link>
+            <div className="ml-auto">
+              <BackButton variant="light" />
+            </div>
           </header>
           <main className="flex-1 p-6 overflow-auto">
             <div className="mx-auto w-full max-w-7xl">
