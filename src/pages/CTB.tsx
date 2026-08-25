@@ -39,20 +39,25 @@ export default function CTB() {
       <div className="absolute inset-0 bg-tactical-grid opacity-[0.06] pointer-events-none" />
 
       {/* Header */}
-      <header className="relative z-10 border-b border-border/60 backdrop-blur-md bg-background/60">
-        <div className="px-6 lg:px-10 py-5 flex items-center justify-between">
+      <header className="relative z-10 bg-primary text-primary-foreground">
+        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="" className="h-10 w-10 object-contain" />
-            <div className="flex flex-col leading-none">
-              <span className="font-display text-base font-bold uppercase tracking-[0.18em]">4° BPRv</span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary/80 mt-0.5">Comando</span>
-            </div>
+            <img src={logo} alt="Brasão da Polícia Civil do Estado de São Paulo" className="h-9 w-9 object-contain" />
+            <span className="flex flex-col leading-tight">
+              <span className="font-display text-base font-semibold tracking-wide">
+                Polícia Civil do Estado de São Paulo
+              </span>
+              <span className="text-[11px] text-primary-foreground/70">
+                Secretaria da Segurança Pública
+              </span>
+            </span>
           </Link>
-          <Button variant="ghost" size="sm" asChild>
+          <Button variant="ghost" size="sm" asChild className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
             <Link to="/"><ArrowLeft className="mr-1 h-4 w-4" />Voltar ao início</Link>
           </Button>
         </div>
       </header>
+
 
       {/* Hero */}
       <section className="relative z-10 px-6 lg:px-10 py-12 md:py-16">
