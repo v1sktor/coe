@@ -1,49 +1,39 @@
-export type Severity = "gravissima" | "grave" | "media";
+export type Severity = "transito";
 
 export interface MultaCTB {
   artigo: string;
+  titulo: string;
   descricao: string;
   valor: number;
   severity: Severity;
 }
 
 export const MULTAS_CTB: MultaCTB[] = [
-  { artigo: "Art. 231, V", descricao: "Infrações por excesso de peso ou lotação (S/ Fiança)", valor: 40000, severity: "gravissima" },
-  { artigo: "Art. 162", descricao: "Dirigir veículo sem possuir carteira de habilitação ou documento vencido", valor: 3000, severity: "media" },
-  { artigo: "Art. 165", descricao: "Dirigir sob influência de álcool ou drogas", valor: 6000, severity: "gravissima" },
-  { artigo: "Art. 165-A", descricao: "Recusar-se a ser submetido ao teste do etilômetro", valor: 6000, severity: "gravissima" },
-  { artigo: "Art. 167", descricao: "Deixar de utilizar o cinto de segurança", valor: 4000, severity: "grave" },
-  { artigo: "Art. 169", descricao: "Dirigir sem atenção ou cuidados à segurança", valor: 4000, severity: "grave" },
-  { artigo: "Art. 172", descricao: "Atirar do veículo ou abandonar na via objetos", valor: 6000, severity: "grave" },
-  { artigo: "Art. 173", descricao: "Disputar corrida", valor: 20000, severity: "gravissima" },
-  { artigo: "Art. 175", descricao: "Utilizar o veículo para exibir manobra perigosa", valor: 16000, severity: "gravissima" },
-  { artigo: "Art. 176, I", descricao: "Deixar o condutor de prestar socorro em acidentes", valor: 24000, severity: "gravissima" },
-  { artigo: "Art. 180", descricao: "Imobilizar o veículo na via por estar sem combustível", valor: 6000, severity: "grave" },
-  { artigo: "Art. 181", descricao: "Parar ou estacionar o veículo em locais proibidos", valor: 8000, severity: "grave" },
-  { artigo: "Art. 186", descricao: "Transitar pela contramão de direção", valor: 10000, severity: "gravissima" },
-  { artigo: "Art. 190", descricao: "Seguir veículo policial ou em situação de emergência", valor: 10000, severity: "gravissima" },
-  { artigo: "Art. 192", descricao: "Deixar de guardar distância de segurança", valor: 4000, severity: "grave" },
-  { artigo: "Art. 193", descricao: "Transitar com o veículo em locais proibidos", valor: 10000, severity: "gravissima" },
-  { artigo: "Art. 194", descricao: "Transitar de marcha à ré", valor: 14000, severity: "gravissima" },
-  { artigo: "Art. 195", descricao: "Desobedecer às ordens emanadas do agente policial", valor: 9000, severity: "grave" },
-  { artigo: "Art. 206", descricao: "Executar operação de retorno em local proibido", valor: 4000, severity: "grave" },
-  { artigo: "Art. 208", descricao: "Avançar o sinal vermelho ou de parada obrigatória", valor: 6000, severity: "gravissima" },
-  { artigo: "Art. 210", descricao: "Evasão de blitz policial", valor: 45000, severity: "gravissima" },
-  { artigo: "Art. 218", descricao: "Transitar em velocidade superior à máxima permitida", valor: 6000, severity: "grave" },
-  { artigo: "Art. 227", descricao: "Utilizar buzina prolongada ou em desacordo", valor: 4000, severity: "media" },
-  { artigo: "Art. 228", descricao: "Usar som veicular em áreas proibidas", valor: 10000, severity: "grave" },
-  { artigo: "Art. 231", descricao: "Transitar com o veículo em mau estado de conservação", valor: 8500, severity: "grave" },
-  { artigo: "Art. 231, V", descricao: "Transitar com veículo excedendo peso permitido", valor: 6000, severity: "grave" },
-  { artigo: "Art. 235", descricao: "Conduzir pessoas ou animais em partes externas", valor: 6000, severity: "grave" },
-  { artigo: "Art. 244", descricao: "Conduzir motocicleta sem capacete e outros", valor: 1500, severity: "media" },
-  { artigo: "Art. 253", descricao: "Bloquear a via com o veículo", valor: 6500, severity: "grave" },
+  { artigo: "Art. 162", titulo: "Falta de combustível", descricao: "Ter o veículo imobilizado na via por falta de combustível.", valor: 150, severity: "transito" },
+  { artigo: "Art. 162", titulo: "Dirigir sem habilitação", descricao: "Dirigir sem possuir habilitação, podendo ocorrer o recolhimento do veículo.", valor: 150, severity: "transito" },
+  { artigo: "Art. 165-A", titulo: "Recusar-se ao teste do bafômetro", descricao: "Recusar-se a realizar o teste do bafômetro.", valor: 1000, severity: "transito" },
+  { artigo: "Art. 173", titulo: "Disputar corrida", descricao: "Praticar rachas ou corridas ilegais.", valor: 650, severity: "transito" },
+  { artigo: "Art. 175", titulo: "Direção perigosa", descricao: "Uso negligente, imprudente ou perigoso de um veículo.", valor: 2000, severity: "transito" },
+  { artigo: "Art. 176", titulo: "Transitar na contramão", descricao: "Trafegar pela via em sentido contrário ao permitido.", valor: 600, severity: "transito" },
+  { artigo: "Art. 181", titulo: "Estacionar em local proibido", descricao: "Deixar o veículo estacionado em local indevido ou proibido.", valor: 650, severity: "transito" },
+  { artigo: "Art. 181", titulo: "Veículo abandonado", descricao: "Abandonar o veículo em local indevido.", valor: 700, severity: "transito" },
+  { artigo: "Art. 183", titulo: "Avançar sinal vermelho", descricao: "Avançar o sinal vermelho do semáforo.", valor: 650, severity: "transito" },
+  { artigo: "Art. 194", titulo: "Transitar de marcha ré", descricao: "Transitar em marcha ré de forma indevida ou ultrapassar a faixa de retenção para realizar manobra.", valor: 300, severity: "transito" },
+  { artigo: "Art. 199", titulo: "Ultrapassar pela direita", descricao: "Utilizar a faixa da direita para realizar uma ultrapassagem.", valor: 1000, severity: "transito" },
+  { artigo: "Art. 210", titulo: "Ultrapassar blitz", descricao: "Transpor, sem autorização, bloqueio viário policial.", valor: 850, severity: "transito" },
+  { artigo: "Art. 218", titulo: "Alta velocidade", descricao: "Limite de velocidade dentro da cidade: 120 km/h. Veículos de grande porte: 90 km/h. Acrescenta-se R$ 25,00 a cada 20 km/h excedidos.", valor: 600, severity: "transito" },
+  { artigo: "Art. 218", titulo: "Seguir veículo policial em situação emergencial", descricao: "Seguir viaturas durante ocorrências, fugas ou situações de emergência.", valor: 1000, severity: "transito" },
+  { artigo: "Art. 244", titulo: "Conduzir motocicleta sem capacete", descricao: "Trafegar com motocicleta sem utilizar capacete.", valor: 1300, severity: "transito" },
+  { artigo: "Art. 304", titulo: "Omissão de socorro", descricao: "Quando o causador de dano ou lesão abandona o local sem prestar socorro.", valor: 650, severity: "transito" },
 ];
 
 export const formatBRL = (v: number) =>
-  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 0 }).format(v);
+  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(v);
 
 export const SEV_META: Record<Severity, { label: string; classes: string; dot: string }> = {
-  gravissima: { label: "Gravíssima", classes: "border-destructive/50 text-destructive bg-destructive/10", dot: "bg-destructive" },
-  grave: { label: "Grave", classes: "border-primary/50 text-primary bg-primary/10", dot: "bg-primary" },
-  media: { label: "Média", classes: "border-accent/50 text-accent bg-accent/10", dot: "bg-accent" },
+  transito: {
+    label: "Trânsito",
+    classes: "border-amber-500/50 text-amber-500 bg-amber-500/10",
+    dot: "bg-amber-500",
+  },
 };
