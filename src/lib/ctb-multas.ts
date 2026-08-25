@@ -1,4 +1,4 @@
-export type Severity = "transito" | "pessoa";
+export type Severity = "transito" | "pessoa" | "patrimonio";
 
 export interface MultaCTB {
   artigo: string;
