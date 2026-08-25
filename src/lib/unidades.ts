@@ -10,7 +10,7 @@ export const UNIDADES: Unidade[] = [
   { sigla: "GARRA", nome: "Grupo Armado de Repressão a Roubos e Assaltos", descricao: "Repressão a roubos, assaltos e sequestros." },
   { sigla: "GER", nome: "Grupo Especial de Reação", descricao: "Reação imediata e apoio tático às unidades." },
   { sigla: "DEIC", nome: "Depto. de Investigações sobre Crime Organizado", descricao: "Investigação e combate ao crime organizado." },
-  { sigla: "SAP", nome: "Serviço Aerotático Policial", descricao: "Apoio aéreo, patrulhamento e transporte tático." },
+  { sigla: "SAT", nome: "Serviço Aerotático Policial", descricao: "Apoio aéreo, patrulhamento e transporte tático." },
   { sigla: "DHPP", nome: "Depto. de Homicídios e Proteção à Pessoa", descricao: "Homicídios, desaparecidos e proteção à pessoa." },
   { sigla: "DENARC", nome: "Depto. de Investigações sobre Narcóticos", descricao: "Repressão ao tráfico e entorpecentes." },
   { sigla: "CORE", nome: "Coordenadoria de Operações de Recursos Especiais", descricao: "Recursos especiais e suporte operacional." },
