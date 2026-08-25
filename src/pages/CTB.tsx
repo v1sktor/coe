@@ -154,9 +154,15 @@ export default function CTB() {
                     </Badge>
                   </div>
 
-                  <p className="text-sm text-foreground leading-relaxed min-h-[3.5rem]">
-                    {m.descricao}
-                  </p>
+                  <div className="space-y-1 min-h-[5rem]">
+                    <p className="font-display text-base font-bold uppercase tracking-wide text-foreground">
+                      {m.titulo}
+                    </p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {m.descricao}
+                    </p>
+                  </div>
+
 
                   <div className="pt-3 border-t border-border/60 flex items-end justify-between gap-2">
                     <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
