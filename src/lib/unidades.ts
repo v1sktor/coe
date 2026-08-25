@@ -13,7 +13,10 @@ export const UNIDADES: Unidade[] = [
   { sigla: "SAT", nome: "Serviço Aerotático Policial", descricao: "Apoio aéreo, patrulhamento e transporte tático." },
   { sigla: "DHPP", nome: "Depto. de Homicídios e Proteção à Pessoa", descricao: "Homicídios, desaparecidos e proteção à pessoa." },
   { sigla: "DENARC", nome: "Depto. de Investigações sobre Narcóticos", descricao: "Repressão ao tráfico e entorpecentes." },
-  { sigla: "CORE", nome: "Coordenadoria de Operações de Recursos Especiais", descricao: "Recursos especiais e suporte operacional." },
+  { sigla: "DECAP", nome: "Depto. de Polícia Judiciária da Capital", descricao: "Coordenação das delegacias da capital." },
+  { sigla: "CORREGEPOL", nome: "Corregedoria Geral da Polícia Civil", descricao: "Fiscalização e apuração disciplinar." },
+  { sigla: "CERCO", nome: "Serviço de Cerco e Bloqueio", descricao: "Cerco, bloqueio e contenção em ocorrências." },
+  { sigla: "IML", nome: "Instituto Médico Legal", descricao: "Perícias médico-legais e necroscópicas." },
 ];
 
 export const UNIDADE_SIGLAS = UNIDADES.map((u) => u.sigla);
