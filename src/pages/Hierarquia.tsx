@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import { UNIDADES } from "@/lib/unidades";
 
 interface HierarquiaItem {
   id: string;
@@ -25,6 +26,7 @@ interface HierarquiaItem {
   funcao: string | null;
   promocao: string | null;
   grupamento: string;
+  batalhao: string | null;
   cargo_nome?: string;
   cargo_imagem?: string | null;
   cargo_nivel?: number;
@@ -62,6 +64,8 @@ const Hierarquia = ({
   const [formFuncao, setFormFuncao] = useState("");
   const [formPromocao, setFormPromocao] = useState("");
   const [formGrupamento, setFormGrupamento] = useState<GrupamentoFilter>("GERAL");
+  const [formUnidade, setFormUnidade] = useState<string>("");
+  const [filtroUnidade, setFiltroUnidade] = useState<string>("TODAS");
 
   const fetchData = async () => {
     const { data: hierData } = await supabase.from("hierarquia").select("*, cargos(nome, imagem_url, nivel_hierarquico)");
@@ -80,6 +84,7 @@ const Hierarquia = ({
           funcao: h.funcao,
           promocao: h.promocao,
           grupamento: h.grupamento ?? "GERAL",
+          batalhao: h.batalhao ?? null,
           cargo_nome: h.cargos?.nome,
           cargo_imagem: h.cargos?.imagem_url,
           cargo_nivel: h.cargos?.nivel_hierarquico,
@@ -91,9 +96,9 @@ const Hierarquia = ({
 
   useEffect(() => { fetchData(); }, []);
 
-  const filteredItems = filterGrupamento
-    ? items.filter((i) => i.grupamento === filterGrupamento)
-    : items;
+  const filteredItems = items
+    .filter((i) => (filterGrupamento ? i.grupamento === filterGrupamento : true))
+    .filter((i) => (filtroUnidade === "TODAS" ? true : i.batalhao === filtroUnidade));
   const sortedItems = [...filteredItems].sort((a, b) => (a.cargo_nivel ?? 99) - (b.cargo_nivel ?? 99));
 
   const openCreate = () => {
@@ -101,6 +106,7 @@ const Hierarquia = ({
     setFormNome(""); setFormRg(""); setFormDiscord(""); setFormEntrada("");
     setFormCargoId(""); setFormFuncao(""); setFormPromocao("");
     setFormGrupamento(filterGrupamento ?? "GERAL");
+    setFormUnidade(filtroUnidade !== "TODAS" ? filtroUnidade : "");
     setDialogOpen(true);
   };
 
@@ -114,6 +120,7 @@ const Hierarquia = ({
     setFormFuncao(item.funcao ?? "");
     setFormPromocao(item.promocao ?? "");
     setFormGrupamento((item.grupamento as GrupamentoFilter) ?? "GERAL");
+    setFormUnidade(item.batalhao ?? "");
     setDialogOpen(true);
   };
 
@@ -128,6 +135,7 @@ const Hierarquia = ({
       funcao: formFuncao || null,
       promocao: formPromocao || null,
       grupamento: formGrupamento,
+      batalhao: formUnidade || null,
       ordem: 0,
     };
 
@@ -164,7 +172,7 @@ const Hierarquia = ({
             {filterGrupamento ? `Hierarquia · ${filterGrupamento}` : "Hierarquia"}
           </h1>
           <p className="text-muted-foreground mt-1">
-            {filterGrupamento ? `Efetivo do grupamento ${filterGrupamento}` : "Efetivo do 4° BPRv"}
+            {filterGrupamento ? `Efetivo do grupamento ${filterGrupamento}` : "Efetivo da Polícia Civil de São Paulo"}
           </p>
         </div>
         {canEdit && (
@@ -228,13 +236,13 @@ const Hierarquia = ({
                   <Input type="date" value={formEntrada} onChange={(e) => setFormEntrada(e.target.value)} className="bg-secondary border-border" />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs uppercase tracking-wider text-muted-foreground">Grupamento</Label>
-                  <Select value={formGrupamento} onValueChange={(v) => setFormGrupamento(v as GrupamentoFilter)}>
-                    <SelectTrigger className="bg-secondary border-border"><SelectValue /></SelectTrigger>
+                  <Label className="text-xs uppercase tracking-wider text-muted-foreground">Unidade</Label>
+                  <Select value={formUnidade} onValueChange={setFormUnidade}>
+                    <SelectTrigger className="bg-secondary border-border"><SelectValue placeholder="Selecione a unidade" /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="GERAL">Geral</SelectItem>
-                      <SelectItem value="TOR">TOR — Tático Op. Rodoviárias</SelectItem>
-                      <SelectItem value="ROCAM">ROCAM — Rondas Motorizadas</SelectItem>
+                      {UNIDADES.map((u) => (
+                        <SelectItem key={u.sigla} value={u.sigla}>{u.sigla} — {u.nome}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -249,7 +257,18 @@ const Hierarquia = ({
 
       <Card className="bg-card border-border">
         <CardHeader>
-          <CardTitle className="font-display uppercase tracking-wide text-sm">Efetivo</CardTitle>
+          <div className="flex items-center justify-between gap-4">
+            <CardTitle className="font-display uppercase tracking-wide text-sm">Efetivo</CardTitle>
+            <Select value={filtroUnidade} onValueChange={setFiltroUnidade}>
+              <SelectTrigger className="w-[220px] bg-secondary border-border h-8 text-xs"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="TODAS">Todas as unidades</SelectItem>
+                {UNIDADES.map((u) => (
+                  <SelectItem key={u.sigla} value={u.sigla}>{u.sigla}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </CardHeader>
         <CardContent>
           {sortedItems.length === 0 ? (
@@ -264,6 +283,7 @@ const Hierarquia = ({
                     <TableHead className="font-display uppercase text-xs">Discord ID</TableHead>
                     <TableHead className="font-display uppercase text-xs">Insígnia</TableHead>
                     <TableHead className="font-display uppercase text-xs">Graduação</TableHead>
+                    <TableHead className="font-display uppercase text-xs">Unidade</TableHead>
                     <TableHead className="font-display uppercase text-xs">Função</TableHead>
                     <TableHead className="font-display uppercase text-xs">Promoção</TableHead>
                     <TableHead className="font-display uppercase text-xs">Entrada</TableHead>
@@ -290,6 +310,7 @@ const Hierarquia = ({
                           <span className="text-muted-foreground text-xs">—</span>
                         )}
                       </TableCell>
+                      <TableCell className="text-sm font-display uppercase">{item.batalhao || "—"}</TableCell>
                       <TableCell className="text-sm">{item.funcao || "—"}</TableCell>
                       <TableCell className="text-sm">{item.promocao || "—"}</TableCell>
                       <TableCell className="text-sm">{item.data_entrada || "—"}</TableCell>
