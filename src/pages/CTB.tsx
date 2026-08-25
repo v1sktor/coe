@@ -16,18 +16,22 @@ export default function CTB() {
     const q = search.trim().toLowerCase();
     return MULTAS.filter((m) => {
       const matchSev = filter === "all" || m.severity === filter;
-      const matchQ = !q || m.descricao.toLowerCase().includes(q) || m.artigo.toLowerCase().includes(q);
+      const matchQ =
+        !q ||
+        m.descricao.toLowerCase().includes(q) ||
+        m.titulo.toLowerCase().includes(q) ||
+        m.artigo.toLowerCase().includes(q);
       return matchSev && matchQ;
     });
   }, [search, filter]);
 
   const stats = useMemo(() => ({
     total: MULTAS.length,
-    gravissima: MULTAS.filter((m) => m.severity === "gravissima").length,
-    grave: MULTAS.filter((m) => m.severity === "grave").length,
-    media: MULTAS.filter((m) => m.severity === "media").length,
+    artigos: new Set(MULTAS.map((m) => m.artigo)).size,
+    minValor: Math.min(...MULTAS.map((m) => m.valor)),
     maxValor: Math.max(...MULTAS.map((m) => m.valor)),
   }), []);
+
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
