@@ -104,5 +104,11 @@ export const SEV_META: Record<Severity, { label: string; classes: string; dot: s
     classes: "border-blue-500/50 text-blue-600 bg-blue-500/10",
     dot: "bg-blue-600",
   },
+  ordem: {
+    label: "Contra a ordem pública",
+    classes: "border-green-600/50 text-green-700 bg-green-600/10",
+    dot: "bg-green-600",
+  },
+
 };
 
