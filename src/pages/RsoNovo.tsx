@@ -341,7 +341,7 @@ const RsoNovo = () => {
   const renderStep5 = () => (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        Registre aqui cada multa (AIT) aplicada durante a patrulha. Selecione a infração no CTB e
+        Registre aqui cada multa (AIT) aplicada durante a patrulha. Selecione a infração no Código Penal e
         informe os dados do multado.
       </p>
       <AitField value={aits} onChange={setAits} />
