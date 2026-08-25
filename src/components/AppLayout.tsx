@@ -2,6 +2,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { BackButton } from "@/components/BackButton";
 import logoPcsp from "@/assets/logo-pcsp.png";
 
 export function AppLayout() {
