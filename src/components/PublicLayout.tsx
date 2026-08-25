@@ -8,25 +8,25 @@ export function PublicLayout() {
       <div className="absolute inset-0 bg-gradient-hero pointer-events-none" />
       <div className="absolute inset-0 bg-tactical-grid opacity-[0.05] pointer-events-none" />
 
-      <header className="relative z-10 border-b border-border/60 backdrop-blur-md bg-background/60">
-        <div className="px-6 lg:px-10 h-16 flex items-center justify-between">
+      <header className="relative z-10 bg-primary text-primary-foreground">
+        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
             <img src={logo} alt="Brasão da Polícia Civil do Estado de São Paulo" className="h-9 w-9 object-contain" />
-            <div className="flex flex-col leading-none">
-              <span className="font-display text-base font-bold uppercase tracking-[0.22em] text-foreground">
-                Polícia Civil
+            <span className="flex flex-col leading-tight">
+              <span className="font-display text-base font-semibold tracking-wide">
+                Polícia Civil do Estado de São Paulo
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground mt-0.5">
-                Estado de São Paulo
+              <span className="text-[11px] text-primary-foreground/70">
+                Secretaria da Segurança Pública
               </span>
-            </div>
+            </span>
           </Link>
-          <div className="hidden md:flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            <Shield className="h-3 w-3 text-primary" /> Sistema Operacional
+          <div className="hidden md:flex items-center gap-2 text-[11px] text-primary-foreground/70">
+            <Shield className="h-3.5 w-3.5" /> Portal institucional
           </div>
         </div>
-        <div className="h-px gold-divider" />
       </header>
+
 
       <main className="relative z-10 flex-1 p-6 lg:p-10 overflow-auto">
         <div className="max-w-7xl mx-auto">
