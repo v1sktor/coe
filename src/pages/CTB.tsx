@@ -72,8 +72,9 @@ export default function CTB() {
                 Código Penal
               </h1>
               <p className="font-display text-base md:text-lg uppercase tracking-[0.2em] text-primary/90">
-                Trânsito
+                Trânsito & Crimes contra a pessoa
               </p>
+
               <div className="flex items-center gap-3">
                 <div className="h-px flex-1 gold-divider max-w-[120px]" />
                 <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
