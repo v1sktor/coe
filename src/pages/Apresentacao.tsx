@@ -136,21 +136,27 @@ export default function Apresentacao() {
       <div className="absolute inset-0 bg-gradient-hero pointer-events-none" />
       <div className="absolute inset-0 bg-tactical-grid opacity-[0.05] pointer-events-none" />
 
-      <header className="relative z-10 border-b border-border/60 backdrop-blur-md bg-background/60">
-        <div className="px-6 lg:px-10 h-16 flex items-center justify-between">
+      <header className="relative z-10 bg-primary text-primary-foreground">
+        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <Shield className="h-7 w-7 text-primary" />
-            <span className="font-display text-base font-bold uppercase tracking-[0.22em]">
-              Polícia Civil
+            <img src={logoPcsp} alt="Brasão da Polícia Civil do Estado de São Paulo" className="h-9 w-9 object-contain" />
+            <span className="flex flex-col leading-tight">
+              <span className="font-display text-base font-semibold tracking-wide">
+                Polícia Civil do Estado de São Paulo
+              </span>
+              <span className="text-[11px] text-primary-foreground/70">
+                Secretaria da Segurança Pública
+              </span>
             </span>
           </Link>
-          <Button asChild size="sm" variant="outline">
+          <Button asChild size="sm" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
             <Link to="/login">
               <Lock className="mr-2 h-3 w-3" /> Acesso
             </Link>
           </Button>
         </div>
       </header>
+
 
       <main className="relative z-10 flex-1 px-6 lg:px-10 py-10 max-w-5xl mx-auto w-full space-y-10">
         {/* Hero */}
