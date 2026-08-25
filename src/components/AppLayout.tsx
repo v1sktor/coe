@@ -2,6 +2,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { BackButton } from "@/components/BackButton";
 import logoPcsp from "@/assets/logo-pcsp.png";
 
 export function AppLayout() {
@@ -23,6 +24,9 @@ export function AppLayout() {
                 </span>
               </div>
             </Link>
+            <div className="ml-auto">
+              <BackButton variant="light" />
+            </div>
           </header>
           <main className="flex-1 p-6 overflow-auto">
             <div className="mx-auto w-full max-w-7xl">
