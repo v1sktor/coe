@@ -69,16 +69,17 @@ export default function CTB() {
                 <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-primary">Tabela Oficial · Atualizada</span>
               </div>
               <h1 className="font-display text-5xl md:text-7xl font-bold uppercase tracking-tight leading-none text-glow-gold">
-                CTB
+                Código Penal
               </h1>
               <p className="font-display text-base md:text-lg uppercase tracking-[0.2em] text-primary/90">
-                Código de Trânsito Brasileiro
+                Trânsito
               </p>
               <div className="flex items-center gap-3">
                 <div className="h-px flex-1 gold-divider max-w-[120px]" />
                 <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
                   Tabela de Infrações & Multas
                 </span>
+
               </div>
               <p className="text-sm md:text-base text-muted-foreground max-w-2xl leading-relaxed">
                 Valores oficiais aplicados pelo Governo Federal. Consulte abaixo os artigos, a descrição
