@@ -73,12 +73,12 @@ const Index = () => {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="font-medium">
-                <Link to="/login">
-                  Acesso Restrito <ChevronRight className="ml-1 h-4 w-4" />
+                <Link to="/ctb">
+                  BOPC/BIC <ChevronRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="font-medium">
-                <Link to="/hierarquia">Ver Efetivo</Link>
+                <Link to="/rso/novo">Relatório de Diligências</Link>
               </Button>
             </div>
           </div>
