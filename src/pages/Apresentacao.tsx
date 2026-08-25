@@ -16,6 +16,8 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield, Download, Lock, Plus, Pencil, Trash2, Upload } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
+import logoPcsp from "@/assets/logo-pcsp.png";
+
 
 interface Block {
   id: string;
