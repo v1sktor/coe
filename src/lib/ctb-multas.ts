@@ -91,6 +91,10 @@ export const SEV_META: Record<Severity, { label: string; classes: string; dot: s
     classes: "border-red-900/60 text-red-800 bg-red-900/10",
     dot: "bg-red-900",
   },
-
-
+  administracao: {
+    label: "Administração pública",
+    classes: "border-blue-500/50 text-blue-600 bg-blue-500/10",
+    dot: "bg-blue-600",
+  },
 };
+
