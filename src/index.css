@@ -6,62 +6,61 @@
 
 @layer base {
   :root {
-    /* GARRA — DOPE · Polícia Civil SP — Preto, Cinza & Branco */
-    --background: 0 0% 4%;
-    --foreground: 0 0% 95%;
+    /* Portal institucional — Polícia Civil SP (claro, azul marinho) */
+    --background: 0 0% 100%;
+    --foreground: 214 60% 16%;
 
-    --card: 0 0% 11%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 214 60% 16%;
 
-    --popover: 0 0% 11%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 214 60% 16%;
 
-    /* Branco gelo como cor principal de destaque (#f2f2f2) */
-    --primary: 0 0% 95%;
-    --primary-foreground: 0 0% 5%;
-    --primary-glow: 0 0% 100%;
+    /* Azul marinho institucional */
+    --primary: 214 62% 20%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 210 70% 42%;
 
-    --secondary: 0 0% 14%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 214 30% 96%;
+    --secondary-foreground: 214 60% 18%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 58%;
+    --muted: 214 25% 96%;
+    --muted-foreground: 214 15% 42%;
 
-    /* Cinza médio (#6e6e6e) */
-    --accent: 0 0% 26%;
-    --accent-foreground: 0 0% 95%;
+    --accent: 210 55% 90%;
+    --accent-foreground: 214 60% 18%;
 
     --destructive: 0 70% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 12%;
-    --ring: 0 0% 70%;
+    --border: 214 25% 88%;
+    --input: 214 25% 92%;
+    --ring: 210 70% 42%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 3%;
-    --sidebar-foreground: 0 0% 76%;
-    --sidebar-primary: 0 0% 95%;
-    --sidebar-primary-foreground: 0 0% 5%;
-    --sidebar-accent: 0 0% 10%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 0 0% 70%;
+    --sidebar-background: 214 62% 14%;
+    --sidebar-foreground: 210 30% 88%;
+    --sidebar-primary: 210 70% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 214 55% 20%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 214 45% 24%;
+    --sidebar-ring: 210 70% 55%;
 
-    --success: 142 45% 45%;
-    --warning: 38 60% 60%;
-    --danger: 0 65% 50%;
+    --success: 142 45% 38%;
+    --warning: 38 80% 45%;
+    --danger: 0 65% 48%;
 
-    /* Premium gradients & shadows */
-    --gradient-tactical: linear-gradient(135deg, hsl(0 0% 11%) 0%, hsl(0 0% 4%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(0 0% 95%) 0%, hsl(0 0% 43%) 100%);
-    --gradient-blue: linear-gradient(135deg, hsl(0 0% 26%) 0%, hsl(0 0% 7%) 100%);
-    --gradient-hero: radial-gradient(ellipse at center, hsl(0 0% 13%) 0%, hsl(0 0% 3%) 75%);
+    /* Gradients & shadows institucionais */
+    --gradient-tactical: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(214 30% 97%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(214 62% 20%) 0%, hsl(210 70% 42%) 100%);
+    --gradient-blue: linear-gradient(135deg, hsl(214 62% 20%) 0%, hsl(214 62% 12%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(214 30% 97%) 100%);
 
-    --shadow-gold: 0 8px 32px -8px hsl(0 0% 80% / 0.18);
-    --shadow-tactical: 0 12px 40px -12px hsl(0 0% 0% / 0.75);
-    --shadow-elevated: 0 20px 60px -20px hsl(0 0% 0% / 0.9);
+    --shadow-gold: 0 8px 28px -12px hsl(214 62% 20% / 0.28);
+    --shadow-tactical: 0 10px 30px -14px hsl(214 62% 20% / 0.22);
+    --shadow-elevated: 0 20px 50px -24px hsl(214 62% 20% / 0.3);
 
 
     --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -76,10 +75,6 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    background-image:
-      radial-gradient(circle at 20% 0%, hsl(0 0% 20% / 0.28) 0%, transparent 55%),
-      radial-gradient(circle at 80% 100%, hsl(0 0% 16% / 0.28) 0%, transparent 55%);
-    background-attachment: fixed;
   }
 
 
@@ -88,6 +83,7 @@
 }
   
 }
+
 
 @layer utilities {
   .bg-gradient-tactical { background: var(--gradient-tactical); }
