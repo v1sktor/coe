@@ -1,4 +1,4 @@
-export type Severity = "transito";
+export type Severity = "transito" | "pessoa";
 
 export interface MultaCTB {
   artigo: string;
@@ -6,9 +6,12 @@ export interface MultaCTB {
   descricao: string;
   valor: number;
   severity: Severity;
+  /** Pena em meses (aplicável aos crimes contra a pessoa) */
+  pena?: number;
 }
 
 export const MULTAS_CTB: MultaCTB[] = [
+
   { artigo: "Art. 162", titulo: "Falta de combustível", descricao: "Ter o veículo imobilizado na via por falta de combustível.", valor: 150, severity: "transito" },
   { artigo: "Art. 162", titulo: "Dirigir sem habilitação", descricao: "Dirigir sem possuir habilitação, podendo ocorrer o recolhimento do veículo.", valor: 150, severity: "transito" },
   { artigo: "Art. 165-A", titulo: "Recusar-se ao teste do bafômetro", descricao: "Recusar-se a realizar o teste do bafômetro.", valor: 1000, severity: "transito" },
