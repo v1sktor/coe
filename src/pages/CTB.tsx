@@ -168,12 +168,13 @@ export default function CTB() {
 
                   <div className="pt-3 border-t border-border/60 flex items-end justify-between gap-2">
                     <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                      Valor da Multa
+                      {m.pena !== undefined ? `Pena · ${m.pena} meses` : "Valor da Multa"}
                     </span>
                     <span className="font-display text-2xl font-bold text-primary text-glow-gold tabular-nums">
                       {formatBRL(m.valor)}
                     </span>
                   </div>
+
                 </CardContent>
               </Card>
             );
