@@ -233,7 +233,7 @@ const RsoNovo = () => {
         </div>
         <div className="space-y-2">
           <Label className="text-xs uppercase tracking-wider text-muted-foreground">Prefixo da Unidade *</Label>
-          <Input value={form.prefixo_unidade} onChange={(e) => set("prefixo_unidade", e.target.value)} placeholder="Ex: 4° BPRv" className="bg-secondary border-border" />
+          <Input value={form.prefixo_unidade} onChange={(e) => set("prefixo_unidade", e.target.value)} placeholder="Ex: DOPE / GARRA" className="bg-secondary border-border" />
         </div>
       </div>
 
