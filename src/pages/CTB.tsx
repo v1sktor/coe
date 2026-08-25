@@ -115,7 +115,9 @@ export default function CTB() {
           <div className="flex gap-2">
             <FilterChip active={filter === "all"} onClick={() => setFilter("all")} label="Todas" />
             <FilterChip active={filter === "transito"} onClick={() => setFilter("transito")} label="Trânsito" />
+            <FilterChip active={filter === "pessoa"} onClick={() => setFilter("pessoa")} label="Contra a pessoa" />
           </div>
+
 
         </div>
       </section>
