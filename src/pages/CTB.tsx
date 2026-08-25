@@ -118,7 +118,9 @@ export default function CTB() {
             <FilterChip active={filter === "transito"} onClick={() => setFilter("transito")} label="Trânsito" />
             <FilterChip active={filter === "pessoa"} onClick={() => setFilter("pessoa")} label="Contra a pessoa" />
             <FilterChip active={filter === "patrimonio"} onClick={() => setFilter("patrimonio")} label="Contra o patrimônio" />
+            <FilterChip active={filter === "administracao"} onClick={() => setFilter("administracao")} label="Administração pública" />
           </div>
+
 
 
 

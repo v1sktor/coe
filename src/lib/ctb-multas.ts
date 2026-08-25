@@ -1,4 +1,4 @@
-export type Severity = "transito" | "pessoa" | "patrimonio";
+export type Severity = "transito" | "pessoa" | "patrimonio" | "administracao";
 
 export interface MultaCTB {
   artigo: string;
@@ -51,7 +51,26 @@ export const MULTAS_CTB: MultaCTB[] = [
   { artigo: "Art. 157-B", titulo: "Roubo seguido de morte (Latrocínio)", descricao: "Subtrair coisa alheia móvel, para si ou para outrem, mediante violência ou grave ameaça, com resultado morte.", valor: 1000, pena: 50, severity: "patrimonio" },
   { artigo: "Art. 171", titulo: "Estelionato", descricao: "Obter, para si ou para outrem, vantagem ilícita, em prejuízo alheio, mediante fraude, erro, artifício ou ardil.", valor: 2500, pena: 12, severity: "patrimonio" },
   { artigo: "Art. 180", titulo: "Receptação", descricao: "Adquirir, receber, transportar, conduzir ou ocultar, em proveito próprio ou alheio, coisa que saiba ser produto de crime.", valor: 2500, pena: 10, severity: "patrimonio" },
+
+  // ===== Crimes contra a administração pública =====
+  { artigo: "Art. 200-A", titulo: "Roupas Policiais", descricao: "Utilizar qualquer acessório, equipamento ou roupa de uso exclusivamente policial.", valor: 5000, pena: 40, severity: "administracao" },
+  { artigo: "Art. 200-B", titulo: "Roupas Militares", descricao: "Utilizar acessórios ou vestimentas de cunho militar, como coletes, em locais públicos como hospitais, mecânicas, praças ou delegacias.", valor: 5000, pena: 50, severity: "administracao" },
+  { artigo: "Art. 200-C", titulo: "Ocultação Facial", descricao: "Utilizar máscaras ou vestimentas que impeçam a identificação do rosto em locais públicos, como hospitais, mecânicas, praças ou delegacias.", valor: 1000, pena: 10, severity: "administracao" },
+  { artigo: "Art. 288", titulo: "Produtos Ilícitos", descricao: "Portar ou possuir objetos ilícitos, conforme decreto judicial.", valor: 2000, pena: 10, severity: "administracao" },
+  { artigo: "Art. 288", titulo: "Associação Criminosa", descricao: "Associar-se com 3 ou mais pessoas com a finalidade específica de cometer crimes.", valor: 2000, pena: 50, severity: "administracao" },
+  { artigo: "Art. 289", titulo: "Dinheiro Ilícito", descricao: "Portar ou possuir dinheiro de origem ilícita.", valor: 1500, pena: 18, severity: "administracao" },
+  { artigo: "Art. 299", titulo: "Falsidade Ideológica", descricao: "Inserir ou fazer inserir declaração falsa ou diversa da que deveria constar em documento, com finalidade de prejudicar direito, criar obrigação ou alterar a verdade sobre fato juridicamente relevante.", valor: 1750, pena: 15, severity: "administracao" },
+  { artigo: "Art. 311", titulo: "Uso de Máscara para Terrorismo", descricao: "Utilizar máscara ou objetos para ocultação de identidade em ações de terrorismo contra órgãos públicos, quando praticado com finalidade de causar terror.", valor: 2500, pena: 12, severity: "administracao" },
+  { artigo: "Art. 330", titulo: "Desobediência", descricao: "Desobedecer a ordem legal de funcionário público.", valor: 1500, pena: 10, severity: "administracao" },
+  { artigo: "Art. 331", titulo: "Desacato", descricao: "Desacatar funcionário público no exercício da função ou em razão dela, com intuito de menosprezá-lo.", valor: 1500, pena: 12, severity: "administracao" },
+  { artigo: "Art. 333", titulo: "Corrupção", descricao: "Oferecer ou prometer vantagem indevida a funcionário público em razão de sua função.", valor: 2500, pena: 15, severity: "administracao" },
+  { artigo: "Art. 337", titulo: "Suborno", descricao: "Oferecer, prometer ou obter vantagem indevida relacionada ao exercício de função pública.", valor: 2500, pena: 25, severity: "administracao" },
+  { artigo: "Art. 339", titulo: "Denunciação Caluniosa", descricao: "Dar causa à instauração de investigação ou processo contra alguém, imputando-lhe crime de que sabe ser inocente.", valor: 1750, pena: 12, severity: "administracao" },
+  { artigo: "Art. 342", titulo: "Falso Testemunho", descricao: "Fazer afirmação falsa, negar ou calar a verdade na condição de testemunha.", valor: 1500, pena: 10, severity: "administracao" },
+  { artigo: "Art. 355", titulo: "Abuso de Autoridade", descricao: "Abusar da posição pública com o intuito de obter vantagem ou causar prejuízo injusto a outra pessoa, conforme decreto judicial.", valor: 5000, pena: 12, severity: "administracao" },
+  { artigo: "Art. 357", titulo: "Obstrução da Justiça", descricao: "Atrapalhar ou impedir o andamento de instrução processual ou o cumprimento de ordem judicial.", valor: 5000, pena: 32, severity: "administracao" },
 ];
+
 
 export const formatBRL = (v: number) =>
   new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(v);
@@ -72,6 +91,10 @@ export const SEV_META: Record<Severity, { label: string; classes: string; dot: s
     classes: "border-red-900/60 text-red-800 bg-red-900/10",
     dot: "bg-red-900",
   },
-
-
+  administracao: {
+    label: "Administração pública",
+    classes: "border-blue-500/50 text-blue-600 bg-blue-500/10",
+    dot: "bg-blue-600",
+  },
 };
+
