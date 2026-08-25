@@ -10,10 +10,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Users, ShieldCheck, Plus, Settings, KeyRound } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { Tables } from "@/integrations/supabase/types";
 
 type ProfileRow = Tables<"profiles">;
 type PermissaoRow = Tables<"permissoes">;
+type CargoRow = Tables<"cargos">;
 
 interface UserWithDetails {
   profile: ProfileRow;
@@ -25,6 +27,8 @@ const AdminUsuarios = () => {
   const { toast } = useToast();
   const [users, setUsers] = useState<UserWithDetails[]>([]);
   const [permissoes, setPermissoes] = useState<PermissaoRow[]>([]);
+  const [cargos, setCargos] = useState<CargoRow[]>([]);
+  const [newCargoId, setNewCargoId] = useState<string>("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [permDialogOpen, setPermDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserWithDetails | null>(null);
@@ -56,6 +60,7 @@ const AdminUsuarios = () => {
     ]);
 
     if (permissoesData) setPermissoes(permissoesData);
+    if (cargosData) setCargos(cargosData);
 
     if (profiles && roles) {
       // Build user perm map via cargo_id -> cargo_permissoes
@@ -85,7 +90,7 @@ const AdminUsuarios = () => {
     }
     setCreating(true);
     const res = await supabase.functions.invoke("create-user", {
-      body: { email: newEmail, password: newPassword, nome: newNome },
+      body: { email: newEmail, password: newPassword, nome: newNome, cargo_id: newCargoId || null },
     });
 
     setCreating(false);
@@ -98,6 +103,7 @@ const AdminUsuarios = () => {
     setNewEmail("");
     setNewPassword("");
     setNewNome("");
+    setNewCargoId("");
     fetchData();
   };
 
@@ -110,6 +116,13 @@ const AdminUsuarios = () => {
       if (error) { toast({ title: "Erro", description: error.message, variant: "destructive" }); return; }
     }
     toast({ title: currentlyAdmin ? "Admin removido" : "Admin concedido" });
+    fetchData();
+  };
+
+  const setCargoUsuario = async (userId: string, cargoId: string) => {
+    const { error } = await supabase.from("profiles").update({ cargo_id: cargoId }).eq("user_id", userId);
+    if (error) { toast({ title: "Erro ao definir cargo", description: error.message, variant: "destructive" }); return; }
+    toast({ title: "Cargo atualizado" });
     fetchData();
   };
 
@@ -235,8 +248,22 @@ const AdminUsuarios = () => {
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Senha</Label>
                 <Input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Mínimo 6 caracteres" className="bg-secondary border-border" minLength={6} />
               </div>
+              <div className="space-y-2">
+                <Label className="text-xs uppercase tracking-wider text-muted-foreground">Cargo</Label>
+                <Select value={newCargoId} onValueChange={setNewCargoId}>
+                  <SelectTrigger className="bg-secondary border-border">
+                    <SelectValue placeholder="Selecione o cargo (define as permissões)" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cargos.map((c) => (
+                      <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">As permissões do usuário vêm do cargo selecionado.</p>
+              </div>
               <Button onClick={createUser} disabled={creating} className="w-full font-display uppercase tracking-wider">
-                {creating ? "Criando..." : "Criar Usuário"}
+                {creating ? "Criando..." : "Criar Conta"}
               </Button>
             </div>
           </DialogContent>
@@ -255,6 +282,7 @@ const AdminUsuarios = () => {
             <TableHeader>
               <TableRow>
                 <TableHead className="font-display uppercase text-xs">Nome</TableHead>
+                <TableHead className="font-display uppercase text-xs">Cargo</TableHead>
                 <TableHead className="font-display uppercase text-xs">Permissões</TableHead>
                 <TableHead className="font-display uppercase text-xs">Role</TableHead>
                 <TableHead className="font-display uppercase text-xs text-right">Ações</TableHead>
@@ -266,6 +294,21 @@ const AdminUsuarios = () => {
                 return (
                   <TableRow key={u.profile.id}>
                     <TableCell className="font-display font-semibold">{u.profile.nome}</TableCell>
+                    <TableCell>
+                      <Select
+                        value={u.profile.cargo_id ?? ""}
+                        onValueChange={(v) => setCargoUsuario(u.profile.user_id, v)}
+                      >
+                        <SelectTrigger className="h-8 w-48 bg-secondary border-border text-xs">
+                          <SelectValue placeholder="Sem cargo" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {cargos.map((c) => (
+                            <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
                     <TableCell>
                       <div className="flex flex-wrap gap-1">
                         {permNomes.length > 0 ? (
@@ -304,7 +347,7 @@ const AdminUsuarios = () => {
                 );
               })}
               {users.length === 0 && (
-                <TableRow><TableCell colSpan={4} className="text-center text-muted-foreground py-8">Nenhum usuário cadastrado.</TableCell></TableRow>
+                <TableRow><TableCell colSpan={5} className="text-center text-muted-foreground py-8">Nenhum usuário cadastrado.</TableCell></TableRow>
               )}
             </TableBody>
           </Table>

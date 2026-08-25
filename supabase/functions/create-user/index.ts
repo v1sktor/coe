@@ -38,7 +38,7 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: "Apenas administradores podem criar usuários" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
-    const { email, password, nome } = await req.json();
+    const { email, password, nome, cargo_id } = await req.json();
     if (!email || !password || !nome) {
       return new Response(JSON.stringify({ error: "Email, senha e nome são obrigatórios" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
@@ -55,6 +55,10 @@ Deno.serve(async (req) => {
 
     if (error) {
       return new Response(JSON.stringify({ error: error.message }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
+    if (cargo_id && data.user) {
+      await adminClient.from("profiles").update({ cargo_id }).eq("user_id", data.user.id);
     }
 
     return new Response(JSON.stringify({ user: data.user }), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });

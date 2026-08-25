@@ -43,6 +43,9 @@ const AdminCargos = () => {
 
   useEffect(() => { fetchData(); }, []);
 
+  const permsVer = permissoes.filter((p) => p.nome.endsWith(".view"));
+  const permsFazer = permissoes.filter((p) => !p.nome.endsWith(".view"));
+
   const openCreate = () => {
     setEditingId(null);
     setFormNome("");
@@ -111,7 +114,7 @@ const AdminCargos = () => {
               Novo Cargo
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-card border-border">
+          <DialogContent className="bg-card border-border max-w-2xl">
             <DialogHeader>
               <DialogTitle className="font-display uppercase tracking-wide">
                 {editingId ? "Editar Cargo" : "Novo Cargo"}
@@ -127,19 +130,29 @@ const AdminCargos = () => {
                 <Input type="number" min={1} value={formNivel} onChange={(e) => setFormNivel(Number(e.target.value))} className="bg-secondary border-border" />
                 <p className="text-xs text-muted-foreground">1 = mais alto (Comandante)</p>
               </div>
-              <div className="space-y-2">
-                <Label className="text-xs uppercase tracking-wider text-muted-foreground">Permissões</Label>
-                <div className="space-y-2 bg-secondary/50 rounded-lg p-3">
-                  {permissoes.map((perm) => (
-                    <label key={perm.id} className="flex items-center gap-3 cursor-pointer py-1">
-                      <Checkbox checked={formPerms.includes(perm.id)} onCheckedChange={() => togglePerm(perm.id)} />
-                      <div>
-                        <span className="text-sm font-medium">{perm.nome}</span>
-                        {perm.descricao && <span className="text-xs text-muted-foreground ml-2">— {perm.descricao}</span>}
-                      </div>
-                    </label>
-                  ))}
-                </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                {([
+                  { titulo: "O que pode ver", lista: permsVer },
+                  { titulo: "O que pode fazer", lista: permsFazer },
+                ] as const).map((grupo) => (
+                  <div key={grupo.titulo} className="space-y-2">
+                    <Label className="text-xs uppercase tracking-wider text-primary">{grupo.titulo}</Label>
+                    <div className="space-y-2 bg-secondary/50 border border-border rounded-lg p-3 max-h-64 overflow-y-auto">
+                      {grupo.lista.length === 0 && (
+                        <p className="text-xs text-muted-foreground">Nenhuma permissão nesta categoria.</p>
+                      )}
+                      {grupo.lista.map((perm) => (
+                        <label key={perm.id} className="flex items-start gap-3 cursor-pointer py-1">
+                          <Checkbox className="mt-1" checked={formPerms.includes(perm.id)} onCheckedChange={() => togglePerm(perm.id)} />
+                          <div>
+                            <span className="block text-sm font-medium">{perm.descricao || perm.nome}</span>
+                            <span className="block text-[11px] font-mono text-muted-foreground">{perm.nome}</span>
+                          </div>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
               <Button onClick={handleSave} className="w-full font-display uppercase tracking-wider">
                 {editingId ? "Salvar Alterações" : "Criar Cargo"}
@@ -176,7 +189,7 @@ const AdminCargos = () => {
                       {cargo.permissao_ids.map((permId) => {
                         const perm = permissoes.find((p) => p.id === permId);
                         return perm ? (
-                          <Badge key={permId} variant="outline" className="text-xs border-primary/30 text-primary">{perm.nome}</Badge>
+                          <Badge key={permId} variant="outline" className="text-xs border-primary/30 text-primary">{perm.descricao || perm.nome}</Badge>
                         ) : null;
                       })}
                     </div>
