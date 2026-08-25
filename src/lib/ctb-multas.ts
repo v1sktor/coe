@@ -71,7 +71,13 @@ export const MULTAS_CTB: MultaCTB[] = [
   { artigo: "Art. 342", titulo: "Falso Testemunho", descricao: "Fazer afirmação falsa, negar ou calar a verdade na condição de testemunha.", valor: 1500, pena: 10, severity: "administracao" },
   { artigo: "Art. 355", titulo: "Abuso de Autoridade", descricao: "Abusar da posição pública com o intuito de obter vantagem ou causar prejuízo injusto a outra pessoa, conforme decreto judicial.", valor: 5000, pena: 12, severity: "administracao" },
   { artigo: "Art. 357", titulo: "Obstrução da Justiça", descricao: "Atrapalhar ou impedir o andamento de instrução processual ou o cumprimento de ordem judicial.", valor: 5000, pena: 32, severity: "administracao" },
+  { artigo: "Art. 16", titulo: "Porte ou Posse Ilegal de Arma — Classe 1", descricao: "Porte ou posse ilegal de armamento semiautomático.", valor: 2000, servicos: 15, severity: "ordem" },
+  { artigo: "Art. 17", titulo: "Porte ou Posse Ilegal de Arma — Classe 2", descricao: "Porte ou posse ilegal de armamento automático.", valor: 3000, servicos: 25, severity: "ordem" },
+  { artigo: "Art. 18", titulo: "Tráfico de Munições", descricao: "Porte de múltiplas unidades de munição. Dependerá da comprovação de dolo de comercialização ou traficância para configurar o crime.", valor: 3500, servicos: 15, severity: "ordem" },
+  { artigo: "Art. 19", titulo: "Tráfico de Armamento", descricao: "Posse ou porte de 2 ou mais armamentos, quando caracterizada a finalidade de tráfico ou comercialização.", valor: 5000, servicos: 30, severity: "ordem" },
+  { artigo: "Art. 33", titulo: "Tráfico de Drogas", descricao: "Posse de mais de 2 unidades de entorpecentes, sendo permitido o máximo de 4 unidades conforme regulamentação.", valor: 5000, servicos: 25, severity: "ordem" },
 ];
+
 
 
 export const formatBRL = (v: number) =>
