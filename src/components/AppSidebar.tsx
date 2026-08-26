@@ -57,7 +57,7 @@ export function AppSidebar() {
             {!collapsed && (
               <span className="flex items-center gap-2">
                 <Shield className="h-4 w-4" />
-                COMANDO
+                {"\n"}
               </span>
             )}
             {collapsed && <Shield className="h-4 w-4 text-primary" />}
