@@ -39,9 +39,11 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center space-y-4">
-          <div className="mx-auto w-20 h-20 rounded-full bg-primary/10 border-2 border-primary/30 flex items-center justify-center">
-            <Shield className="h-10 w-10 text-primary" />
-          </div>
+          <img
+            src={logoPcsp}
+            alt="Brasão da Polícia Civil do Estado de São Paulo"
+            className="mx-auto h-24 w-24 object-contain"
+          />
           <div>
             <h1 className="font-display text-3xl font-bold uppercase tracking-widest">
               Acesso Administrativo
