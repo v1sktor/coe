@@ -69,7 +69,7 @@ const Index = () => {
             </p>
             <div className="mt-8 grid w-full max-w-xl grid-cols-1 gap-3 sm:grid-cols-2">
               <Button asChild size="lg" className="w-full font-medium">
-                <Link to="/ctb">
+                <Link to="/bopc">
                   BOPC/BIC <ChevronRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
