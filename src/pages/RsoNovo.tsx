@@ -88,7 +88,11 @@ const RsoNovo = () => {
     fetchMembros();
   }, []);
 
-  const membrosUnidade = form.unidade ? membros.filter((m) => m.unidade === form.unidade) : [];
+  const membrosUnidade = !form.unidade
+    ? []
+    : form.unidade === "DEJEC"
+      ? membros
+      : membros.filter((m) => m.unidade === form.unidade);
 
   const setUnidade = (unidade: string) =>
     setForm((p) => ({ ...p, unidade, responsavel_id: "", encarregado_id: "", motorista_id: "", homem3_id: "", homem4_id: "", homem5_id: "" }));
