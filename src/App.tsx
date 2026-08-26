@@ -22,6 +22,7 @@ const Estaticas = lazy(() => import("./pages/Estaticas"));
 const Diretrizes = lazy(() => import("./pages/Diretrizes"));
 const Cursos = lazy(() => import("./pages/Cursos"));
 const Institucional = lazy(() => import("./pages/Institucional"));
+const Edital = lazy(() => import("./pages/Edital"));
 const AdminCargos = lazy(() => import("./pages/admin/AdminCargos"));
 const AdminPatentes = lazy(() => import("./pages/admin/AdminPatentes"));
 const AdminUsuarios = lazy(() => import("./pages/admin/AdminUsuarios"));
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/apresentacao" element={<Cursos />} />
             <Route path="/cursos" element={<Cursos />} />
             <Route path="/institucional" element={<Institucional />} />
+            <Route path="/edital" element={<Edital />} />
             <Route element={<PublicLayout />}>
               <Route path="/hierarquia" element={<Hierarquia />} />
               <Route path="/rso/novo" element={<RsoNovo />} />
