@@ -23,6 +23,14 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "@/hooks/use-toast";
 import {
+  BARCA_FIELDS,
+  BARCA_LABELS,
+  applyBarcaToRso,
+  readBarcaRso,
+  subscribeBarcaRso,
+  type BarcaSyncPayload,
+} from "@/lib/barca-sync";
+import {
   Car,
   GripVertical,
   History,
@@ -34,8 +42,8 @@ import {
   X,
 } from "lucide-react";
 
-const STORAGE_KEY = "barca_state_v1";
-const POSICOES = 4;
+const STORAGE_KEY = "barca_state_v2";
+const POSICOES = BARCA_FIELDS.length;
 
 type Status = "ATIVO" | "AUSENTE" | "LIVRE";
 
@@ -56,19 +64,19 @@ interface HistoricoItem {
   motivo?: string | null;
 }
 
-interface BarcaState {
-  prefixo: string;
-  slots: Slot[];
+interface BarcaUi {
   historico: HistoricoItem[];
   open: boolean;
   minimized: boolean;
   pos: { x: number; y: number };
+  meta: Record<string, { status: Status; entradaEm: string | null }>;
 }
 
 interface Membro {
   id: string;
   membro_nome: string;
   cargo_nome: string | null;
+  unidade: string | null;
 }
 
 const emptySlot = (): Slot => ({
@@ -79,35 +87,32 @@ const emptySlot = (): Slot => ({
   entradaEm: null,
 });
 
-const defaultState = (): BarcaState => ({
-  prefixo: "RP-1234",
-  slots: Array.from({ length: POSICOES }, emptySlot),
+const defaultUi = (): BarcaUi => ({
   historico: [],
   open: false,
   minimized: false,
   pos: { x: Math.max(16, window.innerWidth - 420), y: 96 },
+  meta: {},
 });
 
-function loadState(): BarcaState {
+function loadUi(): BarcaUi {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return defaultState();
-    const parsed = JSON.parse(raw) as Partial<BarcaState>;
-    const base = defaultState();
-    const slots = Array.from({ length: POSICOES }, (_, i) => parsed.slots?.[i] ?? emptySlot());
-    return { ...base, ...parsed, slots };
+    if (!raw) return defaultUi();
+    return { ...defaultUi(), ...(JSON.parse(raw) as Partial<BarcaUi>) };
   } catch {
-    return defaultState();
+    return defaultUi();
   }
 }
 
-const ordinal = (i: number) => `${i + 1}ª posição`;
+const ordinal = (i: number) => BARCA_LABELS[BARCA_FIELDS[i]] ?? `${i + 1}ª posição`;
 const hora = (iso: string | null) =>
   iso ? new Date(iso).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) : "--:--";
 
 export function BarcaPanel() {
   const { user } = useAuth();
-  const [state, setState] = useState<BarcaState>(() => loadState());
+  const [ui, setUi] = useState<BarcaUi>(() => loadUi());
+  const [sync, setSync] = useState<BarcaSyncPayload | null>(() => readBarcaRso());
   const [membros, setMembros] = useState<Membro[]>([]);
   const [pulse, setPulse] = useState(false);
   const [showHistorico, setShowHistorico] = useState(false);
@@ -130,8 +135,10 @@ export function BarcaPanel() {
   const dragRef = useRef<{ dx: number; dy: number } | null>(null);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [state]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ui));
+  }, [ui]);
+
+  useEffect(() => subscribeBarcaRso((p) => setSync(p)), []);
 
   useEffect(() => {
     (async () => {
@@ -142,19 +149,53 @@ export function BarcaPanel() {
             id: h.id,
             membro_nome: h.membro_nome,
             cargo_nome: h.cargo_nome ?? null,
+            unidade: h.batalhao ?? null,
           })),
         );
     })();
   }, []);
 
-  const ocupadas = state.slots.filter((s) => s.membroId).length;
-  const autor = user?.nome || "Não identificado";
+  // Slots derivam SEMPRE da guarnição do RSO em preenchimento
+  const slots: Slot[] = useMemo(() => {
+    const ids = sync?.membros ?? [];
+    return Array.from({ length: POSICOES }, (_, i) => {
+      const id = ids[i] || null;
+      if (!id) return emptySlot();
+      const m = membros.find((x) => x.id === id);
+      const meta = ui.meta[id];
+      return {
+        membroId: id,
+        nome: m?.membro_nome ?? "—",
+        graduacao: m?.cargo_nome ?? null,
+        status: meta?.status ?? "ATIVO",
+        entradaEm: meta?.entradaEm ?? null,
+      };
+    });
+  }, [sync, membros, ui.meta]);
 
-  const registrar = useCallback(
-    (item: Omit<HistoricoItem, "id" | "quando" | "autor">, slots: Slot[]) => {
-      setState((p) => ({
+  // Marca horário de entrada assim que um policial aparece na barca
+  useEffect(() => {
+    const novos = slots.filter((s) => s.membroId && !ui.meta[s.membroId!]);
+    if (novos.length === 0) return;
+    setUi((p) => {
+      const meta = { ...p.meta };
+      novos.forEach((s) => {
+        meta[s.membroId!] = { status: "ATIVO", entradaEm: new Date().toISOString() };
+      });
+      return { ...p, meta };
+    });
+  }, [slots, ui.meta]);
+
+  const ativo = !!sync?.ativo;
+  const ocupadas = slots.filter((s) => s.membroId).length;
+  const autor = user?.nome || "Não identificado";
+  const prefixo = sync?.prefixo || "SEM PREFIXO";
+
+  const commit = useCallback(
+    (item: Omit<HistoricoItem, "id" | "quando" | "autor">, novos: Slot[]) => {
+      applyBarcaToRso(novos.map((s) => s.membroId));
+      setUi((p) => ({
         ...p,
-        slots,
         historico: [
           { id: crypto.randomUUID(), quando: new Date().toISOString(), autor, ...item },
           ...p.historico,
@@ -168,12 +209,12 @@ export function BarcaPanel() {
 
   // ---- Drag do painel ----
   const onPanelMouseDown = (e: React.MouseEvent) => {
-    dragRef.current = { dx: e.clientX - state.pos.x, dy: e.clientY - state.pos.y };
+    dragRef.current = { dx: e.clientX - ui.pos.x, dy: e.clientY - ui.pos.y };
     const move = (ev: MouseEvent) => {
       if (!dragRef.current) return;
       const x = Math.min(Math.max(0, ev.clientX - dragRef.current.dx), window.innerWidth - 120);
       const y = Math.min(Math.max(0, ev.clientY - dragRef.current.dy), window.innerHeight - 60);
-      setState((p) => ({ ...p, pos: { x, y } }));
+      setUi((p) => ({ ...p, pos: { x, y } }));
     };
     const up = () => {
       dragRef.current = null;
@@ -184,25 +225,30 @@ export function BarcaPanel() {
     window.addEventListener("mouseup", up);
   };
 
-  // ---- Ações ----
-  const livres = state.slots
-    .map((s, i) => ({ s, i }))
-    .filter(({ s }) => !s.membroId);
-  const ocupados = state.slots.map((s, i) => ({ s, i })).filter(({ s }) => s.membroId);
+  const livres = slots.map((s, i) => ({ s, i })).filter(({ s }) => !s.membroId);
+  const ocupados = slots.map((s, i) => ({ s, i })).filter(({ s }) => s.membroId);
+
+  const membrosElegiveis = useMemo(() => {
+    const base =
+      sync?.unidade && sync.unidade !== "DEJEC"
+        ? membros.filter((m) => m.unidade === sync.unidade)
+        : membros;
+    return base.filter((m) => !slots.some((s) => s.membroId === m.id));
+  }, [membros, slots, sync]);
 
   const confirmarEntrada = () => {
     const idx = Number(entradaPos);
     const m = membros.find((x) => x.id === entradaMembro);
     if (!m || Number.isNaN(idx)) return;
-    if (state.slots[idx].membroId) {
+    if (slots[idx].membroId) {
       toast({ title: "Posição ocupada", description: "Escolha uma posição livre.", variant: "destructive" });
       return;
     }
-    if (state.slots.some((s) => s.membroId === m.id)) {
+    if (slots.some((s) => s.membroId === m.id)) {
       toast({ title: "Conflito", description: "Este policial já está na barca.", variant: "destructive" });
       return;
     }
-    const slots = state.slots.map((s, i) =>
+    const novos = slots.map((s, i) =>
       i === idx
         ? {
             membroId: m.id,
@@ -213,12 +259,12 @@ export function BarcaPanel() {
           }
         : s,
     );
-    registrar(
+    commit(
       {
         tipo: "ENTRADA",
-        descricao: `${m.cargo_nome ?? ""} ${m.membro_nome} entrou na ${ordinal(idx)}.`.trim(),
+        descricao: `${m.cargo_nome ?? ""} ${m.membro_nome} entrou como ${ordinal(idx)}.`.trim(),
       },
-      slots,
+      novos,
     );
     setEntradaOpen(false);
     setEntradaMembro("");
@@ -227,16 +273,16 @@ export function BarcaPanel() {
 
   const confirmarSaida = () => {
     const idx = Number(saidaPos);
-    const slot = state.slots[idx];
+    const slot = slots[idx];
     if (!slot?.membroId) return;
-    const slots = state.slots.map((s, i) => (i === idx ? emptySlot() : s));
-    registrar(
+    const novos = slots.map((s, i) => (i === idx ? emptySlot() : s));
+    commit(
       {
         tipo: "SAÍDA",
-        descricao: `${slot.graduacao ?? ""} ${slot.nome} deixou a barca. ${ordinal(idx)} liberada.`.trim(),
+        descricao: `${slot.graduacao ?? ""} ${slot.nome} deixou a barca. ${ordinal(idx)} liberado.`.trim(),
         motivo: saidaMotivo || null,
       },
-      slots,
+      novos,
     );
     setSaidaOpen(false);
     setSaidaPos("");
@@ -247,18 +293,18 @@ export function BarcaPanel() {
     const a = Number(trocaA);
     const b = Number(trocaB);
     if (Number.isNaN(a) || Number.isNaN(b) || a === b) return;
-    const slots = [...state.slots];
-    const tmp = slots[a];
-    slots[a] = slots[b];
-    slots[b] = tmp;
-    const nomeA = state.slots[a].nome ?? "LIVRE";
-    const nomeB = state.slots[b].nome ?? "LIVRE";
-    registrar(
+    const novos = [...slots];
+    const tmp = novos[a];
+    novos[a] = novos[b];
+    novos[b] = tmp;
+    const nomeA = slots[a].nome ?? "LIVRE";
+    const nomeB = slots[b].nome ?? "LIVRE";
+    commit(
       {
         tipo: "TROCA",
-        descricao: `${nomeA} passou da ${ordinal(a)} para a ${ordinal(b)}. ${nomeB} passou da ${ordinal(b)} para a ${ordinal(a)}.`,
+        descricao: `${nomeA} passou de ${ordinal(a)} para ${ordinal(b)}. ${nomeB} passou de ${ordinal(b)} para ${ordinal(a)}.`,
       },
-      slots,
+      novos,
     );
     setTrocaOpen(false);
     setTrocaA("");
@@ -266,7 +312,7 @@ export function BarcaPanel() {
   };
 
   const abrirRemodular = () => {
-    setDraft(state.slots.map((s) => ({ ...s })));
+    setDraft(slots.map((s) => ({ ...s })));
     setRemodular(true);
   };
 
@@ -281,30 +327,37 @@ export function BarcaPanel() {
   };
 
   const confirmarRemodulacao = () => {
-    const antes = state.slots.map((s, i) => `${i + 1}ª ${s.nome ?? "LIVRE"}`).join(" · ");
-    const depois = draft.map((s, i) => `${i + 1}ª ${s.nome ?? "LIVRE"}`).join(" · ");
-    registrar({ tipo: "REMODULAÇÃO", descricao: `Antes: ${antes} → Depois: ${depois}` }, draft);
+    const antes = slots.map((s, i) => `${ordinal(i)}: ${s.nome ?? "LIVRE"}`).join(" · ");
+    const depois = draft.map((s, i) => `${ordinal(i)}: ${s.nome ?? "LIVRE"}`).join(" · ");
+    commit({ tipo: "REMODULAÇÃO", descricao: `Antes: ${antes} → Depois: ${depois}` }, draft);
     setRemodular(false);
   };
 
   const alternarStatus = (idx: number) => {
-    const slot = state.slots[idx];
+    const slot = slots[idx];
     if (!slot.membroId) return;
     const novo: Status = slot.status === "ATIVO" ? "AUSENTE" : "ATIVO";
-    const slots = state.slots.map((s, i) => (i === idx ? { ...s, status: novo } : s));
-    registrar({ tipo: "STATUS", descricao: `${slot.nome} marcado como ${novo} na ${ordinal(idx)}.` }, slots);
+    setUi((p) => ({
+      ...p,
+      meta: { ...p.meta, [slot.membroId!]: { status: novo, entradaEm: slot.entradaEm } },
+      historico: [
+        {
+          id: crypto.randomUUID(),
+          quando: new Date().toISOString(),
+          autor,
+          tipo: "STATUS" as const,
+          descricao: `${slot.nome} marcado como ${novo} (${ordinal(idx)}).`,
+        },
+        ...p.historico,
+      ].slice(0, 200),
+    }));
   };
 
-  const membrosDisponiveis = useMemo(
-    () => membros.filter((m) => !state.slots.some((s) => s.membroId === m.id)),
-    [membros, state.slots],
-  );
-
   // ---- Botão flutuante fechado ----
-  if (!state.open) {
+  if (!ui.open) {
     return (
       <button
-        onClick={() => setState((p) => ({ ...p, open: true }))}
+        onClick={() => setUi((p) => ({ ...p, open: true }))}
         className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-xs font-display uppercase tracking-wider shadow-lg hover:bg-secondary"
       >
         <Car className="h-4 w-4 text-primary" />
@@ -319,7 +372,7 @@ export function BarcaPanel() {
   return (
     <>
       <div
-        style={{ left: state.pos.x, top: state.pos.y }}
+        style={{ left: ui.pos.x, top: ui.pos.y }}
         className="fixed z-50 w-[360px] max-w-[calc(100vw-24px)] rounded-lg border border-border bg-card shadow-2xl"
       >
         <div
@@ -328,9 +381,7 @@ export function BarcaPanel() {
         >
           <GripVertical className="h-4 w-4 text-muted-foreground" />
           <Car className="h-4 w-4 text-primary" />
-          <span className="font-display text-xs uppercase tracking-wider">
-            Barca {state.prefixo}
-          </span>
+          <span className="font-display text-xs uppercase tracking-wider">Barca {prefixo}</span>
           <Badge variant="secondary" className="font-mono text-[10px]">
             {ocupadas}/{POSICOES}
           </Badge>
@@ -340,7 +391,7 @@ export function BarcaPanel() {
               size="icon"
               variant="ghost"
               className="h-6 w-6"
-              onClick={() => setState((p) => ({ ...p, minimized: !p.minimized }))}
+              onClick={() => setUi((p) => ({ ...p, minimized: !p.minimized }))}
             >
               <Minus className="h-3.5 w-3.5" />
             </Button>
@@ -348,79 +399,90 @@ export function BarcaPanel() {
               size="icon"
               variant="ghost"
               className="h-6 w-6"
-              onClick={() => setState((p) => ({ ...p, open: false }))}
+              onClick={() => setUi((p) => ({ ...p, open: false }))}
             >
               <X className="h-3.5 w-3.5" />
             </Button>
           </div>
         </div>
 
-        {!state.minimized && (
+        {!ui.minimized && (
           <div className="space-y-3 p-3">
-            <div className="flex items-center gap-2">
-              <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">
-                Prefixo
-              </Label>
-              <Input
-                value={state.prefixo}
-                onChange={(e) => setState((p) => ({ ...p, prefixo: e.target.value.toUpperCase() }))}
-                className="h-7 font-mono text-xs"
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              {state.slots.map((s, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 rounded border border-border bg-secondary/40 px-2 py-1.5"
-                >
-                  <span className="w-6 font-mono text-xs text-primary">{i + 1}ª</span>
-                  <div className="min-w-0 flex-1">
-                    {s.membroId ? (
-                      <>
-                        <div className="truncate text-xs font-semibold">
-                          {s.graduacao ? `${s.graduacao} ` : ""}
-                          {s.nome}
-                        </div>
-                        <div className="font-mono text-[10px] text-muted-foreground">
-                          entrada {hora(s.entradaEm)}
-                        </div>
-                      </>
-                    ) : (
-                      <span className="text-xs text-muted-foreground">LIVRE</span>
-                    )}
-                  </div>
-                  <button
-                    onClick={() => alternarStatus(i)}
-                    disabled={!s.membroId}
-                    className="shrink-0"
-                    title="Alternar ATIVO/AUSENTE"
-                  >
-                    <Badge
-                      variant={s.status === "ATIVO" ? "default" : "outline"}
-                      className="text-[9px]"
-                    >
-                      {s.status}
-                    </Badge>
-                  </button>
+            {!ativo ? (
+              <p className="py-6 text-center text-xs text-muted-foreground">
+                Nenhum RSO em preenchimento. Inicie um RSO e selecione a unidade/guarnição para
+                remodular a barca.
+              </p>
+            ) : (
+              <>
+                <div className="flex items-center gap-2 text-[10px] uppercase tracking-wider text-muted-foreground">
+                  <span>Unidade</span>
+                  <Badge variant="outline" className="font-mono text-[10px]">
+                    {sync?.unidade || "—"}
+                  </Badge>
+                  <span className="ml-auto">Viatura</span>
+                  <Badge variant="outline" className="font-mono text-[10px]">
+                    {prefixo}
+                  </Badge>
                 </div>
-              ))}
-            </div>
 
-            <div className="grid grid-cols-2 gap-1.5">
-              <Button size="sm" variant="outline" className="text-[11px]" onClick={() => setEntradaOpen(true)}>
-                <LogIn className="mr-1 h-3.5 w-3.5" /> Entrada
-              </Button>
-              <Button size="sm" variant="outline" className="text-[11px]" onClick={() => setSaidaOpen(true)}>
-                <LogOut className="mr-1 h-3.5 w-3.5" /> Saída
-              </Button>
-              <Button size="sm" variant="outline" className="text-[11px]" onClick={() => setTrocaOpen(true)}>
-                <Repeat className="mr-1 h-3.5 w-3.5" /> Trocar
-              </Button>
-              <Button size="sm" variant="outline" className="text-[11px]" onClick={abrirRemodular}>
-                <RefreshCw className="mr-1 h-3.5 w-3.5" /> Remodular
-              </Button>
-            </div>
+                <div className="space-y-1.5">
+                  {slots.map((s, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-2 rounded border border-border bg-secondary/40 px-2 py-1.5"
+                    >
+                      <span className="w-20 shrink-0 font-mono text-[10px] uppercase text-primary">
+                        {ordinal(i)}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        {s.membroId ? (
+                          <>
+                            <div className="truncate text-xs font-semibold">
+                              {s.graduacao ? `${s.graduacao} ` : ""}
+                              {s.nome}
+                            </div>
+                            <div className="font-mono text-[10px] text-muted-foreground">
+                              entrada {hora(s.entradaEm)}
+                            </div>
+                          </>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">LIVRE</span>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => alternarStatus(i)}
+                        disabled={!s.membroId}
+                        className="shrink-0"
+                        title="Alternar ATIVO/AUSENTE"
+                      >
+                        <Badge
+                          variant={s.status === "ATIVO" ? "default" : "outline"}
+                          className="text-[9px]"
+                        >
+                          {s.status}
+                        </Badge>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-2 gap-1.5">
+                  <Button size="sm" variant="outline" className="text-[11px]" onClick={() => setEntradaOpen(true)}>
+                    <LogIn className="mr-1 h-3.5 w-3.5" /> Entrada
+                  </Button>
+                  <Button size="sm" variant="outline" className="text-[11px]" onClick={() => setSaidaOpen(true)}>
+                    <LogOut className="mr-1 h-3.5 w-3.5" /> Saída
+                  </Button>
+                  <Button size="sm" variant="outline" className="text-[11px]" onClick={() => setTrocaOpen(true)}>
+                    <Repeat className="mr-1 h-3.5 w-3.5" /> Trocar
+                  </Button>
+                  <Button size="sm" variant="outline" className="text-[11px]" onClick={abrirRemodular}>
+                    <RefreshCw className="mr-1 h-3.5 w-3.5" /> Remodular
+                  </Button>
+                </div>
+              </>
+            )}
 
             <Button
               size="sm"
@@ -428,7 +490,7 @@ export function BarcaPanel() {
               className="w-full text-[11px]"
               onClick={() => setShowHistorico(true)}
             >
-              <History className="mr-1 h-3.5 w-3.5" /> Histórico ({state.historico.length})
+              <History className="mr-1 h-3.5 w-3.5" /> Histórico ({ui.historico.length})
             </Button>
           </div>
         )}
@@ -447,7 +509,7 @@ export function BarcaPanel() {
               <Select value={entradaMembro} onValueChange={setEntradaMembro}>
                 <SelectTrigger><SelectValue placeholder="Selecionar..." /></SelectTrigger>
                 <SelectContent className="max-h-64">
-                  {membrosDisponiveis.map((m) => (
+                  {membrosElegiveis.map((m) => (
                     <SelectItem key={m.id} value={m.id}>
                       {m.cargo_nome ? `${m.cargo_nome} ` : ""}{m.membro_nome}
                     </SelectItem>
@@ -528,7 +590,7 @@ export function BarcaPanel() {
                 <Select value={f.v} onValueChange={f.set}>
                   <SelectTrigger><SelectValue placeholder="..." /></SelectTrigger>
                   <SelectContent>
-                    {state.slots.map((s, i) => (
+                    {slots.map((s, i) => (
                       <SelectItem key={i} value={String(i)}>
                         {ordinal(i)} — {s.nome ?? "LIVRE"}
                       </SelectItem>
@@ -566,7 +628,9 @@ export function BarcaPanel() {
                 }`}
               >
                 <GripVertical className="h-3.5 w-3.5 text-muted-foreground" />
-                <span className="w-6 font-mono text-xs text-primary">{i + 1}ª</span>
+                <span className="w-20 shrink-0 font-mono text-[10px] uppercase text-primary">
+                  {ordinal(i)}
+                </span>
                 <span className="truncate text-xs">
                   {s.nome ? `${s.graduacao ? s.graduacao + " " : ""}${s.nome}` : "LIVRE"}
                 </span>
@@ -589,12 +653,12 @@ export function BarcaPanel() {
           </DialogHeader>
           <ScrollArea className="max-h-80 pr-3">
             <div className="space-y-2">
-              {state.historico.length === 0 && (
+              {ui.historico.length === 0 && (
                 <p className="py-6 text-center text-xs text-muted-foreground">
                   Nenhuma alteração registrada.
                 </p>
               )}
-              {state.historico.map((h) => (
+              {ui.historico.map((h) => (
                 <div key={h.id} className="rounded border border-border p-2">
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-[11px] text-muted-foreground">

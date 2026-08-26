@@ -17,6 +17,8 @@ import CounterField from "@/components/rso/CounterField";
 import { Checkbox } from "@/components/ui/checkbox";
 import AmmoField from "@/components/rso/AmmoField";
 import PatrolTimer, { usePatrolTimer, formatTime } from "@/components/rso/PatrolTimer";
+import { BARCA_FIELDS, publishBarcaRso, subscribeBarcaApply, clearBarcaRso } from "@/lib/barca-sync";
+
 
 interface Membro {
   id: string;
@@ -97,6 +99,29 @@ const RsoNovo = () => {
     };
     fetchMembros();
   }, []);
+
+  // Publica a guarnição atual do RSO para o painel flutuante de Barca
+  useEffect(() => {
+    publishBarcaRso({
+      ativo: !!form.unidade,
+      prefixo: form.prefixo_viatura,
+      unidade: form.unidade,
+      membros: BARCA_FIELDS.map((f) => (form as any)[f] || null),
+      atualizadoEm: new Date().toISOString(),
+    });
+  }, [form.unidade, form.prefixo_viatura, form.encarregado_id, form.motorista_id, form.homem3_id, form.homem4_id, form.homem5_id]);
+
+  // Recebe alterações feitas no painel de Barca
+  useEffect(() =>
+    subscribeBarcaApply((membros) => {
+      setForm((p) => {
+        const next: any = { ...p };
+        BARCA_FIELDS.forEach((f, i) => (next[f] = membros[i] ?? ""));
+        return next;
+      });
+    }),
+  []);
+
 
   const membrosUnidade = !form.unidade
     ? []
@@ -199,7 +224,9 @@ const RsoNovo = () => {
 
     localStorage.removeItem("patrol_timer_submitted_start");
     localStorage.removeItem("patrol_timer_submitted_end");
+    clearBarcaRso();
     setPatrolSession({ start: null, end: null });
+
     setSubmitted(true);
     toast({ title: "RSO Enviado", description: "Seu relatório foi registrado com sucesso." });
   };
