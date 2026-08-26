@@ -31,6 +31,7 @@ const AdminPatentes = lazy(() => import("./pages/admin/AdminPatentes"));
 const AdminUsuarios = lazy(() => import("./pages/admin/AdminUsuarios"));
 const AdminLogs = lazy(() => import("./pages/admin/AdminLogs"));
 const AdminProvas = lazy(() => import("./pages/admin/AdminProvas"));
+const AdminAcessos = lazy(() => import("./pages/admin/AdminAcessos"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
