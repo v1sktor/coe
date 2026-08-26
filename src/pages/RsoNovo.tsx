@@ -529,15 +529,17 @@ const RsoNovo = () => {
                 <span className="font-mono text-lg font-bold">{formatTime(recordedDurationSeconds)}</span>
               </div>
               <span className="text-xs text-muted-foreground uppercase tracking-wider">Patrulha finalizada — tempo registrado</span>
-              <Button size="sm" variant="outline" onClick={() => {
-                localStorage.removeItem("patrol_timer_submitted_start");
-                localStorage.removeItem("patrol_timer_submitted_end");
-                setPatrolSession({ start: null, end: null });
-                patrol.start();
-                toast({ title: "Patrulha retomada", description: "A contagem foi reiniciada." });
-              }} className="font-display uppercase tracking-wider text-xs">
-                <Play className="mr-1 h-3 w-3" /> Retornar Patrulha
-              </Button>
+              {Date.now() - new Date(patrolSession.end).getTime() <= 10 * 60 * 1000 && (
+                <Button size="sm" variant="outline" onClick={() => {
+                  localStorage.removeItem("patrol_timer_submitted_start");
+                  localStorage.removeItem("patrol_timer_submitted_end");
+                  setPatrolSession({ start: null, end: null });
+                  patrol.resume(recordedDurationSeconds);
+                  toast({ title: "Patrulha retomada", description: `Continuando a partir de ${formatTime(recordedDurationSeconds)}.` });
+                }} className="font-display uppercase tracking-wider text-xs">
+                  <Play className="mr-1 h-3 w-3" /> Retornar Patrulha
+                </Button>
+              )}
             </div>
           ) : null}
         </>
