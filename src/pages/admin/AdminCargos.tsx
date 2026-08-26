@@ -128,7 +128,7 @@ const AdminCargos = () => {
               <div className="space-y-2">
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Nível Hierárquico</Label>
                 <Input type="number" min={1} value={formNivel} onChange={(e) => setFormNivel(Number(e.target.value))} className="bg-secondary border-border" />
-                <p className="text-xs text-muted-foreground">1 = mais alto (Comandante)</p>
+                <p className="text-xs text-muted-foreground">1 = mais alto (Delegado Geral), 10 = mais baixo</p>
               </div>
               <div className="grid gap-4 md:grid-cols-2">
                 {([
