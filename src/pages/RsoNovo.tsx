@@ -334,10 +334,18 @@ const RsoNovo = () => {
   const renderStep5 = () => (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        Registre aqui cada multa (AIT) aplicada durante a patrulha. Selecione a infração no Código Penal e
-        informe os dados do multado.
+        Anexe os links das provas/prints obrigatórios dos ilícitos apreendidos (armas, munições,
+        entorpecentes, dinheiro marcado, etc.). Um link por linha.
       </p>
-      <AitField value={aits} onChange={setAits} />
+      <div className="space-y-2">
+        <Label className="text-xs uppercase tracking-wider text-muted-foreground">Anexos (links) *</Label>
+        <Textarea
+          value={form.anexos_links}
+          onChange={(e) => set("anexos_links", e.target.value)}
+          placeholder={"https://imgur.com/...\nhttps://cdn.discordapp.com/..."}
+          className="bg-secondary border-border min-h-[140px] font-mono text-sm"
+        />
+      </div>
     </div>
   );
 
