@@ -89,7 +89,10 @@ export default function AdminAcessos() {
                     <Input
                       value={rascunho[item.chave] ?? ""}
                       onChange={(e) =>
-                        setRascunho((p) => ({ ...p, [item.chave]: e.target.value.toUpperCase() }))
+                        setRascunho((p) => ({
+                          ...p,
+                          [item.chave]: formatarCodigo(e.target.value),
+                        }))
                       }
                       className="font-mono tracking-widest"
                     />
