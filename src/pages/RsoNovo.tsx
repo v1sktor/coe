@@ -37,6 +37,8 @@ const RsoNovo = () => {
   const [membros, setMembros] = useState<Membro[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const patrol = usePatrolTimer();
+  const [anexos, setAnexos] = useState<{ path: string; name: string }[]>([]);
+  const [uploading, setUploading] = useState(false);
 
   const [form, setForm] = useState({
     responsavel_id: "",
@@ -72,7 +74,6 @@ const RsoNovo = () => {
     prisoes_bopm: "",
     multas_descricao: "",
     outras_ocorrencias: "",
-    anexos_links: "",
   });
 
   useEffect(() => {
@@ -153,7 +154,7 @@ const RsoNovo = () => {
       prisoes_bopm: form.prisoes_bopm || null,
       multas_descricao: form.multas_descricao || null,
       outras_ocorrencias: form.outras_ocorrencias || null,
-      anexos_links: form.anexos_links || null,
+      anexos_links: anexos.length ? anexos.map((a) => a.path).join("\n") : null,
     };
 
 
@@ -173,6 +174,26 @@ const RsoNovo = () => {
     localStorage.removeItem("patrol_timer_submitted_end");
     setSubmitted(true);
     toast({ title: "RSO Enviado", description: "Seu relatório foi registrado com sucesso." });
+  };
+
+  const handleFiles = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    const uploaded: { path: string; name: string }[] = [];
+    for (const file of Array.from(files)) {
+      const ext = file.name.split(".").pop() || "jpg";
+      const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      const { error } = await supabase.storage.from("rso-anexos").upload(path, file, {
+        contentType: file.type || undefined,
+      });
+      if (error) {
+        toast({ title: "Erro no upload", description: `${file.name}: ${error.message}`, variant: "destructive" });
+        continue;
+      }
+      uploaded.push({ path, name: file.name });
+    }
+    setAnexos((prev) => [...prev, ...uploaded]);
+    setUploading(false);
   };
 
   if (submitted) {
@@ -325,18 +346,44 @@ const RsoNovo = () => {
   const renderStep5 = () => (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        Anexe os links das provas/prints obrigatórios dos ilícitos apreendidos (armas, munições,
-        entorpecentes, dinheiro marcado, etc.). Um link por linha.
+        Anexe as fotos obrigatórias dos ilícitos apreendidos (armas, munições, entorpecentes, dinheiro
+        marcado, etc.). Selecione as imagens direto do seu computador.
       </p>
       <div className="space-y-2">
-        <Label className="text-xs uppercase tracking-wider text-muted-foreground">Anexos (links) *</Label>
-        <Textarea
-          value={form.anexos_links}
-          onChange={(e) => set("anexos_links", e.target.value)}
-          placeholder={"https://imgur.com/...\nhttps://cdn.discordapp.com/..."}
-          className="bg-secondary border-border min-h-[140px] font-mono text-sm"
+        <Label className="text-xs uppercase tracking-wider text-muted-foreground">Fotos dos ilícitos *</Label>
+        <Input
+          type="file"
+          accept="image/*"
+          multiple
+          disabled={uploading}
+          onChange={(e) => {
+            handleFiles(e.target.files);
+            e.target.value = "";
+          }}
+          className="bg-secondary border-border file:text-foreground file:mr-3 cursor-pointer"
         />
+        {uploading && <p className="text-xs text-muted-foreground">Enviando arquivos...</p>}
       </div>
+      {anexos.length > 0 && (
+        <div className="space-y-2">
+          {anexos.map((a, i) => (
+            <div key={a.path} className="flex items-center justify-between gap-2 rounded-md border border-border bg-secondary/50 px-3 py-2 text-sm">
+              <span className="flex items-center gap-2 truncate">
+                <Paperclip className="h-3.5 w-3.5 text-primary shrink-0" />
+                <span className="truncate">{a.name}</span>
+              </span>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => setAnexos((prev) => prev.filter((_, idx) => idx !== i))}
+              >
+                Remover
+              </Button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 
