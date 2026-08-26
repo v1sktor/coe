@@ -35,6 +35,7 @@ const schema = z.object({
   unidade_envolvida: z.string().trim().max(120).optional(),
   local_fato: z.string().trim().max(200).optional(),
   data_fato: z.string().optional(),
+  provas_links: z.string().trim().max(2000, "Máximo de 2000 caracteres").optional(),
   descricao: z
     .string()
     .trim()
@@ -54,6 +55,7 @@ const Denuncia = () => {
     local_fato: "",
     data_fato: "",
     descricao: "",
+    provas_links: "",
   });
   const [loading, setLoading] = useState(false);
   const [protocolo, setProtocolo] = useState<string | null>(null);
@@ -88,6 +90,7 @@ const Denuncia = () => {
         local_fato: d.local_fato || null,
         data_fato: d.data_fato || null,
         descricao: d.descricao,
+        provas_links: d.provas_links || null,
       })
       .select("protocolo")
       .single();
