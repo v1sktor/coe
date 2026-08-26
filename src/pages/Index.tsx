@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Lock, Network, ScrollText, Settings, Megaphone, FileText, ChevronRight, ShieldAlert } from "lucide-react";
+import { Network, ScrollText, Settings, Megaphone, FileText, ChevronRight, ShieldAlert } from "lucide-react";
 import logo from "@/assets/logo-pcsp.png";
 import heroBanner from "@/assets/ger-hero.jpg";
 import { supabase } from "@/integrations/supabase/client";
@@ -51,12 +51,6 @@ const Index = () => {
             <TopLink to="/institucional" label="Institucional" />
             <TopLink to="/cursos" label="Cursos" />
             <TopLink to="/edital" label="Edital PCESP" />
-            <Link
-              to="/login"
-              className="inline-flex items-center gap-1.5 rounded-md bg-primary-foreground/10 px-3 py-1.5 hover:bg-primary-foreground/20 transition-colors"
-            >
-              <Lock className="h-3.5 w-3.5" /> Acesso
-            </Link>
           </nav>
         </div>
       </header>

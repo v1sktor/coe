@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Lock, Building2 } from "lucide-react";
+import { Building2 } from "lucide-react";
 import { BackButton } from "@/components/BackButton";
 import { INSTITUCIONAL } from "@/lib/institucional";
 import logoPcsp from "@/assets/logo-pcsp.png";
@@ -31,11 +31,6 @@ export default function Institucional() {
           </Link>
           <div className="flex items-center gap-2">
             <BackButton variant="light" />
-            <Button asChild size="sm" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
-              <Link to="/login">
-                <Lock className="mr-2 h-3 w-3" /> Acesso
-              </Link>
-            </Button>
           </div>
         </div>
       </header>
