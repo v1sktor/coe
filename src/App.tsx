@@ -14,6 +14,7 @@ const Login = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Hierarquia = lazy(() => import("./pages/Hierarquia"));
 const CTB = lazy(() => import("./pages/CTB"));
+const BOPC = lazy(() => import("./pages/BOPC"));
 const Timings = lazy(() => import("./pages/Timings"));
 const Relatorios = lazy(() => import("./pages/Relatorios"));
 const RsoNovo = lazy(() => import("./pages/RsoNovo"));
@@ -62,6 +63,7 @@ const App = () => (
 
             {/* Rotas públicas (full page custom) */}
             <Route path="/ctb" element={<CTB />} />
+            <Route path="/bopc" element={<BOPC />} />
 
             {/* Rotas autenticadas */}
             <Route element={<ProtectedRoute />}>
