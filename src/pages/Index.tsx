@@ -82,10 +82,13 @@ const Index = () => {
               <Button asChild size="lg" variant="outline" className="font-medium">
                 <Link to="/rso/novo">Relatório de Diligências</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="font-medium">
+            </div>
+            <div className="mt-3 flex">
+              <Button asChild size="lg" variant="outline" className="font-medium w-full max-w-md">
                 <Link to="/edital">Edital PCESP</Link>
               </Button>
             </div>
+
           </div>
 
           <div className="overflow-hidden rounded-xl shadow-elevated">
