@@ -105,8 +105,20 @@ const AdminUsuarios = () => {
       return;
     }
     setCreating(true);
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+    const accessToken = sessionData.session?.access_token;
+    if (sessionError || !accessToken) {
+      setCreating(false);
+      toast({
+        title: "Sessão expirada",
+        description: "Entre novamente com a conta administrativa para criar usuários.",
+        variant: "destructive",
+      });
+      return;
+    }
     const res = await supabase.functions.invoke("create-user", {
       body: { email: newEmail, password: newPassword, nome: newNome, cargo_id: newCargoId || null },
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
 
     setCreating(false);
