@@ -16,7 +16,7 @@ import HierarchySelect from "@/components/rso/HierarchySelect";
 import CounterField from "@/components/rso/CounterField";
 import { Checkbox } from "@/components/ui/checkbox";
 import AmmoField from "@/components/rso/AmmoField";
-import PatrolTimer, { usePatrolTimer } from "@/components/rso/PatrolTimer";
+import PatrolTimer, { usePatrolTimer, formatTime } from "@/components/rso/PatrolTimer";
 
 interface Membro {
   id: string;
