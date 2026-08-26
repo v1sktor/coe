@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import PublicLayout from "@/components/PublicLayout";
+import { PublicLayout } from "@/components/PublicLayout";
 
 const CATEGORIAS = [
   "Abuso de autoridade",
