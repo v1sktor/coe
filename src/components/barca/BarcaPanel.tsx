@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -41,6 +42,8 @@ import {
   Repeat,
   X,
 } from "lucide-react";
+
+const RSO_ROUTES = ["/rso/novo", "/relatorios"];
 
 const STORAGE_KEY = "barca_state_v2";
 const POSICOES = BARCA_FIELDS.length;
