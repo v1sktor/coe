@@ -43,6 +43,7 @@ const RsoNovo = () => {
   const patrol = usePatrolTimer();
   const [anexos, setAnexos] = useState<{ path: string; name: string; preview: string }[]>([]);
   const [uploading, setUploading] = useState(false);
+  const [dejec, setDejec] = useState(false);
 
   const [form, setForm] = useState({
     unidade: "",
