@@ -57,6 +57,13 @@ export const usePatrolTimer = () => {
     window.dispatchEvent(new Event("patrol-timer-change"));
   }, []);
 
+  const resume = useCallback((previousSeconds: number) => {
+    const resumedStart = new Date(Date.now() - previousSeconds * 1000).toISOString();
+    localStorage.setItem(STORAGE_KEY, resumedStart);
+    setStartTime(resumedStart);
+    window.dispatchEvent(new Event("patrol-timer-change"));
+  }, []);
+
   const stop = useCallback(() => {
     const end = new Date().toISOString();
     const s = startTime;
@@ -66,7 +73,7 @@ export const usePatrolTimer = () => {
     return { startTime: s!, endTime: end, durationSeconds: elapsed };
   }, [startTime, elapsed]);
 
-  return { isRunning, elapsed, startTime, start, stop };
+  return { isRunning, elapsed, startTime, start, resume, stop };
 };
 
 const PatrolTimer = ({ onStart, onStop, isWidget }: PatrolTimerProps) => {
