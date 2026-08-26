@@ -327,6 +327,7 @@ const RsoNovo = () => {
         onStop={(startTime, endTime) => {
           localStorage.setItem("patrol_timer_submitted_start", startTime);
           localStorage.setItem("patrol_timer_submitted_end", endTime);
+          setPatrolSession({ start: startTime, end: endTime });
           toast({ title: "Patrulha finalizada", description: "Tempo registrado. Continue preenchendo o RSO." });
         }}
       />
