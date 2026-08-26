@@ -57,8 +57,20 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: error.message }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
-    if (cargo_id && data.user) {
-      await adminClient.from("profiles").update({ cargo_id }).eq("user_id", data.user.id);
+    if (data.user) {
+      // Ensure profile and default role exist (do not rely on a DB trigger)
+      await adminClient.from("profiles").upsert(
+        { user_id: data.user.id, nome, cargo_id: cargo_id ?? null },
+        { onConflict: "user_id" }
+      );
+      const { data: existingRole } = await adminClient
+        .from("user_roles")
+        .select("id")
+        .eq("user_id", data.user.id)
+        .maybeSingle();
+      if (!existingRole) {
+        await adminClient.from("user_roles").insert({ user_id: data.user.id, role: "user" });
+      }
     }
 
     return new Response(JSON.stringify({ user: data.user }), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
