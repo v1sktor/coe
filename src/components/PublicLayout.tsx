@@ -24,7 +24,7 @@ export function PublicLayout() {
           </Link>
           <div className="flex items-center gap-3">
             <div className="hidden md:flex items-center gap-2 text-[11px] text-primary-foreground/70">
-              <Shield className="h-3.5 w-3.5" /> Portal institucional
+              <Shield className="h-3.5 w-3.5" />{"\n"}
             </div>
             <BackButton variant="light" />
           </div>
