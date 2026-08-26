@@ -870,6 +870,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_hierarquia_publica: {
+        Args: never
+        Returns: {
+          batalhao: string
+          cargo_id: string
+          cargo_imagem: string
+          cargo_nivel: number
+          cargo_nome: string
+          data_entrada: string
+          funcao: string
+          grupamento: Database["public"]["Enums"]["grupamento_tipo"]
+          id: string
+          membro_nome: string
+          ordem: number
+          promocao: string
+          superior_id: string
+        }[]
+      }
       get_rso_indicadores: { Args: never; Returns: Json }
       has_permission_or_admin: {
         Args: { _permission: string; _user_id: string }

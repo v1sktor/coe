@@ -68,7 +68,14 @@ const Hierarquia = ({
   const [filtroUnidade, setFiltroUnidade] = useState<string>("TODAS");
 
   const fetchData = async () => {
-    const { data: hierData } = await supabase.from("hierarquia").select("*, cargos(nome, imagem_url, nivel_hierarquico)");
+    let { data: hierData } = await supabase.from("hierarquia").select("*, cargos(nome, imagem_url, nivel_hierarquico)");
+    if (!hierData) {
+      const { data: pub } = await (supabase.rpc as any)("get_hierarquia_publica");
+      hierData = (pub ?? []).map((h: any) => ({
+        ...h,
+        cargos: { nome: h.cargo_nome, imagem_url: h.cargo_imagem, nivel_hierarquico: h.cargo_nivel },
+      }));
+    }
     const { data: cargosData } = await supabase.from("cargos").select("id, nome, nivel_hierarquico, imagem_url").order("nivel_hierarquico");
     if (hierData) {
       setItems(
