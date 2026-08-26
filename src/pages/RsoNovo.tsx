@@ -114,7 +114,7 @@ const RsoNovo = () => {
     const responsavel = membros.find((m) => m.id === form.responsavel_id);
 
     setSubmitting(true);
-    const { data: rsoData, error } = await supabase.from("rsos").insert({
+    const rsoPayload = {
       autor_nome: responsavel?.membro_nome || "Desconhecido",
       descricao: `RSO - Viatura ${form.prefixo_viatura} - Unidade ${form.prefixo_unidade}`,
       local: form.prefixo_unidade,
@@ -154,35 +154,28 @@ const RsoNovo = () => {
       prisoes_bopm: form.prisoes_bopm || null,
       multas_descricao: form.multas_descricao || null,
       outras_ocorrencias: form.outras_ocorrencias || null,
-    } as any).select("id").single();
+    };
+
+    const aitPayload = aits.map((a) => ({
+      artigo: a.artigo,
+      descricao: a.descricao,
+      valor: a.valor,
+      nome_multado: a.nome_multado,
+      rg_multado: a.rg_multado || null,
+      data_infracao: a.data_infracao,
+      observacoes: a.observacoes || null,
+    }));
+
+    const { error } = await supabase.rpc("submit_rso" as any, {
+      _rso: rsoPayload,
+      _aits: aitPayload,
+    });
 
     setSubmitting(false);
 
     if (error) {
       toast({ title: "Erro ao enviar", description: error.message, variant: "destructive" });
       return;
-    }
-
-    // Save AITs linked to this RSO
-    if (aits.length > 0 && rsoData?.id) {
-      const aitRows = aits.map((a) => ({
-        rso_id: rsoData.id,
-        artigo: a.artigo,
-        descricao: a.descricao,
-        valor: a.valor,
-        nome_multado: a.nome_multado,
-        rg_multado: a.rg_multado || null,
-        data_infracao: a.data_infracao,
-        observacoes: a.observacoes || null,
-      }));
-      const { error: aitErr } = await supabase.from("ait").insert(aitRows);
-      if (aitErr) {
-        toast({
-          title: "RSO enviado, mas houve erro nos AITs",
-          description: aitErr.message,
-          variant: "destructive",
-        });
-      }
     }
 
     localStorage.removeItem("patrol_timer_submitted_start");
