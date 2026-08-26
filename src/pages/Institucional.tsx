@@ -31,8 +31,6 @@ export default function Institucional() {
           </Link>
           <div className="flex items-center gap-2">
             <BackButton variant="light" />
-            <Button asChild size="sm" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
-            </Button>
           </div>
         </div>
       </header>
