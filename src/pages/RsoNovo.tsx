@@ -10,6 +10,8 @@ import { ChevronLeft, ChevronRight, Send, CheckCircle, Shield, Car, Users, Timer
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { UNIDADES } from "@/lib/unidades";
 import HierarchySelect from "@/components/rso/HierarchySelect";
 import CounterField from "@/components/rso/CounterField";
 import PatrolTimer, { usePatrolTimer } from "@/components/rso/PatrolTimer";
@@ -18,6 +20,7 @@ interface Membro {
   id: string;
   membro_nome: string;
   cargo_nome?: string;
+  unidade?: string | null;
 }
 
 const STEPS = [
@@ -41,10 +44,10 @@ const RsoNovo = () => {
   const [uploading, setUploading] = useState(false);
 
   const [form, setForm] = useState({
+    unidade: "",
     responsavel_id: "",
     prefixo_viatura: "",
-    prefixo_unidade: "",
-    encarregado_id: "",
+        encarregado_id: "",
     motorista_id: "",
     homem3_id: "",
     homem4_id: "",
@@ -79,18 +82,23 @@ const RsoNovo = () => {
   useEffect(() => {
     const fetchMembros = async () => {
       const { data } = await supabase.from("hierarquia").select("*, cargos(nome)").order("ordem");
-      if (data) setMembros(data.map((h: any) => ({ id: h.id, membro_nome: h.membro_nome, cargo_nome: h.cargos?.nome })));
+      if (data) setMembros(data.map((h: any) => ({ id: h.id, membro_nome: h.membro_nome, cargo_nome: h.cargos?.nome, unidade: h.batalhao })));
     };
     fetchMembros();
   }, []);
+
+  const membrosUnidade = form.unidade ? membros.filter((m) => m.unidade === form.unidade) : [];
+
+  const setUnidade = (unidade: string) =>
+    setForm((p) => ({ ...p, unidade, responsavel_id: "", encarregado_id: "", motorista_id: "", homem3_id: "", homem4_id: "", homem5_id: "" }));
 
   const set = (field: string, value: any) => setForm((p) => ({ ...p, [field]: value }));
 
   const patrolStarted = patrol.isRunning || !!localStorage.getItem("patrol_timer_submitted_start");
 
   const canNext = () => {
-    if (step === 0) return !!form.responsavel_id;
-    if (step === 1) return !!form.prefixo_viatura && !!form.prefixo_unidade && !!form.encarregado_id && !!form.motorista_id;
+    if (step === 0) return !!form.unidade && !!form.responsavel_id;
+    if (step === 1) return !!form.prefixo_viatura && !!form.encarregado_id && !!form.motorista_id;
     // Step 2 (Bate Ponto): basta a patrulha ter sido iniciada — pode avançar com cronômetro rodando.
     // O cronômetro continua visível como widget flutuante até ser finalizado.
     if (step === 2) return patrolStarted;
@@ -116,12 +124,13 @@ const RsoNovo = () => {
     setSubmitting(true);
     const rsoPayload = {
       autor_nome: responsavel?.membro_nome || "Desconhecido",
-      descricao: `RSO - Viatura ${form.prefixo_viatura} - Unidade ${form.prefixo_unidade}`,
-      local: form.prefixo_unidade,
+      descricao: `RSO - Viatura ${form.prefixo_viatura} - Unidade ${form.unidade}`,
+      local: form.unidade,
       data_ocorrencia: new Date().toISOString().split("T")[0],
       responsavel_id: form.responsavel_id,
       prefixo_viatura: form.prefixo_viatura,
-      prefixo_unidade: form.prefixo_unidade,
+      prefixo_unidade: form.unidade,
+      guarnicao: form.unidade,
       encarregado_id: form.encarregado_id,
       motorista_id: form.motorista_id,
       homem3_id: form.homem3_id || null,
@@ -225,7 +234,31 @@ const RsoNovo = () => {
 
   const renderStep0 = () => (
     <div className="space-y-4">
-      <HierarchySelect label="Responsável pelo RSO" value={form.responsavel_id} onChange={(v) => set("responsavel_id", v)} membros={membros} required />
+      <div className="space-y-2">
+        <Label className="text-xs uppercase tracking-wider text-muted-foreground">Unidade *</Label>
+        <Select value={form.unidade} onValueChange={setUnidade}>
+          <SelectTrigger className="bg-secondary border-border">
+            <SelectValue placeholder="Selecione a unidade" />
+          </SelectTrigger>
+          <SelectContent>
+            {UNIDADES.map((u) => (
+              <SelectItem key={u.sigla} value={u.sigla}>
+                {u.sigla} — {u.nome}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      {form.unidade ? (
+        <>
+          <HierarchySelect label="Responsável pelo RSO" value={form.responsavel_id} onChange={(v) => set("responsavel_id", v)} membros={membrosUnidade} required />
+          {membrosUnidade.length === 0 && (
+            <p className="text-xs text-muted-foreground">Nenhum efetivo cadastrado nesta unidade.</p>
+          )}
+        </>
+      ) : (
+        <p className="text-sm text-muted-foreground">Selecione a unidade para listar o efetivo disponível.</p>
+      )}
     </div>
   );
 
@@ -237,8 +270,8 @@ const RsoNovo = () => {
           <Input value={form.prefixo_viatura} onChange={(e) => set("prefixo_viatura", e.target.value)} placeholder="Ex: Trail 21" className="bg-secondary border-border" />
         </div>
         <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Prefixo da Unidade *</Label>
-          <Input value={form.prefixo_unidade} onChange={(e) => set("prefixo_unidade", e.target.value)} placeholder="Ex: DOPE / GARRA" className="bg-secondary border-border" />
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Unidade</Label>
+          <Input value={form.unidade} readOnly className="bg-secondary border-border opacity-80" />
         </div>
       </div>
 
@@ -247,11 +280,11 @@ const RsoNovo = () => {
           <Users className="h-4 w-4 text-primary" /> Composição da Guarnição
         </h3>
         <div className="space-y-3">
-          <HierarchySelect label="Encarregado" value={form.encarregado_id} onChange={(v) => set("encarregado_id", v)} membros={membros} required />
-          <HierarchySelect label="Motorista" value={form.motorista_id} onChange={(v) => set("motorista_id", v)} membros={membros} required />
-          <HierarchySelect label="3° Homem" value={form.homem3_id} onChange={(v) => set("homem3_id", v)} membros={membros} />
-          <HierarchySelect label="4° Homem" value={form.homem4_id} onChange={(v) => set("homem4_id", v)} membros={membros} />
-          <HierarchySelect label="5° Homem" value={form.homem5_id} onChange={(v) => set("homem5_id", v)} membros={membros} />
+          <HierarchySelect label="Encarregado" value={form.encarregado_id} onChange={(v) => set("encarregado_id", v)} membros={membrosUnidade} required />
+          <HierarchySelect label="Motorista" value={form.motorista_id} onChange={(v) => set("motorista_id", v)} membros={membrosUnidade} required />
+          <HierarchySelect label="3° Homem" value={form.homem3_id} onChange={(v) => set("homem3_id", v)} membros={membrosUnidade} />
+          <HierarchySelect label="4° Homem" value={form.homem4_id} onChange={(v) => set("homem4_id", v)} membros={membrosUnidade} />
+          <HierarchySelect label="5° Homem" value={form.homem5_id} onChange={(v) => set("homem5_id", v)} membros={membrosUnidade} />
         </div>
       </div>
     </div>
