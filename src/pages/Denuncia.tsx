@@ -217,6 +217,23 @@ const Denuncia = () => {
               <p className="text-[12px] text-muted-foreground">{form.descricao.length}/4000</p>
             </div>
 
+            <div className="space-y-2">
+              <Label htmlFor="provas_links">Provas / Anexos (somente links)</Label>
+              <Textarea
+                id="provas_links"
+                rows={4}
+                maxLength={2000}
+                placeholder="Cole aqui os links das provas (Drive, Imgur, YouTube, Medal...). Um link por linha."
+                value={form.provas_links}
+                onChange={(e) => set("provas_links", e.target.value)}
+              />
+              <p className="text-[12px] text-muted-foreground">
+                Não é possível enviar arquivos — informe apenas links públicos ou compartilháveis.
+              </p>
+            </div>
+
+
+
             <Button type="submit" size="lg" disabled={loading} className="w-full sm:w-auto">
               <Send className="mr-2 h-4 w-4" />
               {loading ? "Enviando..." : "Enviar denúncia"}
