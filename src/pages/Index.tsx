@@ -48,7 +48,8 @@ const Index = () => {
             <TopLink to="/hierarquia" label="Efetivo" />
             <TopLink to="/ccomsoc" label="Comunicação" />
             <TopLink to="/ctb" label="Código Penal" />
-            <TopLink to="/apresentacao" label="Institucional" />
+            <TopLink to="/institucional" label="Institucional" />
+            <TopLink to="/cursos" label="Cursos" />
             <Link
               to="/login"
               className="inline-flex items-center gap-1.5 rounded-md bg-primary-foreground/10 px-3 py-1.5 hover:bg-primary-foreground/20 transition-colors"
