@@ -213,7 +213,7 @@ const Index = () => {
       <footer className="bg-primary text-primary-foreground mt-auto">
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[12px]">
           <span>© PCESP Brasilândia — {now.getFullYear()}</span>
-          <span className="text-primary-foreground/70">Portal institucional · Acesso restrito a servidores</span>
+          <span className="text-primary-foreground/70">Portal institucional · Acesso Restrito a Brasilândia RP</span>
         </div>
       </footer>
     </div>
