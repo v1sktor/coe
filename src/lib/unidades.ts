@@ -18,6 +18,7 @@ export const UNIDADES: Unidade[] = [
   { sigla: "CERCO", nome: "Serviço de Cerco e Bloqueio", descricao: "Cerco, bloqueio e contenção em ocorrências." },
   { sigla: "IML", nome: "Instituto Médico Legal", descricao: "Perícias médico-legais e necroscópicas." },
   { sigla: "DGP", nome: "Delegacia Geral de Polícia", descricao: "Direção geral e comando da Polícia Civil." },
+  { sigla: "DEJEC", nome: "Operação Conjunta (Todas as Unidades)", descricao: "Ação conjunta — exibe o efetivo de todas as unidades." },
 ];
 
 export const UNIDADE_SIGLAS = UNIDADES.map((u) => u.sigla);
