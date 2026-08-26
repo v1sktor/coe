@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Lock, Building2 } from "lucide-react";
+import { Building2 } from "lucide-react";
 import { BackButton } from "@/components/BackButton";
 import { INSTITUCIONAL } from "@/lib/institucional";
 import logoPcsp from "@/assets/logo-pcsp.png";

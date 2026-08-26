@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Lock, Network, ScrollText, Settings, Megaphone, FileText, ChevronRight, ShieldAlert } from "lucide-react";
+import { Network, ScrollText, Settings, Megaphone, FileText, ChevronRight, ShieldAlert } from "lucide-react";
 import logo from "@/assets/logo-pcsp.png";
 import heroBanner from "@/assets/ger-hero.jpg";
 import { supabase } from "@/integrations/supabase/client";

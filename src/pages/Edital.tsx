@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Lock, ScrollText, ChevronRight } from "lucide-react";
+import { ScrollText, ChevronRight } from "lucide-react";
 import { BackButton } from "@/components/BackButton";
 import logoPcsp from "@/assets/logo-pcsp.png";
 
