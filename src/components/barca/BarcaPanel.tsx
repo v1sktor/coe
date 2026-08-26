@@ -168,8 +168,6 @@ export function BarcaPanel() {
     })();
   }, []);
 
-  // Só exibe o painel de remodulação nas abas de RSO
-  if (!isRsoRoute) return null;
 
   // Slots derivam SEMPRE da guarnição do RSO em preenchimento
   const slots: Slot[] = useMemo(() => {
