@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { UNIDADES } from "@/lib/unidades";
 import HierarchySelect from "@/components/rso/HierarchySelect";
 import CounterField from "@/components/rso/CounterField";
+import AmmoField from "@/components/rso/AmmoField";
 import PatrolTimer, { usePatrolTimer } from "@/components/rso/PatrolTimer";
 
 interface Membro {
@@ -326,10 +327,11 @@ const RsoNovo = () => {
       </div>
       <div>
         <p className="font-display text-xs uppercase tracking-widest text-primary mb-3">Munições</p>
+        <p className="text-xs text-muted-foreground mb-3">Digite as quantidades (ex: 60) e adicione linhas — o total é somado automaticamente.</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <CounterField label="Mun. Pistola" value={form.ilicito_mun_pistola} onChange={(v) => set("ilicito_mun_pistola", v)} />
-          <CounterField label="Mun. Fuzil" value={form.ilicito_mun_fuzil} onChange={(v) => set("ilicito_mun_fuzil", v)} />
-          <CounterField label="Mun. Sub" value={form.ilicito_mun_sub} onChange={(v) => set("ilicito_mun_sub", v)} />
+          <AmmoField label="Mun. Pistola" value={form.ilicito_mun_pistola} onChange={(v) => set("ilicito_mun_pistola", v)} />
+          <AmmoField label="Mun. Fuzil" value={form.ilicito_mun_fuzil} onChange={(v) => set("ilicito_mun_fuzil", v)} />
+          <AmmoField label="Mun. Sub" value={form.ilicito_mun_sub} onChange={(v) => set("ilicito_mun_sub", v)} />
         </div>
       </div>
       <div>
