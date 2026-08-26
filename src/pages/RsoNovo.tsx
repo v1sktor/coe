@@ -114,7 +114,7 @@ const RsoNovo = () => {
     const responsavel = membros.find((m) => m.id === form.responsavel_id);
 
     setSubmitting(true);
-    const { data: rsoData, error } = await supabase.from("rsos").insert({
+    const rsoPayload = {
       autor_nome: responsavel?.membro_nome || "Desconhecido",
       descricao: `RSO - Viatura ${form.prefixo_viatura} - Unidade ${form.prefixo_unidade}`,
       local: form.prefixo_unidade,
