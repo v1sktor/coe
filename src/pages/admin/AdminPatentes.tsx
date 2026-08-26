@@ -130,12 +130,12 @@ const AdminPatentes = () => {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Nome</Label>
-                <Input value={formNome} onChange={(e) => setFormNome(e.target.value)} placeholder="Ex: Soldado de 2ª Classe" className="bg-secondary border-border" />
+                <Input value={formNome} onChange={(e) => setFormNome(e.target.value)} placeholder="Ex: Agente de 2ª Classe" className="bg-secondary border-border" />
               </div>
               <div className="space-y-2">
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Nível Hierárquico</Label>
                 <Input type="number" min={1} value={formNivel} onChange={(e) => setFormNivel(Number(e.target.value))} className="bg-secondary border-border" />
-                <p className="text-xs text-muted-foreground">1 = mais alto (Coronel), 14 = mais baixo</p>
+                <p className="text-xs text-muted-foreground">1 = mais alto (Delegado Geral), 10 = mais baixo</p>
               </div>
               <Button onClick={handleSave} className="w-full font-display uppercase tracking-wider">
                 {editingId ? "Salvar" : "Criar"}
