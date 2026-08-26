@@ -72,6 +72,7 @@ const Relatorios = () => {
   const [motivo, setMotivo] = useState("");
   const [membrosMap, setMembrosMap] = useState<Record<string, string>>({});
   const [anexosUrls, setAnexosUrls] = useState<string[]>([]);
+  const [aba, setAba] = useState<"todos" | "pendente" | "aprovado" | "reprovado">("pendente");
 
   const fetchRsos = async () => {
     const { data } = await supabase.from("rsos").select("*").order("created_at", { ascending: false });
@@ -129,6 +130,9 @@ const Relatorios = () => {
     return `${h}h ${m}min`;
   };
 
+  const rsosFiltrados = aba === "todos" ? rsos : rsos.filter((r) => r.status === aba);
+  const countBy = (st: string) => rsos.filter((r) => r.status === st).length;
+
   const getMemberName = (id?: string) => id ? (membrosMap[id] || "—") : "—";
 
   return (
@@ -139,14 +143,32 @@ const Relatorios = () => {
       </div>
 
       <Card className="bg-card border-border">
-        <CardHeader>
-          <CardTitle className="font-display uppercase tracking-wide text-sm">Todos os RSOs</CardTitle>
+        <CardHeader className="space-y-4">
+          <CardTitle className="font-display uppercase tracking-wide text-sm">Relatórios recebidos</CardTitle>
+          <div className="flex flex-wrap gap-2">
+            {([
+              { key: "pendente", label: `Pendentes (${countBy("pendente")})` },
+              { key: "aprovado", label: `Aprovados (${countBy("aprovado")})` },
+              { key: "reprovado", label: `Recusados (${countBy("reprovado")})` },
+              { key: "todos", label: `Todos (${rsos.length})` },
+            ] as const).map((t) => (
+              <Button
+                key={t.key}
+                size="sm"
+                variant={aba === t.key ? "default" : "outline"}
+                className="font-display uppercase text-xs tracking-wider"
+                onClick={() => setAba(t.key)}
+              >
+                {t.label}
+              </Button>
+            ))}
+          </div>
         </CardHeader>
         <CardContent>
           {loading ? (
             <p className="text-muted-foreground text-sm">Carregando...</p>
-          ) : rsos.length === 0 ? (
-            <p className="text-muted-foreground text-sm">Nenhum RSO registrado.</p>
+          ) : rsosFiltrados.length === 0 ? (
+            <p className="text-muted-foreground text-sm">Nenhum RSO nesta aba.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -161,7 +183,7 @@ const Relatorios = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {rsos.map((rso) => {
+                  {rsosFiltrados.map((rso) => {
                     const cfg = statusMap[rso.status] || statusMap.pendente;
                     return (
                       <tr key={rso.id} className="border-b border-border/50 hover:bg-secondary/30 transition-colors">
