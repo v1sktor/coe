@@ -98,6 +98,29 @@ const RsoNovo = () => {
     fetchMembros();
   }, []);
 
+  // Publica a guarnição atual do RSO para o painel flutuante de Barca
+  useEffect(() => {
+    publishBarcaRso({
+      ativo: !!form.unidade,
+      prefixo: form.prefixo_viatura,
+      unidade: form.unidade,
+      membros: BARCA_FIELDS.map((f) => (form as any)[f] || null),
+      atualizadoEm: new Date().toISOString(),
+    });
+  }, [form.unidade, form.prefixo_viatura, form.encarregado_id, form.motorista_id, form.homem3_id, form.homem4_id, form.homem5_id]);
+
+  // Recebe alterações feitas no painel de Barca
+  useEffect(() =>
+    subscribeBarcaApply((membros) => {
+      setForm((p) => {
+        const next: any = { ...p };
+        BARCA_FIELDS.forEach((f, i) => (next[f] = membros[i] ?? ""));
+        return next;
+      });
+    }),
+  []);
+
+
   const membrosUnidade = !form.unidade
     ? []
     : form.unidade === "DEJEC"
