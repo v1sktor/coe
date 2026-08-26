@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -41,6 +42,8 @@ import {
   Repeat,
   X,
 } from "lucide-react";
+
+const RSO_ROUTES = ["/rso/novo", "/relatorios"];
 
 const STORAGE_KEY = "barca_state_v2";
 const POSICOES = BARCA_FIELDS.length;
@@ -111,6 +114,9 @@ const hora = (iso: string | null) =>
 
 export function BarcaPanel() {
   const { user } = useAuth();
+  const location = useLocation();
+  const isRsoRoute = RSO_ROUTES.some((r) => location.pathname.startsWith(r));
+
   const [ui, setUi] = useState<BarcaUi>(() => loadUi());
   const [sync, setSync] = useState<BarcaSyncPayload | null>(() => readBarcaRso());
   const [membros, setMembros] = useState<Membro[]>([]);
@@ -134,6 +140,13 @@ export function BarcaPanel() {
 
   const dragRef = useRef<{ dx: number; dy: number } | null>(null);
 
+  // Fecha o painel ao sair das abas de RSO
+  useEffect(() => {
+    if (!isRsoRoute) {
+      setUi((p) => ({ ...p, open: false }));
+    }
+  }, [isRsoRoute]);
+
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(ui));
   }, [ui]);
@@ -154,6 +167,9 @@ export function BarcaPanel() {
         );
     })();
   }, []);
+
+  // Só exibe o painel de remodulação nas abas de RSO
+  if (!isRsoRoute) return null;
 
   // Slots derivam SEMPRE da guarnição do RSO em preenchimento
   const slots: Slot[] = useMemo(() => {
