@@ -300,7 +300,7 @@ export default function CCOMSOC() {
             <Megaphone className="h-7 w-7 text-primary" /> APCS
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
-            Assessoria de Imprensa e Comunicação Social da Polícia Civil SP · workflow de aprovação
+            Assessoria de Imprensa e Comunicação Social da Polícia Civil SP ·
           </p>
         </div>
         {canManage && (
