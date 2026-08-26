@@ -23,6 +23,7 @@ const Diretrizes = lazy(() => import("./pages/Diretrizes"));
 const Cursos = lazy(() => import("./pages/Cursos"));
 const Institucional = lazy(() => import("./pages/Institucional"));
 const Edital = lazy(() => import("./pages/Edital"));
+const Denuncia = lazy(() => import("./pages/Denuncia"));
 const AdminCargos = lazy(() => import("./pages/admin/AdminCargos"));
 const AdminPatentes = lazy(() => import("./pages/admin/AdminPatentes"));
 const AdminUsuarios = lazy(() => import("./pages/admin/AdminUsuarios"));
