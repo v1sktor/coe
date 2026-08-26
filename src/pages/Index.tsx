@@ -50,6 +50,7 @@ const Index = () => {
             <TopLink to="/ctb" label="Código Penal" />
             <TopLink to="/institucional" label="Institucional" />
             <TopLink to="/cursos" label="Cursos" />
+            <TopLink to="/edital" label="Edital PCESP" />
             <Link
               to="/login"
               className="inline-flex items-center gap-1.5 rounded-md bg-primary-foreground/10 px-3 py-1.5 hover:bg-primary-foreground/20 transition-colors"
@@ -80,6 +81,9 @@ const Index = () => {
               </Button>
               <Button asChild size="lg" variant="outline" className="font-medium">
                 <Link to="/rso/novo">Relatório de Diligências</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="font-medium">
+                <Link to="/edital">Edital PCESP</Link>
               </Button>
             </div>
           </div>
