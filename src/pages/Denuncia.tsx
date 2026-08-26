@@ -29,6 +29,8 @@ const schema = z.object({
   anonima: z.boolean(),
   nome: z.string().trim().max(120, "Nome muito longo").optional(),
   contato: z.string().trim().max(160, "Contato muito longo").optional(),
+  discord: z.string().trim().max(100, "Discord muito longo").optional(),
+  telefone: z.string().trim().max(40, "Telefone muito longo").optional(),
   categoria: z.string().trim().min(1, "Selecione a categoria"),
   unidade_envolvida: z.string().trim().max(120).optional(),
   local_fato: z.string().trim().max(200).optional(),
@@ -45,6 +47,8 @@ const Denuncia = () => {
   const [form, setForm] = useState({
     nome: "",
     contato: "",
+    discord: "",
+    telefone: "",
     categoria: "",
     unidade_envolvida: "",
     local_fato: "",
@@ -70,7 +74,15 @@ const Denuncia = () => {
       .insert({
         anonima,
         nome: anonima ? null : d.nome || null,
-        contato: anonima ? null : d.contato || null,
+        contato: anonima
+          ? null
+          : [
+              d.contato ? `E-mail: ${d.contato}` : null,
+              d.discord ? `Discord: ${d.discord}` : null,
+              d.telefone ? `Telefone: ${d.telefone}` : null,
+            ]
+              .filter(Boolean)
+              .join(" | ") || null,
         categoria: d.categoria,
         unidade_envolvida: d.unidade_envolvida || null,
         local_fato: d.local_fato || null,
@@ -139,8 +151,16 @@ const Denuncia = () => {
                   <Input id="nome" maxLength={120} value={form.nome} onChange={(e) => set("nome", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="contato">E-mail ou telefone</Label>
+                  <Label htmlFor="contato">E-mail</Label>
                   <Input id="contato" maxLength={160} value={form.contato} onChange={(e) => set("contato", e.target.value)} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="discord">Discord</Label>
+                  <Input id="discord" maxLength={100} placeholder="usuario#0000 ou @usuario" value={form.discord} onChange={(e) => set("discord", e.target.value)} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="telefone">Telefone</Label>
+                  <Input id="telefone" maxLength={40} placeholder="(11) 90000-0000" value={form.telefone} onChange={(e) => set("telefone", e.target.value)} />
                 </div>
               </div>
             )}
