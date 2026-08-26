@@ -16,7 +16,7 @@ import HierarchySelect from "@/components/rso/HierarchySelect";
 import CounterField from "@/components/rso/CounterField";
 import { Checkbox } from "@/components/ui/checkbox";
 import AmmoField from "@/components/rso/AmmoField";
-import PatrolTimer, { usePatrolTimer } from "@/components/rso/PatrolTimer";
+import PatrolTimer, { usePatrolTimer, formatTime } from "@/components/rso/PatrolTimer";
 
 interface Membro {
   id: string;
@@ -45,6 +45,14 @@ const RsoNovo = () => {
   const [anexos, setAnexos] = useState<{ path: string; name: string; preview: string }[]>([]);
   const [uploading, setUploading] = useState(false);
   const [dejec, setDejec] = useState(false);
+  const [patrolSession, setPatrolSession] = useState<{ start: string | null; end: string | null }>(() => ({
+    start: localStorage.getItem("patrol_timer_submitted_start"),
+    end: localStorage.getItem("patrol_timer_submitted_end"),
+  }));
+
+  const recordedDurationSeconds = patrolSession.start && patrolSession.end
+    ? Math.max(0, Math.floor((new Date(patrolSession.end).getTime() - new Date(patrolSession.start).getTime()) / 1000))
+    : 0;
 
   const [form, setForm] = useState({
     unidade: "",
@@ -191,6 +199,7 @@ const RsoNovo = () => {
 
     localStorage.removeItem("patrol_timer_submitted_start");
     localStorage.removeItem("patrol_timer_submitted_end");
+    setPatrolSession({ start: null, end: null });
     setSubmitted(true);
     toast({ title: "RSO Enviado", description: "Seu relatório foi registrado com sucesso." });
   };
@@ -318,6 +327,7 @@ const RsoNovo = () => {
         onStop={(startTime, endTime) => {
           localStorage.setItem("patrol_timer_submitted_start", startTime);
           localStorage.setItem("patrol_timer_submitted_end", endTime);
+          setPatrolSession({ start: startTime, end: endTime });
           toast({ title: "Patrulha finalizada", description: "Tempo registrado. Continue preenchendo o RSO." });
         }}
       />
@@ -495,27 +505,33 @@ const RsoNovo = () => {
         </CardContent>
       </Card>
 
-      {/* Timer widget - appears on all steps when running */}
-      {step !== 2 && patrol.isRunning && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-card border border-border rounded-xl shadow-2xl px-6 py-3 flex items-center gap-4">
-          <Timer className="h-5 w-5 text-primary animate-pulse" />
-          <span className="font-mono text-lg font-bold text-foreground">
-            {(() => {
-              const h = Math.floor(patrol.elapsed / 3600);
-              const m = Math.floor((patrol.elapsed % 3600) / 60);
-              const s = patrol.elapsed % 60;
-              return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
-            })()}
-          </span>
-          <Button size="sm" variant="destructive" onClick={() => {
-            const result = patrol.stop();
-            localStorage.setItem("patrol_timer_submitted_start", result.startTime);
-            localStorage.setItem("patrol_timer_submitted_end", result.endTime);
-            toast({ title: "Patrulha finalizada", description: "Tempo registrado." });
-          }} className="font-display uppercase tracking-wider text-xs">
-            <Square className="mr-1 h-3 w-3" /> Finalizar
-          </Button>
-        </div>
+      {/* Timer widget - appears on all steps when running or after finished */}
+      {step !== 2 && (
+        <>
+          {patrol.isRunning ? (
+            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-card border border-border rounded-xl shadow-2xl px-6 py-3 flex items-center gap-4">
+              <Timer className="h-5 w-5 text-primary animate-pulse" />
+              <span className="font-mono text-lg font-bold text-foreground">{formatTime(patrol.elapsed)}</span>
+              <Button size="sm" variant="destructive" onClick={() => {
+                const result = patrol.stop();
+                localStorage.setItem("patrol_timer_submitted_start", result.startTime);
+                localStorage.setItem("patrol_timer_submitted_end", result.endTime);
+                setPatrolSession({ start: result.startTime, end: result.endTime });
+                toast({ title: "Patrulha finalizada", description: "Tempo registrado." });
+              }} className="font-display uppercase tracking-wider text-xs">
+                <Square className="mr-1 h-3 w-3" /> Finalizar
+              </Button>
+            </div>
+          ) : patrolSession.start && patrolSession.end ? (
+            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-card border border-primary/30 rounded-xl shadow-2xl px-6 py-3 flex flex-col items-center gap-1">
+              <div className="flex items-center gap-2 text-primary">
+                <Timer className="h-5 w-5" />
+                <span className="font-mono text-lg font-bold">{formatTime(recordedDurationSeconds)}</span>
+              </div>
+              <span className="text-xs text-muted-foreground uppercase tracking-wider">Patrulha finalizada — tempo registrado</span>
+            </div>
+          ) : null}
+        </>
       )}
     </div>
   );

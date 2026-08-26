@@ -10,7 +10,7 @@ interface PatrolTimerProps {
   isWidget?: boolean;
 }
 
-const formatTime = (totalSeconds: number) => {
+export const formatTime = (totalSeconds: number) => {
   const h = Math.floor(totalSeconds / 3600);
   const m = Math.floor((totalSeconds % 3600) / 60);
   const s = totalSeconds % 60;
