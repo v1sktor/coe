@@ -280,11 +280,11 @@ const RsoNovo = () => {
           <Users className="h-4 w-4 text-primary" /> Composição da Guarnição
         </h3>
         <div className="space-y-3">
-          <HierarchySelect label="Encarregado" value={form.encarregado_id} onChange={(v) => set("encarregado_id", v)} membros={membros} required />
-          <HierarchySelect label="Motorista" value={form.motorista_id} onChange={(v) => set("motorista_id", v)} membros={membros} required />
-          <HierarchySelect label="3° Homem" value={form.homem3_id} onChange={(v) => set("homem3_id", v)} membros={membros} />
-          <HierarchySelect label="4° Homem" value={form.homem4_id} onChange={(v) => set("homem4_id", v)} membros={membros} />
-          <HierarchySelect label="5° Homem" value={form.homem5_id} onChange={(v) => set("homem5_id", v)} membros={membros} />
+          <HierarchySelect label="Encarregado" value={form.encarregado_id} onChange={(v) => set("encarregado_id", v)} membros={membrosUnidade} required />
+          <HierarchySelect label="Motorista" value={form.motorista_id} onChange={(v) => set("motorista_id", v)} membros={membrosUnidade} required />
+          <HierarchySelect label="3° Homem" value={form.homem3_id} onChange={(v) => set("homem3_id", v)} membros={membrosUnidade} />
+          <HierarchySelect label="4° Homem" value={form.homem4_id} onChange={(v) => set("homem4_id", v)} membros={membrosUnidade} />
+          <HierarchySelect label="5° Homem" value={form.homem5_id} onChange={(v) => set("homem5_id", v)} membros={membrosUnidade} />
         </div>
       </div>
     </div>
