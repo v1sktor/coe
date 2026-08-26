@@ -72,7 +72,14 @@ const App = () => (
 
             {/* Rotas públicas (full page custom) */}
             <Route path="/ctb" element={<CTB />} />
-            <Route path="/bopc" element={<BOPC />} />
+            <Route
+              path="/bopc"
+              element={
+                <AccessGate chave="bopc" titulo="BOPC / BIC">
+                  <BOPC />
+                </AccessGate>
+              }
+            />
 
             {/* Rotas autenticadas */}
             <Route element={<ProtectedRoute />}>
