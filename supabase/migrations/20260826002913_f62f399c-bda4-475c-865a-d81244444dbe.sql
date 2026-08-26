@@ -1,0 +1,1 @@
+ALTER TABLE public.rsos ADD COLUMN IF NOT EXISTS anexos_links text;

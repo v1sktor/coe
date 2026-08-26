@@ -6,14 +6,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
-import { ChevronLeft, ChevronRight, Send, CheckCircle, Shield, Car, Users, Timer, Package, AlertTriangle, Square, ArrowLeft, Receipt } from "lucide-react";
+import { ChevronLeft, ChevronRight, Send, CheckCircle, Shield, Car, Users, Timer, Package, AlertTriangle, Square, ArrowLeft, Paperclip } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import HierarchySelect from "@/components/rso/HierarchySelect";
 import CounterField from "@/components/rso/CounterField";
 import PatrolTimer, { usePatrolTimer } from "@/components/rso/PatrolTimer";
-import AitField, { type AitItem } from "@/components/rso/AitField";
 
 interface Membro {
   id: string;
@@ -27,7 +26,7 @@ const STEPS = [
   { title: "Bate Ponto", icon: Timer },
   { title: "Apreendidos", icon: Package },
   { title: "Ocorrências", icon: AlertTriangle },
-  { title: "AIT", icon: Receipt },
+  { title: "Anexos", icon: Paperclip },
 ];
 
 const RsoNovo = () => {
@@ -38,7 +37,6 @@ const RsoNovo = () => {
   const [membros, setMembros] = useState<Membro[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const patrol = usePatrolTimer();
-  const [aits, setAits] = useState<AitItem[]>([]);
 
   const [form, setForm] = useState({
     responsavel_id: "",
@@ -74,6 +72,7 @@ const RsoNovo = () => {
     prisoes_bopm: "",
     multas_descricao: "",
     outras_ocorrencias: "",
+    anexos_links: "",
   });
 
   useEffect(() => {
@@ -154,21 +153,13 @@ const RsoNovo = () => {
       prisoes_bopm: form.prisoes_bopm || null,
       multas_descricao: form.multas_descricao || null,
       outras_ocorrencias: form.outras_ocorrencias || null,
+      anexos_links: form.anexos_links || null,
     };
 
-    const aitPayload = aits.map((a) => ({
-      artigo: a.artigo,
-      descricao: a.descricao,
-      valor: a.valor,
-      nome_multado: a.nome_multado,
-      rg_multado: a.rg_multado || null,
-      data_infracao: a.data_infracao,
-      observacoes: a.observacoes || null,
-    }));
 
     const { error } = await supabase.rpc("submit_rso" as any, {
       _rso: rsoPayload,
-      _aits: aitPayload,
+      _aits: [],
     });
 
     setSubmitting(false);
@@ -334,10 +325,18 @@ const RsoNovo = () => {
   const renderStep5 = () => (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        Registre aqui cada multa (AIT) aplicada durante a patrulha. Selecione a infração no Código Penal e
-        informe os dados do multado.
+        Anexe os links das provas/prints obrigatórios dos ilícitos apreendidos (armas, munições,
+        entorpecentes, dinheiro marcado, etc.). Um link por linha.
       </p>
-      <AitField value={aits} onChange={setAits} />
+      <div className="space-y-2">
+        <Label className="text-xs uppercase tracking-wider text-muted-foreground">Anexos (links) *</Label>
+        <Textarea
+          value={form.anexos_links}
+          onChange={(e) => set("anexos_links", e.target.value)}
+          placeholder={"https://imgur.com/...\nhttps://cdn.discordapp.com/..."}
+          className="bg-secondary border-border min-h-[140px] font-mono text-sm"
+        />
+      </div>
     </div>
   );
 

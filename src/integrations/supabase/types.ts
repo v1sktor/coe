@@ -525,6 +525,7 @@ export type Database = {
       rsos: {
         Row: {
           acoes_setada: number | null
+          anexos_links: string | null
           aprovado_por: string | null
           armas_curtas: number | null
           armas_longas: number | null
@@ -583,6 +584,7 @@ export type Database = {
         }
         Insert: {
           acoes_setada?: number | null
+          anexos_links?: string | null
           aprovado_por?: string | null
           armas_curtas?: number | null
           armas_longas?: number | null
@@ -641,6 +643,7 @@ export type Database = {
         }
         Update: {
           acoes_setada?: number | null
+          anexos_links?: string | null
           aprovado_por?: string | null
           armas_curtas?: number | null
           armas_longas?: number | null
