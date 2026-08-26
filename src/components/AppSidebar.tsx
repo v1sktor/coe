@@ -1,4 +1,4 @@
-import { Shield, ShieldCheck, Network, Clock, FileText, LayoutDashboard, LogOut, Settings, Users, ScrollText, Star, Megaphone, MapPin, BookOpen } from "lucide-react";
+import { Shield, ShieldCheck, Network, Clock, FileText, LayoutDashboard, LogOut, Settings, Users, ScrollText, Star, Megaphone, MapPin, BookOpen, ClipboardList } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -36,6 +36,7 @@ const adminItems = [
   { title: "Patentes", url: "/admin/patentes", icon: Star },
   { title: "Usuários", url: "/admin/usuarios", icon: Users },
   { title: "Logs de Atividade", url: "/admin/logs", icon: ScrollText },
+  { title: "Provas / Seletivo", url: "/admin/provas", icon: ClipboardList },
 ];
 
 export function AppSidebar() {

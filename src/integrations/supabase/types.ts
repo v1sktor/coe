@@ -522,6 +522,54 @@ export type Database = {
           },
         ]
       }
+      prova_inscricoes: {
+        Row: {
+          acertos: number
+          avaliado_em: string | null
+          avaliado_por: string | null
+          created_at: string
+          discord_id: string
+          id: string
+          idade_real: string
+          nome_id: string
+          observacoes: string | null
+          periodo: string
+          respostas: Json
+          status: string
+          total_objetivas: number
+        }
+        Insert: {
+          acertos?: number
+          avaliado_em?: string | null
+          avaliado_por?: string | null
+          created_at?: string
+          discord_id: string
+          id?: string
+          idade_real: string
+          nome_id: string
+          observacoes?: string | null
+          periodo: string
+          respostas?: Json
+          status?: string
+          total_objetivas?: number
+        }
+        Update: {
+          acertos?: number
+          avaliado_em?: string | null
+          avaliado_por?: string | null
+          created_at?: string
+          discord_id?: string
+          id?: string
+          idade_real?: string
+          nome_id?: string
+          observacoes?: string | null
+          periodo?: string
+          respostas?: Json
+          status?: string
+          total_objetivas?: number
+        }
+        Relationships: []
+      }
       rsos: {
         Row: {
           acoes_setada: number | null

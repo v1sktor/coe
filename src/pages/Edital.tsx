@@ -142,7 +142,7 @@ export default function Edital() {
 
             <div className="border-t border-border/60 pt-6">
               <Button asChild size="lg" className="font-medium">
-                <Link to="/login">
+                <Link to="/prova">
                   Iniciar processo seletivo <ChevronRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>

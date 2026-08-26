@@ -24,10 +24,12 @@ const Cursos = lazy(() => import("./pages/Cursos"));
 const Institucional = lazy(() => import("./pages/Institucional"));
 const Edital = lazy(() => import("./pages/Edital"));
 const Denuncia = lazy(() => import("./pages/Denuncia"));
+const Prova = lazy(() => import("./pages/Prova"));
 const AdminCargos = lazy(() => import("./pages/admin/AdminCargos"));
 const AdminPatentes = lazy(() => import("./pages/admin/AdminPatentes"));
 const AdminUsuarios = lazy(() => import("./pages/admin/AdminUsuarios"));
 const AdminLogs = lazy(() => import("./pages/admin/AdminLogs"));
+const AdminProvas = lazy(() => import("./pages/admin/AdminProvas"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -49,6 +51,7 @@ const App = () => (
             <Route path="/cursos" element={<Cursos />} />
             <Route path="/institucional" element={<Institucional />} />
             <Route path="/edital" element={<Edital />} />
+            <Route path="/prova" element={<Prova />} />
             <Route element={<PublicLayout />}>
               <Route path="/hierarquia" element={<Hierarquia />} />
               <Route path="/rso/novo" element={<RsoNovo />} />
@@ -79,6 +82,7 @@ const App = () => (
                 <Route path="/admin/patentes" element={<AdminPatentes />} />
                 <Route path="/admin/usuarios" element={<AdminUsuarios />} />
                 <Route path="/admin/logs" element={<AdminLogs />} />
+                <Route path="/admin/provas" element={<AdminProvas />} />
               </Route>
             </Route>
 
