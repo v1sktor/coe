@@ -20,7 +20,8 @@ const RsoNovo = lazy(() => import("./pages/RsoNovo"));
 const CCOMSOC = lazy(() => import("./pages/CCOMSOC"));
 const Estaticas = lazy(() => import("./pages/Estaticas"));
 const Diretrizes = lazy(() => import("./pages/Diretrizes"));
-const Apresentacao = lazy(() => import("./pages/Apresentacao"));
+const Cursos = lazy(() => import("./pages/Cursos"));
+const Institucional = lazy(() => import("./pages/Institucional"));
 const AdminCargos = lazy(() => import("./pages/admin/AdminCargos"));
 const AdminPatentes = lazy(() => import("./pages/admin/AdminPatentes"));
 const AdminUsuarios = lazy(() => import("./pages/admin/AdminUsuarios"));
@@ -42,7 +43,9 @@ const App = () => (
             <Route path="/" element={<Index />} />
 
             {/* Rotas públicas */}
-            <Route path="/apresentacao" element={<Apresentacao />} />
+            <Route path="/apresentacao" element={<Cursos />} />
+            <Route path="/cursos" element={<Cursos />} />
+            <Route path="/institucional" element={<Institucional />} />
             <Route element={<PublicLayout />}>
               <Route path="/hierarquia" element={<Hierarquia />} />
               <Route path="/rso/novo" element={<RsoNovo />} />
