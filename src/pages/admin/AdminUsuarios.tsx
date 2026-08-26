@@ -23,6 +23,22 @@ interface UserWithDetails {
   permissoes: string[]; // permissao ids
 }
 
+const getFunctionErrorMessage = async (error: unknown, fallback?: string) => {
+  if (fallback) return fallback;
+  if (error && typeof error === "object" && "context" in error) {
+    const context = (error as { context?: Response }).context;
+    if (context) {
+      try {
+        const payload = await context.clone().json() as { error?: string };
+        if (payload.error) return payload.error;
+      } catch {
+        // The function did not return a JSON error body.
+      }
+    }
+  }
+  return error instanceof Error ? error.message : "Não foi possível criar o usuário.";
+};
+
 const AdminUsuarios = () => {
   const { toast } = useToast();
   const [users, setUsers] = useState<UserWithDetails[]>([]);
@@ -95,7 +111,8 @@ const AdminUsuarios = () => {
 
     setCreating(false);
     if (res.error || res.data?.error) {
-      toast({ title: "Erro ao criar usuário", description: res.data?.error || res.error?.message, variant: "destructive" });
+      const description = await getFunctionErrorMessage(res.error, res.data?.error);
+      toast({ title: "Erro ao criar usuário", description, variant: "destructive" });
       return;
     }
     toast({ title: "Usuário criado com sucesso" });
