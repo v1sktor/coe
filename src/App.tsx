@@ -9,6 +9,7 @@ import { ProtectedRoute, AdminRoute } from "@/components/ProtectedRoute";
 import { AppLayout } from "@/components/AppLayout";
 import { PublicLayout } from "@/components/PublicLayout";
 import { AccessGate } from "@/components/AccessGate";
+import { BarcaPanel } from "@/components/barca/BarcaPanel";
 import Index from "./pages/Index";
 
 const Login = lazy(() => import("./pages/Login"));
