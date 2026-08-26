@@ -94,6 +94,9 @@ const RsoNovo = () => {
       ? membros
       : membros.filter((m) => m.unidade === form.unidade);
 
+  // DEJEC: operação conjunta — todas as posições podem receber qualquer policial
+  const membrosGuarnicao = dejec ? membros : membrosUnidade;
+
   const setUnidade = (unidade: string) =>
     setForm((p) => ({ ...p, unidade, responsavel_id: "", encarregado_id: "", motorista_id: "", homem3_id: "", homem4_id: "", homem5_id: "" }));
 
