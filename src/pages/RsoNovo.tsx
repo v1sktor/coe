@@ -40,7 +40,7 @@ const RsoNovo = () => {
   const [membros, setMembros] = useState<Membro[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const patrol = usePatrolTimer();
-  const [anexos, setAnexos] = useState<{ path: string; name: string }[]>([]);
+  const [anexos, setAnexos] = useState<{ path: string; name: string; preview: string }[]>([]);
   const [uploading, setUploading] = useState(false);
 
   const [form, setForm] = useState({
@@ -188,7 +188,7 @@ const RsoNovo = () => {
   const handleFiles = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
     setUploading(true);
-    const uploaded: { path: string; name: string }[] = [];
+    const uploaded: { path: string; name: string; preview: string }[] = [];
     for (const file of Array.from(files)) {
       const ext = file.name.split(".").pop() || "jpg";
       const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
@@ -199,7 +199,7 @@ const RsoNovo = () => {
         toast({ title: "Erro no upload", description: `${file.name}: ${error.message}`, variant: "destructive" });
         continue;
       }
-      uploaded.push({ path, name: file.name });
+      uploaded.push({ path, name: file.name, preview: URL.createObjectURL(file) });
     }
     setAnexos((prev) => [...prev, ...uploaded]);
     setUploading(false);
@@ -398,21 +398,27 @@ const RsoNovo = () => {
         {uploading && <p className="text-xs text-muted-foreground">Enviando arquivos...</p>}
       </div>
       {anexos.length > 0 && (
-        <div className="space-y-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {anexos.map((a, i) => (
-            <div key={a.path} className="flex items-center justify-between gap-2 rounded-md border border-border bg-secondary/50 px-3 py-2 text-sm">
-              <span className="flex items-center gap-2 truncate">
-                <Paperclip className="h-3.5 w-3.5 text-primary shrink-0" />
-                <span className="truncate">{a.name}</span>
-              </span>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() => setAnexos((prev) => prev.filter((_, idx) => idx !== i))}
-              >
-                Remover
-              </Button>
+            <div key={a.path} className="rounded-md border border-border bg-secondary/50 overflow-hidden">
+              <a href={a.preview} target="_blank" rel="noreferrer">
+                <img src={a.preview} alt={a.name} className="h-24 w-full object-cover" />
+              </a>
+              <div className="p-2 space-y-1">
+                <p className="text-[11px] truncate flex items-center gap-1">
+                  <Paperclip className="h-3 w-3 text-primary shrink-0" />
+                  <span className="truncate">{a.name}</span>
+                </p>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 w-full text-[11px]"
+                  onClick={() => setAnexos((prev) => prev.filter((_, idx) => idx !== i))}
+                >
+                  Remover
+                </Button>
+              </div>
             </div>
           ))}
         </div>
