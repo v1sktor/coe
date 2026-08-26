@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      access_codes: {
+        Row: {
+          chave: string
+          codigo: string
+          id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          chave: string
+          codigo: string
+          id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          chave?: string
+          codigo?: string
+          id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       activity_logs: {
         Row: {
           action: string
@@ -859,6 +883,10 @@ export type Database = {
         Returns: boolean
       }
       submit_rso: { Args: { _aits?: Json; _rso: Json }; Returns: string }
+      verify_access_code: {
+        Args: { _chave: string; _codigo: string }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role: "admin" | "user"
