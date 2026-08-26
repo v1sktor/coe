@@ -126,7 +126,7 @@ const Index = () => {
             Departamentos, Divisões e Delegacias
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 text-left">
-            {UNIDADES.map((u) => (
+            {UNIDADES.filter((u) => u.sigla !== "DEJEC").map((u) => (
               <div
                 key={u.sigla}
                 className="rounded-lg border border-border bg-card p-5 transition-shadow hover:shadow-tactical"
