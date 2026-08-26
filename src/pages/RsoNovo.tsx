@@ -228,7 +228,7 @@ const RsoNovo = () => {
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Prefixo da Viatura *</Label>
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">MODELO DA VIATURA *</Label>
           <Input value={form.prefixo_viatura} onChange={(e) => set("prefixo_viatura", e.target.value)} placeholder="Ex: Trail 21" className="bg-secondary border-border" />
         </div>
         <div className="space-y-2">
