@@ -224,7 +224,9 @@ const RsoNovo = () => {
 
     localStorage.removeItem("patrol_timer_submitted_start");
     localStorage.removeItem("patrol_timer_submitted_end");
+    clearBarcaRso();
     setPatrolSession({ start: null, end: null });
+
     setSubmitted(true);
     toast({ title: "RSO Enviado", description: "Seu relatório foi registrado com sucesso." });
   };
