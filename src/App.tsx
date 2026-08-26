@@ -43,7 +43,9 @@ const App = () => (
             <Route path="/" element={<Index />} />
 
             {/* Rotas públicas */}
-            <Route path="/apresentacao" element={<Apresentacao />} />
+            <Route path="/apresentacao" element={<Cursos />} />
+            <Route path="/cursos" element={<Cursos />} />
+            <Route path="/institucional" element={<Institucional />} />
             <Route element={<PublicLayout />}>
               <Route path="/hierarquia" element={<Hierarquia />} />
               <Route path="/rso/novo" element={<RsoNovo />} />
