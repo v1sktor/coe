@@ -48,6 +48,7 @@ interface RsoRow {
   multas_descricao?: string;
   outras_ocorrencias?: string;
   motivo_rejeicao?: string;
+  anexos_links?: string;
   responsavel_id?: string;
   encarregado_id?: string;
   motorista_id?: string;
@@ -70,6 +71,7 @@ const Relatorios = () => {
   const [rejectRso, setRejectRso] = useState<RsoRow | null>(null);
   const [motivo, setMotivo] = useState("");
   const [membrosMap, setMembrosMap] = useState<Record<string, string>>({});
+  const [anexosUrls, setAnexosUrls] = useState<string[]>([]);
 
   const fetchRsos = async () => {
     const { data } = await supabase.from("rsos").select("*").order("created_at", { ascending: false });
@@ -87,6 +89,17 @@ const Relatorios = () => {
   };
 
   useEffect(() => { fetchRsos(); fetchMembros(); }, []);
+
+  useEffect(() => {
+    const loadAnexos = async () => {
+      setAnexosUrls([]);
+      const paths = (viewRso?.anexos_links || "").split("\n").map((p) => p.trim()).filter(Boolean);
+      if (!paths.length) return;
+      const { data } = await supabase.storage.from("rso-anexos").createSignedUrls(paths, 3600);
+      if (data) setAnexosUrls(data.map((d) => d.signedUrl).filter(Boolean) as string[]);
+    };
+    loadAnexos();
+  }, [viewRso]);
 
   const handleAprovar = async (rso: RsoRow) => {
     const { error } = await supabase.from("rsos").update({ status: "aprovado" } as any).eq("id", rso.id);
@@ -248,6 +261,21 @@ const Relatorios = () => {
                 <Info label="Multas" value={viewRso.multas_descricao} />
                 <Info label="Outras Ocorrências" value={viewRso.outras_ocorrencias} />
               </Section>
+
+              <div>
+                <p className="font-display text-xs uppercase tracking-widest text-primary mb-2">Anexos</p>
+                {anexosUrls.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">Nenhum anexo enviado.</p>
+                ) : (
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                    {anexosUrls.map((url, i) => (
+                      <a key={i} href={url} target="_blank" rel="noreferrer" className="rounded-md border border-border overflow-hidden block">
+                        <img src={url} alt={`Anexo ${i + 1}`} className="h-24 w-full object-cover" />
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </DialogContent>
