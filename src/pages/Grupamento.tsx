@@ -57,23 +57,22 @@ export default function GrupamentoPage({ tipo }: { tipo: Grupamento }) {
 
   useEffect(() => {
     const fetchMembers = async () => {
-      const { data } = await supabase
-        .from("hierarquia")
-        .select("*, cargos(nome, imagem_url, nivel_hierarquico)")
-        .eq("grupamento", tipo);
+      const { data } = await (supabase.rpc as any)("get_hierarquia_publica");
       if (data) {
         setMembers(
-          data.map((h: any) => ({
-            id: h.id,
-            membro_nome: h.membro_nome,
-            rg: h.rg,
-            discord_id: h.discord_id,
-            funcao: h.funcao,
-            data_entrada: h.data_entrada,
-            cargo_nome: h.cargos?.nome,
-            cargo_imagem: h.cargos?.imagem_url,
-            cargo_nivel: h.cargos?.nivel_hierarquico,
-          }))
+          (data as any[])
+            .filter((h: any) => h.grupamento === tipo)
+            .map((h: any) => ({
+              id: h.id,
+              membro_nome: h.membro_nome,
+              rg: null,
+              discord_id: null,
+              funcao: h.funcao,
+              data_entrada: h.data_entrada,
+              cargo_nome: h.cargo_nome,
+              cargo_imagem: h.cargo_imagem,
+              cargo_nivel: h.cargo_nivel,
+            }))
         );
       }
     };
