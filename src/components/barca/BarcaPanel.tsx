@@ -114,6 +114,9 @@ const hora = (iso: string | null) =>
 
 export function BarcaPanel() {
   const { user } = useAuth();
+  const location = useLocation();
+  const isRsoRoute = RSO_ROUTES.some((r) => location.pathname.startsWith(r));
+
   const [ui, setUi] = useState<BarcaUi>(() => loadUi());
   const [sync, setSync] = useState<BarcaSyncPayload | null>(() => readBarcaRso());
   const [membros, setMembros] = useState<Membro[]>([]);
@@ -136,6 +139,13 @@ export function BarcaPanel() {
   const [trocaB, setTrocaB] = useState("");
 
   const dragRef = useRef<{ dx: number; dy: number } | null>(null);
+
+  // Fecha o painel ao sair das abas de RSO
+  useEffect(() => {
+    if (!isRsoRoute) {
+      setUi((p) => ({ ...p, open: false }));
+    }
+  }, [isRsoRoute]);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(ui));
