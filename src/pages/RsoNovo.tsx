@@ -523,12 +523,15 @@ const RsoNovo = () => {
               </Button>
             </div>
           ) : patrolSession.start && patrolSession.end ? (
-            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-card border border-primary/30 rounded-xl shadow-2xl px-6 py-3 flex flex-col items-center gap-1">
+            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-card border border-primary/30 rounded-xl shadow-2xl px-6 py-3 flex flex-col items-center gap-2">
               <div className="flex items-center gap-2 text-primary">
                 <Timer className="h-5 w-5" />
                 <span className="font-mono text-lg font-bold">{formatTime(recordedDurationSeconds)}</span>
               </div>
               <span className="text-xs text-muted-foreground uppercase tracking-wider">Patrulha finalizada — tempo registrado</span>
+              <Button size="sm" variant="outline" onClick={() => setStep(2)} className="font-display uppercase tracking-wider text-xs">
+                <ChevronLeft className="mr-1 h-3 w-3" /> Retornar ao Bate Ponto
+              </Button>
             </div>
           ) : null}
         </>
