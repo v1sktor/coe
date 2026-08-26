@@ -6,14 +6,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
-import { ChevronLeft, ChevronRight, Send, CheckCircle, Shield, Car, Users, Timer, Package, AlertTriangle, Square, ArrowLeft, Receipt } from "lucide-react";
+import { ChevronLeft, ChevronRight, Send, CheckCircle, Shield, Car, Users, Timer, Package, AlertTriangle, Square, ArrowLeft, Paperclip } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import HierarchySelect from "@/components/rso/HierarchySelect";
 import CounterField from "@/components/rso/CounterField";
 import PatrolTimer, { usePatrolTimer } from "@/components/rso/PatrolTimer";
-import AitField, { type AitItem } from "@/components/rso/AitField";
 
 interface Membro {
   id: string;
@@ -27,7 +26,7 @@ const STEPS = [
   { title: "Bate Ponto", icon: Timer },
   { title: "Apreendidos", icon: Package },
   { title: "Ocorrências", icon: AlertTriangle },
-  { title: "AIT", icon: Receipt },
+  { title: "Anexos", icon: Paperclip },
 ];
 
 const RsoNovo = () => {
@@ -38,7 +37,6 @@ const RsoNovo = () => {
   const [membros, setMembros] = useState<Membro[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const patrol = usePatrolTimer();
-  const [aits, setAits] = useState<AitItem[]>([]);
 
   const [form, setForm] = useState({
     responsavel_id: "",
@@ -74,6 +72,7 @@ const RsoNovo = () => {
     prisoes_bopm: "",
     multas_descricao: "",
     outras_ocorrencias: "",
+    anexos_links: "",
   });
 
   useEffect(() => {
@@ -154,21 +153,13 @@ const RsoNovo = () => {
       prisoes_bopm: form.prisoes_bopm || null,
       multas_descricao: form.multas_descricao || null,
       outras_ocorrencias: form.outras_ocorrencias || null,
+      anexos_links: form.anexos_links || null,
     };
 
-    const aitPayload = aits.map((a) => ({
-      artigo: a.artigo,
-      descricao: a.descricao,
-      valor: a.valor,
-      nome_multado: a.nome_multado,
-      rg_multado: a.rg_multado || null,
-      data_infracao: a.data_infracao,
-      observacoes: a.observacoes || null,
-    }));
 
     const { error } = await supabase.rpc("submit_rso" as any, {
       _rso: rsoPayload,
-      _aits: aitPayload,
+      _aits: [],
     });
 
     setSubmitting(false);
