@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
-import { ChevronLeft, ChevronRight, Send, CheckCircle, Shield, Car, Users, Timer, Package, AlertTriangle, Square, ArrowLeft, Paperclip } from "lucide-react";
+import { ChevronLeft, ChevronRight, Send, CheckCircle, Shield, Car, Users, Timer, Package, AlertTriangle, Square, ArrowLeft, Paperclip, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -529,8 +529,14 @@ const RsoNovo = () => {
                 <span className="font-mono text-lg font-bold">{formatTime(recordedDurationSeconds)}</span>
               </div>
               <span className="text-xs text-muted-foreground uppercase tracking-wider">Patrulha finalizada — tempo registrado</span>
-              <Button size="sm" variant="outline" onClick={() => setStep(2)} className="font-display uppercase tracking-wider text-xs">
-                <ChevronLeft className="mr-1 h-3 w-3" /> Retornar ao Bate Ponto
+              <Button size="sm" variant="outline" onClick={() => {
+                localStorage.removeItem("patrol_timer_submitted_start");
+                localStorage.removeItem("patrol_timer_submitted_end");
+                setPatrolSession({ start: null, end: null });
+                patrol.start();
+                toast({ title: "Patrulha retomada", description: "A contagem foi reiniciada." });
+              }} className="font-display uppercase tracking-wider text-xs">
+                <Play className="mr-1 h-3 w-3" /> Retornar Patrulha
               </Button>
             </div>
           ) : null}
