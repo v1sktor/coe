@@ -4,9 +4,10 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Shield, Lock, Mail, ArrowLeft } from "lucide-react";
+import { Lock, Mail, ArrowLeft } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import logoPcsp from "@/assets/logo-pcsp.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -39,9 +40,11 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center space-y-4">
-          <div className="mx-auto w-20 h-20 rounded-full bg-primary/10 border-2 border-primary/30 flex items-center justify-center">
-            <Shield className="h-10 w-10 text-primary" />
-          </div>
+          <img
+            src={logoPcsp}
+            alt="Brasão da Polícia Civil do Estado de São Paulo"
+            className="mx-auto h-24 w-24 object-contain"
+          />
           <div>
             <h1 className="font-display text-3xl font-bold uppercase tracking-widest">
               Acesso Administrativo
@@ -65,7 +68,7 @@ const Login = () => {
                 <Label htmlFor="login-email" className="text-xs uppercase tracking-wider text-muted-foreground">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input id="login-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="usuario@policiacivil.sp.gov.br" className="pl-10 bg-secondary border-border" required />
+                  <Input id="login-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="usuario@pcesp.gov.br" className="pl-10 bg-secondary border-border" required />
                 </div>
               </div>
               <div className="space-y-2">
