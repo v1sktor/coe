@@ -45,6 +45,14 @@ const RsoNovo = () => {
   const [anexos, setAnexos] = useState<{ path: string; name: string; preview: string }[]>([]);
   const [uploading, setUploading] = useState(false);
   const [dejec, setDejec] = useState(false);
+  const [patrolSession, setPatrolSession] = useState<{ start: string | null; end: string | null }>(() => ({
+    start: localStorage.getItem("patrol_timer_submitted_start"),
+    end: localStorage.getItem("patrol_timer_submitted_end"),
+  }));
+
+  const recordedDurationSeconds = patrolSession.start && patrolSession.end
+    ? Math.max(0, Math.floor((new Date(patrolSession.end).getTime() - new Date(patrolSession.start).getTime()) / 1000))
+    : 0;
 
   const [form, setForm] = useState({
     unidade: "",
