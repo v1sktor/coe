@@ -56,7 +56,14 @@ const App = () => (
             <Route path="/prova" element={<Prova />} />
             <Route element={<PublicLayout />}>
               <Route path="/hierarquia" element={<Hierarquia />} />
-              <Route path="/rso/novo" element={<RsoNovo />} />
+              <Route
+                path="/rso/novo"
+                element={
+                  <AccessGate chave="diligencias" titulo="Relatório de Diligências">
+                    <RsoNovo />
+                  </AccessGate>
+                }
+              />
               <Route path="/ccomsoc" element={<CCOMSOC />} />
               <Route path="/denuncia" element={<Denuncia />} />
             </Route>
