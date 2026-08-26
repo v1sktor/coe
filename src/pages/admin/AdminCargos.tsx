@@ -123,7 +123,7 @@ const AdminCargos = () => {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Nome do Cargo</Label>
-                <Input value={formNome} onChange={(e) => setFormNome(e.target.value)} placeholder="Ex: Tenente" className="bg-secondary border-border" />
+                <Input value={formNome} onChange={(e) => setFormNome(e.target.value)} placeholder="Ex: Investigador" className="bg-secondary border-border" />
               </div>
               <div className="space-y-2">
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Nível Hierárquico</Label>
