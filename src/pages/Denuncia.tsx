@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { PublicLayout } from "@/components/PublicLayout";
 
 const CATEGORIAS = [
   "Abuso de autoridade",
@@ -90,7 +89,7 @@ const Denuncia = () => {
   };
 
   return (
-    <PublicLayout>
+    <>
       <main className="max-w-4xl mx-auto px-6 py-12 w-full">
         <div className="flex items-start gap-4">
           <span className="rounded-lg bg-primary/10 p-3 text-primary">
@@ -202,7 +201,7 @@ const Denuncia = () => {
           </form>
         )}
       </main>
-    </PublicLayout>
+    </>
   );
 };
 

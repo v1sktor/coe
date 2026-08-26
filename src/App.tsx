@@ -52,6 +52,7 @@ const App = () => (
               <Route path="/hierarquia" element={<Hierarquia />} />
               <Route path="/rso/novo" element={<RsoNovo />} />
               <Route path="/ccomsoc" element={<CCOMSOC />} />
+              <Route path="/denuncia" element={<Denuncia />} />
             </Route>
 
 
