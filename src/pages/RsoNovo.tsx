@@ -17,6 +17,8 @@ import CounterField from "@/components/rso/CounterField";
 import { Checkbox } from "@/components/ui/checkbox";
 import AmmoField from "@/components/rso/AmmoField";
 import PatrolTimer, { usePatrolTimer, formatTime } from "@/components/rso/PatrolTimer";
+import { BARCA_FIELDS, publishBarcaRso, subscribeBarcaApply, clearBarcaRso } from "@/lib/barca-sync";
+
 
 interface Membro {
   id: string;
