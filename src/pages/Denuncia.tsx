@@ -29,6 +29,8 @@ const schema = z.object({
   anonima: z.boolean(),
   nome: z.string().trim().max(120, "Nome muito longo").optional(),
   contato: z.string().trim().max(160, "Contato muito longo").optional(),
+  discord: z.string().trim().max(100, "Discord muito longo").optional(),
+  telefone: z.string().trim().max(40, "Telefone muito longo").optional(),
   categoria: z.string().trim().min(1, "Selecione a categoria"),
   unidade_envolvida: z.string().trim().max(120).optional(),
   local_fato: z.string().trim().max(200).optional(),
