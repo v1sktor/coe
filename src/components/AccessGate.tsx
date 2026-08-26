@@ -100,9 +100,15 @@ export function AccessGate({
               <Label className="text-[11px] uppercase tracking-wider text-muted-foreground">Código de acesso</Label>
               <Input
                 autoFocus
-                placeholder="PC26-0000"
+                placeholder="XXXX-XXXX"
                 value={codigo}
-                onChange={(e) => setCodigo(e.target.value.toUpperCase())}
+                onChange={(e) => {
+                  const v = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, "");
+                  const limpo = v.replace(/-/g, "").slice(0, 8);
+                  const formatado =
+                    limpo.length <= 4 ? limpo : `${limpo.slice(0, 4)}-${limpo.slice(4)}`;
+                  setCodigo(formatado);
+                }}
                 className="font-mono tracking-widest"
               />
             </div>

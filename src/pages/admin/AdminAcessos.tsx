@@ -17,10 +17,17 @@ const LABELS: Record<string, string> = {
 const ALFABETO = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
 function gerarCodigo() {
-  const ano = String(new Date().getFullYear()).slice(2);
-  let sufixo = "";
-  for (let i = 0; i < 4; i++) sufixo += ALFABETO[Math.floor(Math.random() * ALFABETO.length)];
-  return `PC${ano}-${sufixo}`;
+  let parte1 = "";
+  let parte2 = "";
+  for (let i = 0; i < 4; i++) parte1 += ALFABETO[Math.floor(Math.random() * ALFABETO.length)];
+  for (let i = 0; i < 4; i++) parte2 += ALFABETO[Math.floor(Math.random() * ALFABETO.length)];
+  return `${parte1}-${parte2}`;
+}
+
+function formatarCodigo(valor: string) {
+  const limpo = valor.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 8);
+  if (limpo.length <= 4) return limpo;
+  return `${limpo.slice(0, 4)}-${limpo.slice(4)}`;
 }
 
 export default function AdminAcessos() {
@@ -82,7 +89,10 @@ export default function AdminAcessos() {
                     <Input
                       value={rascunho[item.chave] ?? ""}
                       onChange={(e) =>
-                        setRascunho((p) => ({ ...p, [item.chave]: e.target.value.toUpperCase() }))
+                        setRascunho((p) => ({
+                          ...p,
+                          [item.chave]: formatarCodigo(e.target.value),
+                        }))
                       }
                       className="font-mono tracking-widest"
                     />
