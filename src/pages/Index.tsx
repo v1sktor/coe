@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Lock, Network, ScrollText, Settings, Megaphone, FileText, ChevronRight } from "lucide-react";
+import { Lock, Network, ScrollText, Settings, Megaphone, FileText, ChevronRight, ShieldAlert } from "lucide-react";
 import logo from "@/assets/logo-pcsp.png";
 import heroBanner from "@/assets/ger-hero.jpg";
 import { supabase } from "@/integrations/supabase/client";
@@ -98,6 +98,29 @@ const Index = () => {
               className="w-full h-[320px] object-cover"
             />
           </div>
+        </div>
+      </section>
+
+      {/* Denúncia - Corregepol */}
+      <section className="bg-primary text-primary-foreground">
+        <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-start gap-4">
+            <span className="rounded-lg bg-primary-foreground/10 p-3">
+              <ShieldAlert className="h-7 w-7" />
+            </span>
+            <div>
+              <h2 className="font-display text-xl font-bold">Faça uma denúncia</h2>
+              <p className="mt-1 max-w-2xl text-[13px] leading-relaxed text-primary-foreground/75">
+                Canal direto com a Corregedoria da Polícia Civil (CORREGEPOL) para comunicar
+                desvios de conduta e irregularidades. Pode ser anônima e é tratada com sigilo.
+              </p>
+            </div>
+          </div>
+          <Button asChild size="lg" variant="secondary" className="font-medium shrink-0">
+            <Link to="/denuncia">
+              Registrar denúncia <ChevronRight className="ml-1 h-4 w-4" />
+            </Link>
+          </Button>
         </div>
       </section>
 

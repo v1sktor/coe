@@ -262,6 +262,51 @@ export type Database = {
         }
         Relationships: []
       }
+      denuncias: {
+        Row: {
+          anonima: boolean
+          categoria: string
+          contato: string | null
+          created_at: string
+          data_fato: string | null
+          descricao: string
+          id: string
+          local_fato: string | null
+          nome: string | null
+          protocolo: string
+          status: string
+          unidade_envolvida: string | null
+        }
+        Insert: {
+          anonima?: boolean
+          categoria: string
+          contato?: string | null
+          created_at?: string
+          data_fato?: string | null
+          descricao: string
+          id?: string
+          local_fato?: string | null
+          nome?: string | null
+          protocolo?: string
+          status?: string
+          unidade_envolvida?: string | null
+        }
+        Update: {
+          anonima?: boolean
+          categoria?: string
+          contato?: string | null
+          created_at?: string
+          data_fato?: string | null
+          descricao?: string
+          id?: string
+          local_fato?: string | null
+          nome?: string | null
+          protocolo?: string
+          status?: string
+          unidade_envolvida?: string | null
+        }
+        Relationships: []
+      }
       diretrizes_coe: {
         Row: {
           ano: number | null
