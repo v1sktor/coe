@@ -109,6 +109,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
           </Suspense>
+          <BarcaPanel />
         </BrowserRouter>
       </AuthProvider>
     </TooltipProvider>
