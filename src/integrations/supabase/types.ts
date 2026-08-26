@@ -274,6 +274,7 @@ export type Database = {
           local_fato: string | null
           nome: string | null
           protocolo: string
+          provas_links: string | null
           status: string
           unidade_envolvida: string | null
         }
@@ -288,6 +289,7 @@ export type Database = {
           local_fato?: string | null
           nome?: string | null
           protocolo?: string
+          provas_links?: string | null
           status?: string
           unidade_envolvida?: string | null
         }
@@ -302,6 +304,7 @@ export type Database = {
           local_fato?: string | null
           nome?: string | null
           protocolo?: string
+          provas_links?: string | null
           status?: string
           unidade_envolvida?: string | null
         }
