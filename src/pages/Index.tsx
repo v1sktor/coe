@@ -45,7 +45,7 @@ const Index = () => {
 
           <nav className="hidden md:flex items-center gap-6 text-[13px] font-medium">
             <TopLink to="/" label="Início" />
-            <TopLink to="/hierarquia" label="Efetivo" />
+            
             <TopLink to="/ccomsoc" label="Comunicação" />
             <TopLink to="/ctb" label="Código Penal" />
             <TopLink to="/institucional" label="Institucional" />
