@@ -284,12 +284,23 @@ const RsoNovo = () => {
         <h3 className="font-display text-sm uppercase tracking-wider text-foreground mb-4 flex items-center gap-2">
           <Users className="h-4 w-4 text-primary" /> Composição da Guarnição
         </h3>
+
+        <label className="flex items-start gap-3 rounded-md border border-border bg-secondary/40 p-3 mb-4 cursor-pointer">
+          <Checkbox checked={dejec} onCheckedChange={(c) => setDejec(c === true)} className="mt-0.5" />
+          <span>
+            <span className="block text-sm font-medium text-foreground">DEJEC</span>
+            <span className="block text-xs text-muted-foreground">
+              Operação conjunta — libera todos os policiais, de todas as unidades e hierarquias, nas posições abaixo.
+            </span>
+          </span>
+        </label>
+
         <div className="space-y-3">
-          <HierarchySelect label="Encarregado" value={form.encarregado_id} onChange={(v) => set("encarregado_id", v)} membros={membrosUnidade} required />
-          <HierarchySelect label="Motorista" value={form.motorista_id} onChange={(v) => set("motorista_id", v)} membros={membrosUnidade} required />
-          <HierarchySelect label="3° Homem" value={form.homem3_id} onChange={(v) => set("homem3_id", v)} membros={membrosUnidade} />
-          <HierarchySelect label="4° Homem" value={form.homem4_id} onChange={(v) => set("homem4_id", v)} membros={membrosUnidade} />
-          <HierarchySelect label="5° Homem" value={form.homem5_id} onChange={(v) => set("homem5_id", v)} membros={membrosUnidade} />
+          <HierarchySelect label="Encarregado" value={form.encarregado_id} onChange={(v) => set("encarregado_id", v)} membros={membrosGuarnicao} required />
+          <HierarchySelect label="Motorista" value={form.motorista_id} onChange={(v) => set("motorista_id", v)} membros={membrosGuarnicao} required />
+          <HierarchySelect label="3° Homem" value={form.homem3_id} onChange={(v) => set("homem3_id", v)} membros={membrosGuarnicao} />
+          <HierarchySelect label="4° Homem" value={form.homem4_id} onChange={(v) => set("homem4_id", v)} membros={membrosGuarnicao} />
+          <HierarchySelect label="5° Homem" value={form.homem5_id} onChange={(v) => set("homem5_id", v)} membros={membrosGuarnicao} />
         </div>
       </div>
     </div>
