@@ -81,8 +81,8 @@ const RsoNovo = () => {
 
   useEffect(() => {
     const fetchMembros = async () => {
-      const { data } = await supabase.from("hierarquia").select("*, cargos(nome)").order("ordem");
-      if (data) setMembros(data.map((h: any) => ({ id: h.id, membro_nome: h.membro_nome, cargo_nome: h.cargos?.nome, unidade: h.batalhao })));
+      const { data } = await (supabase.rpc as any)("get_hierarquia_publica");
+      if (data) setMembros((data as any[]).map((h: any) => ({ id: h.id, membro_nome: h.membro_nome, cargo_nome: h.cargo_nome, unidade: h.batalhao })));
     };
     fetchMembros();
   }, []);
