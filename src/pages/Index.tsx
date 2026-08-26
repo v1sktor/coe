@@ -73,18 +73,16 @@ const Index = () => {
               informações institucionais, comunicados, relatórios operacionais e serviços das
               unidades especializadas.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="font-medium">
+            <div className="mt-8 grid w-full max-w-xl grid-cols-1 gap-3 sm:grid-cols-2">
+              <Button asChild size="lg" className="w-full font-medium">
                 <Link to="/ctb">
                   BOPC/BIC <ChevronRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="font-medium">
+              <Button asChild size="lg" variant="outline" className="w-full font-medium">
                 <Link to="/rso/novo">Relatório de Diligências</Link>
               </Button>
-            </div>
-            <div className="mt-3 flex">
-              <Button asChild size="lg" variant="outline" className="font-medium w-full max-w-md">
+              <Button asChild size="lg" variant="outline" className="w-full font-medium sm:col-span-2">
                 <Link to="/edital">Edital PCESP</Link>
               </Button>
             </div>
