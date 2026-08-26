@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute, AdminRoute } from "@/components/ProtectedRoute";
 import { AppLayout } from "@/components/AppLayout";
 import { PublicLayout } from "@/components/PublicLayout";
+import { AccessGate } from "@/components/AccessGate";
 import Index from "./pages/Index";
 
 const Login = lazy(() => import("./pages/Login"));
@@ -31,6 +32,7 @@ const AdminPatentes = lazy(() => import("./pages/admin/AdminPatentes"));
 const AdminUsuarios = lazy(() => import("./pages/admin/AdminUsuarios"));
 const AdminLogs = lazy(() => import("./pages/admin/AdminLogs"));
 const AdminProvas = lazy(() => import("./pages/admin/AdminProvas"));
+const AdminAcessos = lazy(() => import("./pages/admin/AdminAcessos"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -55,7 +57,14 @@ const App = () => (
             <Route path="/prova" element={<Prova />} />
             <Route element={<PublicLayout />}>
               <Route path="/hierarquia" element={<Hierarquia />} />
-              <Route path="/rso/novo" element={<RsoNovo />} />
+              <Route
+                path="/rso/novo"
+                element={
+                  <AccessGate chave="diligencias" titulo="Relatório de Diligências">
+                    <RsoNovo />
+                  </AccessGate>
+                }
+              />
               <Route path="/ccomsoc" element={<CCOMSOC />} />
               <Route path="/denuncia" element={<Denuncia />} />
             </Route>
@@ -63,7 +72,14 @@ const App = () => (
 
             {/* Rotas públicas (full page custom) */}
             <Route path="/ctb" element={<CTB />} />
-            <Route path="/bopc" element={<BOPC />} />
+            <Route
+              path="/bopc"
+              element={
+                <AccessGate chave="bopc" titulo="BOPC / BIC">
+                  <BOPC />
+                </AccessGate>
+              }
+            />
 
             {/* Rotas autenticadas */}
             <Route element={<ProtectedRoute />}>
@@ -85,6 +101,7 @@ const App = () => (
                 <Route path="/admin/usuarios" element={<AdminUsuarios />} />
                 <Route path="/admin/logs" element={<AdminLogs />} />
                 <Route path="/admin/provas" element={<AdminProvas />} />
+                <Route path="/admin/acessos" element={<AdminAcessos />} />
               </Route>
             </Route>
 
