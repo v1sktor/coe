@@ -807,6 +807,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      submit_rso: { Args: { _aits?: Json; _rso: Json }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "user"
