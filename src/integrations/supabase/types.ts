@@ -487,6 +487,54 @@ export type Database = {
           },
         ]
       }
+      juridico_investigacoes: {
+        Row: {
+          anexos: Json
+          autor_nome: string | null
+          created_at: string
+          criado_por: string | null
+          descricao: string
+          envolvidos: string | null
+          id: string
+          numero: string | null
+          status: string
+          tipo: string
+          titulo: string
+          unidade: string | null
+          updated_at: string
+        }
+        Insert: {
+          anexos?: Json
+          autor_nome?: string | null
+          created_at?: string
+          criado_por?: string | null
+          descricao?: string
+          envolvidos?: string | null
+          id?: string
+          numero?: string | null
+          status?: string
+          tipo?: string
+          titulo: string
+          unidade?: string | null
+          updated_at?: string
+        }
+        Update: {
+          anexos?: Json
+          autor_nome?: string | null
+          created_at?: string
+          criado_por?: string | null
+          descricao?: string
+          envolvidos?: string | null
+          id?: string
+          numero?: string | null
+          status?: string
+          tipo?: string
+          titulo?: string
+          unidade?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       permissoes: {
         Row: {
           created_at: string
