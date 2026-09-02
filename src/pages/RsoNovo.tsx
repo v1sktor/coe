@@ -396,8 +396,9 @@ const RsoNovo = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <CounterField label="Lockpicks" value={form.ilicito_lockpicks} onChange={(v) => set("ilicito_lockpicks", v)} />
           <CounterField label="Bombas Caseiras" value={form.ilicito_bombas} onChange={(v) => set("ilicito_bombas", v)} />
-          <CounterField label="Dinheiro Marcado" value={form.ilicito_dinheiro_marcado} onChange={(v) => set("ilicito_dinheiro_marcado", v)} />
+          <AmmoField label="Dinheiro Marcado" value={form.ilicito_dinheiro_marcado} onChange={(v) => set("ilicito_dinheiro_marcado", v)} />
         </div>
+
       </div>
       <div className="space-y-2">
         <Label className="text-xs uppercase tracking-wider text-muted-foreground">Outros Ilícitos</Label>
