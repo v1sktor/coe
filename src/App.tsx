@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,33 +10,41 @@ import { AppLayout } from "@/components/AppLayout";
 import { PublicLayout } from "@/components/PublicLayout";
 import { AccessGate } from "@/components/AccessGate";
 import { BarcaPanel } from "@/components/barca/BarcaPanel";
+import { RouteErrorBoundary } from "@/components/RouteErrorBoundary";
+import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import Index from "./pages/Index";
 
-const Login = lazy(() => import("./pages/Login"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
-const Hierarquia = lazy(() => import("./pages/Hierarquia"));
-const CTB = lazy(() => import("./pages/CTB"));
-const BOPC = lazy(() => import("./pages/BOPC"));
-const Timings = lazy(() => import("./pages/Timings"));
-const Relatorios = lazy(() => import("./pages/Relatorios"));
-const RsoNovo = lazy(() => import("./pages/RsoNovo"));
-const CCOMSOC = lazy(() => import("./pages/CCOMSOC"));
-const Estaticas = lazy(() => import("./pages/Estaticas"));
-const Diretrizes = lazy(() => import("./pages/Diretrizes"));
-const Cursos = lazy(() => import("./pages/Cursos"));
-const Institucional = lazy(() => import("./pages/Institucional"));
-const Edital = lazy(() => import("./pages/Edital"));
-const Denuncia = lazy(() => import("./pages/Denuncia"));
-const Prova = lazy(() => import("./pages/Prova"));
-const AdminCargos = lazy(() => import("./pages/admin/AdminCargos"));
-const AdminPatentes = lazy(() => import("./pages/admin/AdminPatentes"));
-const AdminUsuarios = lazy(() => import("./pages/admin/AdminUsuarios"));
-const AdminLogs = lazy(() => import("./pages/admin/AdminLogs"));
-const AdminProvas = lazy(() => import("./pages/admin/AdminProvas"));
-const AdminAcessos = lazy(() => import("./pages/admin/AdminAcessos"));
-const NotFound = lazy(() => import("./pages/NotFound"));
+const Login = lazyWithRetry(() => import("./pages/Login"), "login");
+const Dashboard = lazyWithRetry(() => import("./pages/Dashboard"), "dashboard");
+const Hierarquia = lazyWithRetry(() => import("./pages/Hierarquia"), "hierarquia");
+const CTB = lazyWithRetry(() => import("./pages/CTB"), "ctb");
+const BOPC = lazyWithRetry(() => import("./pages/BOPC"), "bopc");
+const Timings = lazyWithRetry(() => import("./pages/Timings"), "timings");
+const Relatorios = lazyWithRetry(() => import("./pages/Relatorios"), "relatorios");
+const RsoNovo = lazyWithRetry(() => import("./pages/RsoNovo"), "rso-novo");
+const CCOMSOC = lazyWithRetry(() => import("./pages/CCOMSOC"), "ccomsoc");
+const Estaticas = lazyWithRetry(() => import("./pages/Estaticas"), "estaticas");
+const Diretrizes = lazyWithRetry(() => import("./pages/Diretrizes"), "diretrizes");
+const Cursos = lazyWithRetry(() => import("./pages/Cursos"), "cursos");
+const Institucional = lazyWithRetry(() => import("./pages/Institucional"), "institucional");
+const Edital = lazyWithRetry(() => import("./pages/Edital"), "edital");
+const Denuncia = lazyWithRetry(() => import("./pages/Denuncia"), "denuncia");
+const Prova = lazyWithRetry(() => import("./pages/Prova"), "prova");
+const AdminCargos = lazyWithRetry(() => import("./pages/admin/AdminCargos"), "admin-cargos");
+const AdminPatentes = lazyWithRetry(() => import("./pages/admin/AdminPatentes"), "admin-patentes");
+const AdminUsuarios = lazyWithRetry(() => import("./pages/admin/AdminUsuarios"), "admin-usuarios");
+const AdminLogs = lazyWithRetry(() => import("./pages/admin/AdminLogs"), "admin-logs");
+const AdminProvas = lazyWithRetry(() => import("./pages/admin/AdminProvas"), "admin-provas");
+const AdminAcessos = lazyWithRetry(() => import("./pages/admin/AdminAcessos"), "admin-acessos");
+const NotFound = lazyWithRetry(() => import("./pages/NotFound"), "not-found");
 
 const queryClient = new QueryClient();
+
+const PageLoader = () => (
+  <div className="min-h-[60vh] flex items-center justify-center">
+    <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+  </div>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -45,7 +53,9 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Suspense fallback={null}>
+          <RouteErrorBoundary>
+          <Suspense fallback={<PageLoader />}>
+
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Index />} />
@@ -109,6 +119,8 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
           </Suspense>
+          </RouteErrorBoundary>
+
           <BarcaPanel />
         </BrowserRouter>
       </AuthProvider>
