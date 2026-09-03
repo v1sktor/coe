@@ -92,6 +92,16 @@ const App = () => (
                 </AccessGate>
               }
             />
+            <Route
+              path="/juridico"
+              element={
+                <AccessGate chave="juridico" titulo="Jurídico">
+                  <div className="min-h-screen bg-background p-6">
+                    <Juridico />
+                  </div>
+                </AccessGate>
+              }
+            />
 
             {/* Rotas autenticadas */}
             <Route element={<ProtectedRoute />}>
@@ -101,7 +111,7 @@ const App = () => (
                 <Route path="/relatorios" element={<Relatorios />} />
                 <Route path="/estaticas" element={<Estaticas />} />
                 <Route path="/diretrizes" element={<Diretrizes />} />
-                <Route path="/juridico" element={<Juridico />} />
+                
 
               </Route>
             </Route>

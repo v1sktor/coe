@@ -12,6 +12,7 @@ type Codigo = { id: string; chave: string; codigo: string; updated_at: string };
 const LABELS: Record<string, string> = {
   bopc: "BOPC / BIC",
   diligencias: "Relatório de Diligências",
+  juridico: "Jurídico",
 };
 
 const ALFABETO = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

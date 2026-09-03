@@ -76,7 +76,8 @@ const emptyForm = {
 
 export default function Juridico() {
   const { user } = useAuth();
-  const { allowed, loading: loadingPerm } = usePermission("juridico");
+  const { allowed: permitido, loading: loadingPerm } = usePermission("juridico");
+  const allowed = permitido || !user;
   const [items, setItems] = useState<Investigacao[]>([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<string>("todos");
