@@ -25,6 +25,7 @@ const RsoNovo = lazyWithRetry(() => import("./pages/RsoNovo"), "rso-novo");
 const CCOMSOC = lazyWithRetry(() => import("./pages/CCOMSOC"), "ccomsoc");
 const Estaticas = lazyWithRetry(() => import("./pages/Estaticas"), "estaticas");
 const Diretrizes = lazyWithRetry(() => import("./pages/Diretrizes"), "diretrizes");
+const Juridico = lazyWithRetry(() => import("./pages/Juridico"), "juridico");
 const Cursos = lazyWithRetry(() => import("./pages/Cursos"), "cursos");
 const Institucional = lazyWithRetry(() => import("./pages/Institucional"), "institucional");
 const Edital = lazyWithRetry(() => import("./pages/Edital"), "edital");
