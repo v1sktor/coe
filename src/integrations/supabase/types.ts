@@ -535,6 +535,39 @@ export type Database = {
         }
         Relationships: []
       }
+      juridico_usuarios: {
+        Row: {
+          ativo: boolean
+          created_at: string
+          criado_por: string | null
+          id: string
+          nome: string
+          senha_hash: string
+          updated_at: string
+          usuario: string
+        }
+        Insert: {
+          ativo?: boolean
+          created_at?: string
+          criado_por?: string | null
+          id?: string
+          nome: string
+          senha_hash: string
+          updated_at?: string
+          usuario: string
+        }
+        Update: {
+          ativo?: boolean
+          created_at?: string
+          criado_por?: string | null
+          id?: string
+          nome?: string
+          senha_hash?: string
+          updated_at?: string
+          usuario?: string
+        }
+        Relationships: []
+      }
       permissoes: {
         Row: {
           created_at: string
@@ -947,6 +980,18 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      juridico_criar_usuario: {
+        Args: { _nome: string; _senha: string; _usuario: string }
+        Returns: string
+      }
+      juridico_definir_senha: {
+        Args: { _id: string; _senha: string }
+        Returns: boolean
+      }
+      juridico_login: {
+        Args: { _senha: string; _usuario: string }
+        Returns: Json
       }
       submit_rso: { Args: { _aits?: Json; _rso: Json }; Returns: string }
       verify_access_code: {
