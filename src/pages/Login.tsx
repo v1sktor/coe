@@ -85,6 +85,17 @@ const Login = () => {
           </CardContent>
         </Card>
 
+        <Button
+          variant="outline"
+          asChild
+          className="w-full font-display uppercase tracking-widest"
+        >
+          <Link to="/juridico">
+            <Scale className="mr-2 h-4 w-4" />
+            Acessar Jurídico
+          </Link>
+        </Button>
+
         <div className="text-center">
           <Button variant="ghost" asChild className="text-muted-foreground text-sm">
             <Link to="/">
@@ -93,6 +104,7 @@ const Login = () => {
             </Link>
           </Button>
         </div>
+
 
         <p className="text-center text-xs text-muted-foreground">
           Sistema de uso exclusivo. Acesso não autorizado é crime.
