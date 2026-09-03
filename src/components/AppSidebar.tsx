@@ -21,6 +21,7 @@ const menuItems = [
   { title: "Timings", url: "/timings", icon: Clock },
   { title: "Relatórios / RSO", url: "/relatorios", icon: FileText },
   { title: "Estáticas", url: "/estaticas", icon: MapPin },
+  { title: "Jurídico", url: "/juridico", icon: Scale },
 ];
 
 const docItems = [
