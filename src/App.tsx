@@ -95,11 +95,11 @@ const App = () => (
             <Route
               path="/juridico"
               element={
-                <AccessGate chave="juridico" titulo="Jurídico">
+                <JuridicoGate>
                   <div className="min-h-screen bg-background p-6">
                     <Juridico />
                   </div>
-                </AccessGate>
+                </JuridicoGate>
               }
             />
 
