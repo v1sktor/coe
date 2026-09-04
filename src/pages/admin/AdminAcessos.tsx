@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
+import JuridicoContas from "@/components/admin/JuridicoContas";
 
 type Codigo = { id: string; chave: string; codigo: string; updated_at: string };
 
@@ -129,6 +130,8 @@ export default function AdminAcessos() {
           ))}
         </div>
       )}
+
+      <JuridicoContas />
     </div>
   );
 }

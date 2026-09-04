@@ -26,6 +26,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Pencil, Trash2, Paperclip, Scale, FileText, X, Search } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 import { UNIDADES } from "@/lib/unidades";
+import { clearJuridicoSession, getJuridicoSession } from "@/components/JuridicoGate";
 
 const MAX_MB = 25;
 
@@ -267,9 +268,22 @@ export default function Juridico() {
             Repositório de investigações, inquéritos e pareceres com anexos sigilosos.
           </p>
         </div>
-        <Button onClick={startCreate}>
-          <Plus className="mr-2 h-4 w-4" /> Nova investigação
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={startCreate}>
+            <Plus className="mr-2 h-4 w-4" /> Nova investigação
+          </Button>
+          {!user && (
+            <Button
+              variant="outline"
+              onClick={() => {
+                clearJuridicoSession();
+                window.location.href = "/login";
+              }}
+            >
+              Sair
+            </Button>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">

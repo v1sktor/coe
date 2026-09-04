@@ -9,6 +9,7 @@ import { ProtectedRoute, AdminRoute } from "@/components/ProtectedRoute";
 import { AppLayout } from "@/components/AppLayout";
 import { PublicLayout } from "@/components/PublicLayout";
 import { AccessGate } from "@/components/AccessGate";
+import { JuridicoGate } from "@/components/JuridicoGate";
 import { BarcaPanel } from "@/components/barca/BarcaPanel";
 import { RouteErrorBoundary } from "@/components/RouteErrorBoundary";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
@@ -95,11 +96,11 @@ const App = () => (
             <Route
               path="/juridico"
               element={
-                <AccessGate chave="juridico" titulo="Jurídico">
+                <JuridicoGate>
                   <div className="min-h-screen bg-background p-6">
                     <Juridico />
                   </div>
-                </AccessGate>
+                </JuridicoGate>
               }
             />
 
