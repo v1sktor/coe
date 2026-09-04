@@ -26,6 +26,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Pencil, Trash2, Paperclip, Scale, FileText, X, Search } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 import { UNIDADES } from "@/lib/unidades";
+import { clearJuridicoSession, getJuridicoSession } from "@/components/JuridicoGate";
 
 const MAX_MB = 25;
 
