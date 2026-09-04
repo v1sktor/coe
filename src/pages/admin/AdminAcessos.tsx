@@ -129,6 +129,8 @@ export default function AdminAcessos() {
           ))}
         </div>
       )}
+
+      <JuridicoContas />
     </div>
   );
 }
