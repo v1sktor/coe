@@ -54,7 +54,14 @@ export function JuridicoGate({ children }: { children: ReactNode }) {
     setSessao(s);
   };
 
-  if (sessao) return <>{children}</>;
+  if (authLoading)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+      </div>
+    );
+
+  if (isAdmin || sessao) return <>{children}</>;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
