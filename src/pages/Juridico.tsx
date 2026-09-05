@@ -88,6 +88,7 @@ const emptyForm = {
 
 export default function Juridico() {
   const { user } = useAuth();
+  const viaAdmin = !!user && !getJuridicoSession();
   const { allowed: permitido, loading: loadingPerm } = usePermission("juridico");
   const allowed = permitido || !user;
   const [items, setItems] = useState<Investigacao[]>([]);
@@ -284,11 +285,11 @@ export default function Juridico() {
           <Button onClick={startCreate}>
             <Plus className="mr-2 h-4 w-4" /> Nova investigação
           </Button>
-          {user ? (
+          {viaAdmin ? (
             <Button
               variant="outline"
               onClick={() => {
-                window.location.href = "/admin";
+                window.location.href = "/admin/usuarios";
               }}
             >
               <ArrowLeft className="mr-2 h-4 w-4" /> Voltar ao Admin
