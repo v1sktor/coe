@@ -65,6 +65,13 @@ const TIPOS = [
   { value: "outro", label: "Outro" },
 ];
 
+function gerarNumero() {
+  const ano = new Date().getFullYear();
+  const seq = String(Math.floor(Math.random() * 9999) + 1).padStart(4, "0");
+  const dv = String(Math.floor(Math.random() * 90) + 10);
+  return `${seq}/${ano}-${dv}`;
+}
+
 const emptyForm = {
   titulo: "",
   numero: "",
@@ -74,6 +81,7 @@ const emptyForm = {
   descricao: "",
   status: "em_andamento",
 };
+
 
 export default function Juridico() {
   const { user } = useAuth();
