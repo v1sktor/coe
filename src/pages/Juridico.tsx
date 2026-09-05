@@ -60,10 +60,13 @@ const STATUS: Record<string, { label: string; className: string }> = {
 const TIPOS = [
   { value: "investigacao", label: "Investigação" },
   { value: "inquerito", label: "Inquérito Policial" },
+  { value: "mandado_prisao", label: "Mandado de Prisão" },
+  { value: "mandado_busca", label: "Mandado de Busca e Apreensão" },
   { value: "processo", label: "Processo" },
   { value: "parecer", label: "Parecer Jurídico" },
   { value: "outro", label: "Outro" },
 ];
+
 
 function gerarNumero() {
   const ano = new Date().getFullYear();
