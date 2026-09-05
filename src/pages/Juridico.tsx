@@ -115,10 +115,11 @@ export default function Juridico() {
 
   function startCreate() {
     setEditing(null);
-    setForm(emptyForm);
+    setForm({ ...emptyForm, numero: gerarNumero() });
     setAnexos([]);
     setOpen(true);
   }
+
 
   function startEdit(i: Investigacao) {
     setEditing(i);
