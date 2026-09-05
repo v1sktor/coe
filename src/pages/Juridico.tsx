@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Pencil, Trash2, Paperclip, Scale, FileText, X, Search } from "lucide-react";
+import { Plus, Pencil, Trash2, Paperclip, Scale, FileText, X, Search, RefreshCw } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 import { UNIDADES } from "@/lib/unidades";
 import { clearJuridicoSession, getJuridicoSession } from "@/components/JuridicoGate";
@@ -65,6 +65,13 @@ const TIPOS = [
   { value: "outro", label: "Outro" },
 ];
 
+function gerarNumero() {
+  const ano = new Date().getFullYear();
+  const seq = String(Math.floor(Math.random() * 9999) + 1).padStart(4, "0");
+  const dv = String(Math.floor(Math.random() * 90) + 10);
+  return `${seq}/${ano}-${dv}`;
+}
+
 const emptyForm = {
   titulo: "",
   numero: "",
@@ -74,6 +81,7 @@ const emptyForm = {
   descricao: "",
   status: "em_andamento",
 };
+
 
 export default function Juridico() {
   const { user } = useAuth();
@@ -107,10 +115,11 @@ export default function Juridico() {
 
   function startCreate() {
     setEditing(null);
-    setForm(emptyForm);
+    setForm({ ...emptyForm, numero: gerarNumero() });
     setAnexos([]);
     setOpen(true);
   }
+
 
   function startEdit(i: Investigacao) {
     setEditing(i);
@@ -408,12 +417,25 @@ export default function Juridico() {
             <div className="grid gap-4 sm:grid-cols-3">
               <div className="grid gap-2">
                 <Label>Número</Label>
-                <Input
-                  value={form.numero}
-                  onChange={(e) => setForm({ ...form, numero: e.target.value })}
-                  placeholder="000/2026"
-                />
+                <div className="flex gap-2">
+                  <Input
+                    value={form.numero}
+                    onChange={(e) => setForm({ ...form, numero: e.target.value })}
+                    placeholder="0000/2026-00"
+                    className="font-mono"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    title="Gerar novo número"
+                    onClick={() => setForm({ ...form, numero: gerarNumero() })}
+                  >
+                    <RefreshCw className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
+
               <div className="grid gap-2">
                 <Label>Tipo</Label>
                 <Select value={form.tipo} onValueChange={(v) => setForm({ ...form, tipo: v })}>
