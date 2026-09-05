@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Pencil, Trash2, Paperclip, Scale, FileText, X, Search, RefreshCw } from "lucide-react";
+import { Plus, Pencil, Trash2, Paperclip, Scale, FileText, X, Search, RefreshCw, ArrowLeft, LogOut } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 import { UNIDADES } from "@/lib/unidades";
 import { clearJuridicoSession, getJuridicoSession } from "@/components/JuridicoGate";
@@ -284,7 +284,16 @@ export default function Juridico() {
           <Button onClick={startCreate}>
             <Plus className="mr-2 h-4 w-4" /> Nova investigação
           </Button>
-          {!user && (
+          {user ? (
+            <Button
+              variant="outline"
+              onClick={() => {
+                window.location.href = "/admin";
+              }}
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" /> Voltar ao Admin
+            </Button>
+          ) : (
             <Button
               variant="outline"
               onClick={() => {
@@ -292,7 +301,7 @@ export default function Juridico() {
                 window.location.href = "/login";
               }}
             >
-              Sair
+              <LogOut className="mr-2 h-4 w-4" /> Sair
             </Button>
           )}
         </div>
