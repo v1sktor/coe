@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/logo-pcsp.png";
 
 const STORAGE_KEY = "juridico-session";
@@ -26,6 +27,7 @@ export function clearJuridicoSession() {
 }
 
 export function JuridicoGate({ children }: { children: ReactNode }) {
+  const { isAdmin, loading: authLoading } = useAuth();
   const [sessao, setSessao] = useState<JuridicoSession | null>(null);
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
@@ -52,7 +54,14 @@ export function JuridicoGate({ children }: { children: ReactNode }) {
     setSessao(s);
   };
 
-  if (sessao) return <>{children}</>;
+  if (authLoading)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+      </div>
+    );
+
+  if (isAdmin || sessao) return <>{children}</>;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
