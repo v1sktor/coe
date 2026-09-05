@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Pencil, Trash2, Paperclip, Scale, FileText, X, Search, RefreshCw } from "lucide-react";
+import { Plus, Pencil, Trash2, Paperclip, Scale, FileText, X, Search, RefreshCw, ArrowLeft, LogOut } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 import { UNIDADES } from "@/lib/unidades";
 import { clearJuridicoSession, getJuridicoSession } from "@/components/JuridicoGate";
