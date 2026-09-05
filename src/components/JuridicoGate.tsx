@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/logo-pcsp.png";
 
 const STORAGE_KEY = "juridico-session";
@@ -26,6 +27,7 @@ export function clearJuridicoSession() {
 }
 
 export function JuridicoGate({ children }: { children: ReactNode }) {
+  const { isAdmin, loading: authLoading } = useAuth();
   const [sessao, setSessao] = useState<JuridicoSession | null>(null);
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
