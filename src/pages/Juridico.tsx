@@ -417,12 +417,25 @@ export default function Juridico() {
             <div className="grid gap-4 sm:grid-cols-3">
               <div className="grid gap-2">
                 <Label>Número</Label>
-                <Input
-                  value={form.numero}
-                  onChange={(e) => setForm({ ...form, numero: e.target.value })}
-                  placeholder="000/2026"
-                />
+                <div className="flex gap-2">
+                  <Input
+                    value={form.numero}
+                    onChange={(e) => setForm({ ...form, numero: e.target.value })}
+                    placeholder="0000/2026-00"
+                    className="font-mono"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    title="Gerar novo número"
+                    onClick={() => setForm({ ...form, numero: gerarNumero() })}
+                  >
+                    <RefreshCw className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
+
               <div className="grid gap-2">
                 <Label>Tipo</Label>
                 <Select value={form.tipo} onValueChange={(v) => setForm({ ...form, tipo: v })}>
