@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
+import { usePermission } from "@/hooks/usePermission";
 import logo from "@/assets/logo-pcsp.png";
 
 const STORAGE_KEY = "juridico-session";
@@ -55,14 +56,14 @@ export function JuridicoGate({ children }: { children: ReactNode }) {
     setSessao(s);
   };
 
-  if (authLoading)
+  if (authLoading || permLoading)
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
       </div>
     );
 
-  if (isAdmin || sessao) return <>{children}</>;
+  if (isAdmin || temPermissao || sessao) return <>{children}</>;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
