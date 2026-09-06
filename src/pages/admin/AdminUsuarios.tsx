@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Users, ShieldCheck, Plus, Settings, KeyRound } from "lucide-react";
+import { Users, ShieldCheck, Plus, Settings, KeyRound, Scale } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -152,6 +152,41 @@ const AdminUsuarios = () => {
     const { error } = await supabase.from("profiles").update({ cargo_id: cargoId }).eq("user_id", userId);
     if (error) { toast({ title: "Erro ao definir cargo", description: error.message, variant: "destructive" }); return; }
     toast({ title: "Cargo atualizado" });
+    fetchData();
+  };
+
+  const ensureCargo = async (user: UserWithDetails): Promise<string | null> => {
+    if (user.profile.cargo_id) return user.profile.cargo_id;
+    const { data: newCargo, error } = await supabase
+      .from("cargos")
+      .insert({ nome: `Cargo - ${user.profile.nome}`, nivel_hierarquico: 999 })
+      .select()
+      .single();
+    if (error || !newCargo) {
+      toast({ title: "Erro ao criar cargo", description: error?.message, variant: "destructive" });
+      return null;
+    }
+    await supabase.from("profiles").update({ cargo_id: newCargo.id }).eq("user_id", user.profile.user_id);
+    return newCargo.id;
+  };
+
+  const toggleJuridico = async (user: UserWithDetails) => {
+    const perm = permissoes.find((p) => p.nome === "juridico");
+    if (!perm) {
+      toast({ title: "Permissão “juridico” não encontrada", variant: "destructive" });
+      return;
+    }
+    const jaTem = user.permissoes.includes(perm.id);
+    const cargoId = await ensureCargo(user);
+    if (!cargoId) return;
+    const { error } = jaTem
+      ? await supabase.from("cargo_permissoes").delete().eq("cargo_id", cargoId).eq("permissao_id", perm.id)
+      : await supabase.from("cargo_permissoes").insert({ cargo_id: cargoId, permissao_id: perm.id });
+    if (error) {
+      toast({ title: "Erro", description: error.message, variant: "destructive" });
+      return;
+    }
+    toast({ title: jaTem ? "Acesso ao Jurídico removido" : "Acesso ao Jurídico concedido" });
     fetchData();
   };
 
