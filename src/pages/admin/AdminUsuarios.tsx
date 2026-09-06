@@ -362,6 +362,10 @@ const AdminUsuarios = () => {
                           <Settings className="mr-1 h-3 w-3" />
                           Permissões
                         </Button>
+                        <Button variant="ghost" size="sm" onClick={() => toggleJuridico(u)} className="font-display uppercase text-xs tracking-wider">
+                          <Scale className="mr-1 h-3 w-3" />
+                          {getPermNomes(u.permissoes).includes("juridico") ? "Tirar Jurídico" : "Dar Jurídico"}
+                        </Button>
                         <Button variant="ghost" size="sm" onClick={() => openPwdDialog(u)} className="font-display uppercase text-xs tracking-wider">
                           <KeyRound className="mr-1 h-3 w-3" />
                           Alterar senha
@@ -371,6 +375,8 @@ const AdminUsuarios = () => {
                           {u.isAdmin ? "Remover Admin" : "Tornar Admin"}
                         </Button>
                       </div>
+                    </TableCell>
+
                     </TableCell>
                   </TableRow>
                 );
