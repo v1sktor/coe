@@ -376,8 +376,6 @@ const AdminUsuarios = () => {
                         </Button>
                       </div>
                     </TableCell>
-
-                    </TableCell>
                   </TableRow>
                 );
               })}
