@@ -28,6 +28,7 @@ export function clearJuridicoSession() {
 
 export function JuridicoGate({ children }: { children: ReactNode }) {
   const { isAdmin, loading: authLoading } = useAuth();
+  const { allowed: temPermissao, loading: permLoading } = usePermission("juridico");
   const [sessao, setSessao] = useState<JuridicoSession | null>(null);
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
