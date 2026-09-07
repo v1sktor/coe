@@ -89,6 +89,10 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
   };
 
   const header = () => {
+    const numeroRegistro = gerarNumeroRegistro(rso);
+    const status = String(rso.status || "").toUpperCase() || "—";
+    const dataFimPatrulha = fmtDateTime(rso.patrulha_fim);
+
     if (logo) {
       try {
         doc.addImage(logo, "PNG", M, y - 6, 54, 54);
@@ -96,16 +100,32 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
         /* ignore */
       }
     }
+
+    const centerX = W / 2;
     doc.setTextColor(20);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
-    doc.text("POLÍCIA CIVIL DO ESTADO DE SÃO PAULO", M + 68, y + 12);
-    doc.setFontSize(10);
-    doc.text("RELATÓRIO DE SERVIÇO E OCORRÊNCIA — RSO", M + 68, y + 28);
+    doc.text("POLÍCIA CIVIL DO ESTADO DE SÃO PAULO", centerX, y + 12, { align: "center" });
+    doc.setFontSize(11);
+    doc.text("REGISTRO DE DILIGÊNCIA", centerX, y + 28, { align: "center" });
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
-    doc.setTextColor(100);
-    doc.text("Delegacia Seccional de Brasilândia · Documento Oficial", M + 68, y + 42);
+    doc.setTextColor(80);
+    doc.text("Sistema Integrado de Gestão Operacional", centerX, y + 42, { align: "center" });
+
+    const rightX = W - M;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(20);
+    doc.text(`Nº do Registro: ${numeroRegistro}`, rightX, y + 10, { align: "right" });
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(80);
+    doc.text(`Data: ${dataFimPatrulha}`, rightX, y + 24, { align: "right" });
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(status === "APROVADO" ? [34, 120, 60] : [180, 60, 60]);
+    doc.text(`Status: ${status}`, rightX, y + 38, { align: "right" });
+
     y += 62;
     doc.setDrawColor(30, 64, 120);
     doc.setLineWidth(1.4);
