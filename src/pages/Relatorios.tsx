@@ -260,6 +260,12 @@ const Relatorios = () => {
           </DialogHeader>
           {viewRso && (
             <div className="space-y-4 text-sm">
+              {viewRso.status === "aprovado" && (
+                <Button size="sm" className="font-display uppercase text-xs tracking-wider" onClick={() => handlePdf(viewRso)}>
+                  <FileDown className="mr-2 h-4 w-4" /> Baixar PDF
+                </Button>
+              )}
+
               {viewRso.motivo_rejeicao && viewRso.status === "reprovado" && (
                 <div className="bg-destructive/10 border border-destructive/30 rounded-md p-3">
                   <p className="text-xs uppercase text-destructive font-bold mb-1">Motivo da Reprovação</p>
