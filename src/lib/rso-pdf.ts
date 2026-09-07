@@ -101,25 +101,30 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
       }
     }
 
-    const centerX = W / 2;
+    const logoW = 54;
+    const rightW = 130;
+    const leftX = M + logoW + 14;
+    const centerW = W - M - rightW - leftX - 10;
+    const centerX = leftX + centerW / 2;
+    const rightX = W - M;
+
     doc.setTextColor(20);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(13);
-    doc.text("POLÍCIA CIVIL DO ESTADO DE SÃO PAULO", centerX, y + 12, { align: "center" });
+    doc.setFontSize(12);
+    const title = doc.splitTextToSize("POLÍCIA CIVIL DO ESTADO DE SÃO PAULO", centerW);
+    doc.text(title, centerX, y + 12, { align: "center" });
     doc.setFontSize(11);
-    doc.text("REGISTRO DE DILIGÊNCIA", centerX, y + 28, { align: "center" });
+    doc.text("REGISTRO DE DILIGÊNCIA", centerX, y + 26, { align: "center" });
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(8.5);
+    doc.setFontSize(8);
     doc.setTextColor(80);
-    doc.text("Sistema Integrado de Gestão Operacional", centerX, y + 42, { align: "center" });
+    doc.text("Sistema Integrado de Gestão Operacional", centerX, y + 40, { align: "center" });
 
-    const rightX = W - M;
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(8.5);
+    doc.setFontSize(8);
     doc.setTextColor(20);
     doc.text(`Nº do Registro: ${numeroRegistro}`, rightX, y + 10, { align: "right" });
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(8);
     doc.setTextColor(80);
     doc.text(`Data: ${dataFimPatrulha}`, rightX, y + 24, { align: "right" });
     doc.setFont("helvetica", "bold");
