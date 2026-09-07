@@ -132,6 +132,27 @@ const Relatorios = () => {
     return `${h}h ${m}min`;
   };
 
+  const handlePdf = async (rso: RsoRow) => {
+    try {
+      toast({ title: "Gerando PDF..." });
+      let urls: string[] = [];
+      const paths = (rso.anexos_links || "").split("\n").map((p) => p.trim()).filter(Boolean);
+      if (paths.length) {
+        const { data } = await supabase.storage.from("rso-anexos").createSignedUrls(paths, 3600);
+        if (data) urls = data.map((d) => d.signedUrl).filter(Boolean) as string[];
+      }
+      await generateRsoPdf({
+        rso: rso as any,
+        membrosMap,
+        anexosUrls: urls,
+        duracao: formatDuration(rso.patrulha_inicio, rso.patrulha_fim),
+      });
+    } catch (e: any) {
+      toast({ title: "Erro ao gerar PDF", description: e?.message, variant: "destructive" });
+    }
+  };
+
+
   const rsosFiltrados = aba === "todos" ? rsos : rsos.filter((r) => r.status === aba);
   const countBy = (st: string) => rsos.filter((r) => r.status === st).length;
 
