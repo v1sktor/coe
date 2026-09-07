@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { FileText, Check, X, Eye, ChevronDown, ChevronUp } from "lucide-react";
+import { FileText, Check, X, Eye, ChevronDown, ChevronUp, FileDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
+import { generateRsoPdf } from "@/lib/rso-pdf";
+
 
 interface RsoRow {
   id: string;
@@ -130,6 +132,27 @@ const Relatorios = () => {
     return `${h}h ${m}min`;
   };
 
+  const handlePdf = async (rso: RsoRow) => {
+    try {
+      toast({ title: "Gerando PDF..." });
+      let urls: string[] = [];
+      const paths = (rso.anexos_links || "").split("\n").map((p) => p.trim()).filter(Boolean);
+      if (paths.length) {
+        const { data } = await supabase.storage.from("rso-anexos").createSignedUrls(paths, 3600);
+        if (data) urls = data.map((d) => d.signedUrl).filter(Boolean) as string[];
+      }
+      await generateRsoPdf({
+        rso: rso as any,
+        membrosMap,
+        anexosUrls: urls,
+        duracao: formatDuration(rso.patrulha_inicio, rso.patrulha_fim),
+      });
+    } catch (e: any) {
+      toast({ title: "Erro ao gerar PDF", description: e?.message, variant: "destructive" });
+    }
+  };
+
+
   const rsosFiltrados = aba === "todos" ? rsos : rsos.filter((r) => r.status === aba);
   const countBy = (st: string) => rsos.filter((r) => r.status === st).length;
 
@@ -211,6 +234,12 @@ const Relatorios = () => {
                                 </Button>
                               </>
                             )}
+                            {rso.status === "aprovado" && (
+                              <Button variant="ghost" size="icon" className="h-8 w-8 text-primary hover:text-primary hover:bg-primary/10" title="Baixar PDF" onClick={() => handlePdf(rso)}>
+                                <FileDown className="h-4 w-4" />
+                              </Button>
+                            )}
+
                           </div>
                         </td>
                       </tr>
@@ -231,6 +260,12 @@ const Relatorios = () => {
           </DialogHeader>
           {viewRso && (
             <div className="space-y-4 text-sm">
+              {viewRso.status === "aprovado" && (
+                <Button size="sm" className="font-display uppercase text-xs tracking-wider" onClick={() => handlePdf(viewRso)}>
+                  <FileDown className="mr-2 h-4 w-4" /> Baixar PDF
+                </Button>
+              )}
+
               {viewRso.motivo_rejeicao && viewRso.status === "reprovado" && (
                 <div className="bg-destructive/10 border border-destructive/30 rounded-md p-3">
                   <p className="text-xs uppercase text-destructive font-bold mb-1">Motivo da Reprovação</p>
