@@ -22,9 +22,26 @@ const fmtDate = (v?: string) => {
   return isNaN(d.getTime()) ? String(v) : d.toLocaleString("pt-BR");
 };
 
+const fmtDateTime = (v?: string) => {
+  if (!v) return "—";
+  const d = new Date(v);
+  if (isNaN(d.getTime())) return String(v);
+  const date = d.toLocaleDateString("pt-BR");
+  const time = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+  return `${date} às ${time}`;
+};
+
 const val = (v: any) => {
   if (v === null || v === undefined || v === "" || v === 0) return "—";
   return String(v);
+};
+
+const gerarNumeroRegistro = (rso: any) => {
+  if (rso.numero_registro) return rso.numero_registro;
+  const ano = rso.created_at ? new Date(rso.created_at).getFullYear() : new Date().getFullYear();
+  const hex = (rso.id || "").replace(/-/g, "").slice(0, 6);
+  const num = parseInt(hex, 16) % 1000000;
+  return `${String(num).padStart(6, "0")}/${ano}`;
 };
 
 export interface RsoPdfInput {
@@ -45,15 +62,22 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
 
   const footer = () => {
     const pages = doc.getNumberOfPages();
+    const numeroRegistro = gerarNumeroRegistro(rso);
+    const agora = fmtDateTime(new Date().toISOString());
     for (let i = 1; i <= pages; i++) {
       doc.setPage(i);
       doc.setDrawColor(200);
-      doc.line(M, H - 42, W - M, H - 42);
+      doc.line(M, H - 58, W - M, H - 58);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(7.5);
-      doc.setTextColor(110);
-      doc.text("Documento gerado eletronicamente pelo Portal PCESP Brasilândia", M, H - 28);
-      doc.text(`Página ${i} de ${pages}`, W - M, H - 28, { align: "right" });
+      doc.setTextColor(90);
+      const line1 = "Documento gerado automaticamente pelo Sistema Integrado de Gestão Operacional.";
+      const line2 = `Registro nº ${numeroRegistro} • Gerado em ${agora}`;
+      const line3 = "Documento destinado ao registro e controle interno das atividades operacionais.";
+      doc.text(line1, M, H - 45);
+      doc.text(line2, M, H - 35);
+      doc.text(line3, M, H - 25);
+      doc.text(`Página ${i} de ${pages}`, W - M, H - 25, { align: "right" });
     }
   };
 
@@ -65,6 +89,10 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
   };
 
   const header = () => {
+    const numeroRegistro = gerarNumeroRegistro(rso);
+    const status = String(rso.status || "").toUpperCase() || "—";
+    const dataFimPatrulha = fmtDateTime(rso.patrulha_fim);
+
     if (logo) {
       try {
         doc.addImage(logo, "PNG", M, y - 6, 54, 54);
@@ -72,16 +100,36 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
         /* ignore */
       }
     }
+
+    const centerX = W / 2;
     doc.setTextColor(20);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
-    doc.text("POLÍCIA CIVIL DO ESTADO DE SÃO PAULO", M + 68, y + 12);
-    doc.setFontSize(10);
-    doc.text("RELATÓRIO DE SERVIÇO E OCORRÊNCIA — RSO", M + 68, y + 28);
+    doc.text("POLÍCIA CIVIL DO ESTADO DE SÃO PAULO", centerX, y + 12, { align: "center" });
+    doc.setFontSize(11);
+    doc.text("REGISTRO DE DILIGÊNCIA", centerX, y + 28, { align: "center" });
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
-    doc.setTextColor(100);
-    doc.text("Delegacia Seccional de Brasilândia · Documento Oficial", M + 68, y + 42);
+    doc.setTextColor(80);
+    doc.text("Sistema Integrado de Gestão Operacional", centerX, y + 42, { align: "center" });
+
+    const rightX = W - M;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(20);
+    doc.text(`Nº do Registro: ${numeroRegistro}`, rightX, y + 10, { align: "right" });
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(80);
+    doc.text(`Data: ${dataFimPatrulha}`, rightX, y + 24, { align: "right" });
+    doc.setFont("helvetica", "bold");
+    if (status === "APROVADO") {
+      doc.setTextColor(34, 120, 60);
+    } else {
+      doc.setTextColor(180, 60, 60);
+    }
+    doc.text(`Status: ${status}`, rightX, y + 38, { align: "right" });
+
     y += 62;
     doc.setDrawColor(30, 64, 120);
     doc.setLineWidth(1.4);
