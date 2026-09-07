@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { FileText, Check, X, Eye, ChevronDown, ChevronUp } from "lucide-react";
+import { FileText, Check, X, Eye, ChevronDown, ChevronUp, FileDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
+import { generateRsoPdf } from "@/lib/rso-pdf";
+
 
 interface RsoRow {
   id: string;
