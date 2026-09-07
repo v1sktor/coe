@@ -234,6 +234,12 @@ const Relatorios = () => {
                                 </Button>
                               </>
                             )}
+                            {rso.status === "aprovado" && (
+                              <Button variant="ghost" size="icon" className="h-8 w-8 text-primary hover:text-primary hover:bg-primary/10" title="Baixar PDF" onClick={() => handlePdf(rso)}>
+                                <FileDown className="h-4 w-4" />
+                              </Button>
+                            )}
+
                           </div>
                         </td>
                       </tr>
