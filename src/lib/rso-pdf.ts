@@ -123,7 +123,11 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
     doc.setTextColor(80);
     doc.text(`Data: ${dataFimPatrulha}`, rightX, y + 24, { align: "right" });
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(status === "APROVADO" ? [34, 120, 60] : [180, 60, 60]);
+    if (status === "APROVADO") {
+      doc.setTextColor(34, 120, 60);
+    } else {
+      doc.setTextColor(180, 60, 60);
+    }
     doc.text(`Status: ${status}`, rightX, y + 38, { align: "right" });
 
     y += 62;
