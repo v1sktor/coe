@@ -62,15 +62,22 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
 
   const footer = () => {
     const pages = doc.getNumberOfPages();
+    const numeroRegistro = gerarNumeroRegistro(rso);
+    const agora = fmtDateTime(new Date().toISOString());
     for (let i = 1; i <= pages; i++) {
       doc.setPage(i);
       doc.setDrawColor(200);
-      doc.line(M, H - 42, W - M, H - 42);
+      doc.line(M, H - 58, W - M, H - 58);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(7.5);
-      doc.setTextColor(110);
-      doc.text("Documento gerado eletronicamente pelo Portal PCESP Brasilândia", M, H - 28);
-      doc.text(`Página ${i} de ${pages}`, W - M, H - 28, { align: "right" });
+      doc.setTextColor(90);
+      const line1 = "Documento gerado automaticamente pelo Sistema Integrado de Gestão Operacional.";
+      const line2 = `Registro nº ${numeroRegistro} • Gerado em ${agora}`;
+      const line3 = "Documento destinado ao registro e controle interno das atividades operacionais.";
+      doc.text(line1, M, H - 45);
+      doc.text(line2, M, H - 35);
+      doc.text(line3, M, H - 25);
+      doc.text(`Página ${i} de ${pages}`, W - M, H - 25, { align: "right" });
     }
   };
 
