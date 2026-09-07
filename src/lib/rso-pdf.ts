@@ -22,9 +22,26 @@ const fmtDate = (v?: string) => {
   return isNaN(d.getTime()) ? String(v) : d.toLocaleString("pt-BR");
 };
 
+const fmtDateTime = (v?: string) => {
+  if (!v) return "—";
+  const d = new Date(v);
+  if (isNaN(d.getTime())) return String(v);
+  const date = d.toLocaleDateString("pt-BR");
+  const time = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+  return `${date} às ${time}`;
+};
+
 const val = (v: any) => {
   if (v === null || v === undefined || v === "" || v === 0) return "—";
   return String(v);
+};
+
+const gerarNumeroRegistro = (rso: any) => {
+  if (rso.numero_registro) return rso.numero_registro;
+  const ano = rso.created_at ? new Date(rso.created_at).getFullYear() : new Date().getFullYear();
+  const hex = (rso.id || "").replace(/-/g, "").slice(0, 6);
+  const num = parseInt(hex, 16) % 1000000;
+  return `${String(num).padStart(6, "0")}/${ano}`;
 };
 
 export interface RsoPdfInput {
