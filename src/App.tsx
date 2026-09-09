@@ -109,7 +109,14 @@ const App = () => (
               <Route element={<AppLayout />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/timings" element={<Timings />} />
-                <Route path="/relatorios" element={<Relatorios />} />
+                <Route
+                  path="/relatorios"
+                  element={
+                    <AccessGate chave="diligencias" titulo="Relatório de Diligências">
+                      <Relatorios />
+                    </AccessGate>
+                  }
+                />
                 <Route path="/estaticas" element={<Estaticas />} />
                 <Route path="/diretrizes" element={<Diretrizes />} />
                 
