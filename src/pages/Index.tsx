@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Network, ScrollText, Settings, Megaphone, FileText, ChevronRight, ShieldAlert } from "lucide-react";
 import logo from "@/assets/logo-pcsp.png";
-import heroBanner from "@/assets/ger-hero.jpg";
+import heroAsset from "@/assets/palacio-policia-hero.jpg.asset.json";
 import { supabase } from "@/integrations/supabase/client";
+
+const heroBanner = heroAsset.url;
 import { UNIDADES } from "@/lib/unidades";
 
 const Index = () => {
@@ -86,7 +88,7 @@ const Index = () => {
           <div className="overflow-hidden rounded-xl shadow-elevated">
             <img
               src={heroBanner}
-              alt="Viaturas e equipes da Polícia Civil do Estado de São Paulo"
+              alt="Fachada do Palácio da Polícia da Polícia Civil do Estado de São Paulo"
               width={1200}
               height={800}
               className="w-full h-[320px] object-cover"
