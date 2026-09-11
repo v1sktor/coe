@@ -286,10 +286,82 @@ export type Database = {
         }
         Relationships: []
       }
+      corregedoria_usuarios: {
+        Row: {
+          ativo: boolean
+          created_at: string
+          criado_por: string | null
+          id: string
+          nome: string
+          senha_hash: string
+          updated_at: string
+          usuario: string
+        }
+        Insert: {
+          ativo?: boolean
+          created_at?: string
+          criado_por?: string | null
+          id?: string
+          nome: string
+          senha_hash: string
+          updated_at?: string
+          usuario: string
+        }
+        Update: {
+          ativo?: boolean
+          created_at?: string
+          criado_por?: string | null
+          id?: string
+          nome?: string
+          senha_hash?: string
+          updated_at?: string
+          usuario?: string
+        }
+        Relationships: []
+      }
+      corregedoria_votos: {
+        Row: {
+          created_at: string
+          denuncia_id: string
+          id: string
+          justificativa: string | null
+          updated_at: string
+          votante_nome: string
+          voto: string
+        }
+        Insert: {
+          created_at?: string
+          denuncia_id: string
+          id?: string
+          justificativa?: string | null
+          updated_at?: string
+          votante_nome: string
+          voto: string
+        }
+        Update: {
+          created_at?: string
+          denuncia_id?: string
+          id?: string
+          justificativa?: string | null
+          updated_at?: string
+          votante_nome?: string
+          voto?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "corregedoria_votos_denuncia_id_fkey"
+            columns: ["denuncia_id"]
+            isOneToOne: false
+            referencedRelation: "denuncias"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       denuncias: {
         Row: {
           anonima: boolean
           categoria: string
+          concluida_em: string | null
           contato: string | null
           created_at: string
           data_fato: string | null
@@ -297,14 +369,17 @@ export type Database = {
           id: string
           local_fato: string | null
           nome: string | null
+          parecer: string | null
           protocolo: string
           provas_links: string | null
+          relator: string | null
           status: string
           unidade_envolvida: string | null
         }
         Insert: {
           anonima?: boolean
           categoria: string
+          concluida_em?: string | null
           contato?: string | null
           created_at?: string
           data_fato?: string | null
@@ -312,14 +387,17 @@ export type Database = {
           id?: string
           local_fato?: string | null
           nome?: string | null
+          parecer?: string | null
           protocolo?: string
           provas_links?: string | null
+          relator?: string | null
           status?: string
           unidade_envolvida?: string | null
         }
         Update: {
           anonima?: boolean
           categoria?: string
+          concluida_em?: string | null
           contato?: string | null
           created_at?: string
           data_fato?: string | null
@@ -327,8 +405,10 @@ export type Database = {
           id?: string
           local_fato?: string | null
           nome?: string | null
+          parecer?: string | null
           protocolo?: string
           provas_links?: string | null
+          relator?: string | null
           status?: string
           unidade_envolvida?: string | null
         }
@@ -951,6 +1031,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      corregedoria_criar_usuario: {
+        Args: { _nome: string; _senha: string; _usuario: string }
+        Returns: string
+      }
+      corregedoria_definir_senha: {
+        Args: { _id: string; _senha: string }
+        Returns: boolean
+      }
+      corregedoria_login: {
+        Args: { _senha: string; _usuario: string }
+        Returns: Json
+      }
       get_hierarquia_publica: {
         Args: never
         Returns: {
