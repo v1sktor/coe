@@ -85,16 +85,28 @@ const Login = () => {
           </CardContent>
         </Card>
 
-        <Button
-          variant="outline"
-          asChild
-          className="w-full font-display uppercase tracking-widest"
-        >
-          <Link to="/juridico">
-            <Scale className="mr-2 h-4 w-4" />
-            Acessar Jurídico
-          </Link>
-        </Button>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <Button
+            variant="outline"
+            asChild
+            className="w-full font-display uppercase tracking-widest"
+          >
+            <Link to="/juridico">
+              <Scale className="mr-2 h-4 w-4" />
+              Jurídico
+            </Link>
+          </Button>
+          <Button
+            variant="outline"
+            asChild
+            className="w-full font-display uppercase tracking-widest"
+          >
+            <Link to="/corregedoria">
+              <Gavel className="mr-2 h-4 w-4" />
+              Corregedoria
+            </Link>
+          </Button>
+        </div>
 
         <div className="text-center">
           <Button variant="ghost" asChild className="text-muted-foreground text-sm">
