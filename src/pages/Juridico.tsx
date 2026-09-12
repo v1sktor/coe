@@ -27,6 +27,7 @@ import { Plus, Pencil, Trash2, Paperclip, Scale, FileText, X, Search, RefreshCw,
 import { toast } from "@/components/ui/sonner";
 import { UNIDADES } from "@/lib/unidades";
 import { clearJuridicoSession, getJuridicoSession } from "@/components/JuridicoGate";
+import { ModuleSwitcher } from "@/components/ModuleSwitcher";
 
 const MAX_MB = 25;
 
@@ -281,7 +282,8 @@ export default function Juridico() {
             Repositório de investigações, inquéritos e pareceres com anexos sigilosos.
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <ModuleSwitcher />
           <Button onClick={startCreate}>
             <Plus className="mr-2 h-4 w-4" /> Nova investigação
           </Button>
