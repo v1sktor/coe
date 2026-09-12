@@ -15,6 +15,7 @@ const LABELS: Record<string, string> = {
   bopc: "BOPC / BIC",
   diligencias: "Relatório de Diligências",
   juridico: "Jurídico",
+  corregedoria: "Corregedoria",
 };
 
 const ALFABETO = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -133,6 +134,7 @@ export default function AdminAcessos() {
       )}
 
       <JuridicoContas />
+      <CorregedoriaContas />
     </div>
   );
 }
