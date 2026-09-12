@@ -10,6 +10,7 @@ import { AppLayout } from "@/components/AppLayout";
 import { PublicLayout } from "@/components/PublicLayout";
 import { AccessGate } from "@/components/AccessGate";
 import { JuridicoGate } from "@/components/JuridicoGate";
+import { CorregedoriaGate } from "@/components/CorregedoriaGate";
 import { BarcaPanel } from "@/components/barca/BarcaPanel";
 import { RouteErrorBoundary } from "@/components/RouteErrorBoundary";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
