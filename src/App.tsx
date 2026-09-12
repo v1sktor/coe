@@ -105,6 +105,16 @@ const App = () => (
                 </JuridicoGate>
               }
             />
+            <Route
+              path="/corregedoria"
+              element={
+                <CorregedoriaGate>
+                  <div className="min-h-screen bg-background p-6">
+                    <Corregedoria />
+                  </div>
+                </CorregedoriaGate>
+              }
+            />
 
             {/* Rotas autenticadas */}
             <Route element={<ProtectedRoute />}>
