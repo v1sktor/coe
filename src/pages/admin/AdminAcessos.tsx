@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import JuridicoContas from "@/components/admin/JuridicoContas";
+import CorregedoriaContas from "@/components/admin/CorregedoriaContas";
 
 type Codigo = { id: string; chave: string; codigo: string; updated_at: string };
 

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Lock, Mail, ArrowLeft, Scale } from "lucide-react";
+import { Lock, Mail, ArrowLeft, Scale, Gavel } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import logoPcsp from "@/assets/logo-pcsp.png";
