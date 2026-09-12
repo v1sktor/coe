@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import JuridicoContas from "@/components/admin/JuridicoContas";
+import CorregedoriaContas from "@/components/admin/CorregedoriaContas";
 
 type Codigo = { id: string; chave: string; codigo: string; updated_at: string };
 
@@ -14,6 +15,7 @@ const LABELS: Record<string, string> = {
   bopc: "BOPC / BIC",
   diligencias: "Relatório de Diligências",
   juridico: "Jurídico",
+  corregedoria: "Corregedoria",
 };
 
 const ALFABETO = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -132,6 +134,7 @@ export default function AdminAcessos() {
       )}
 
       <JuridicoContas />
+      <CorregedoriaContas />
     </div>
   );
 }

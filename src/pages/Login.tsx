@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Lock, Mail, ArrowLeft, Scale } from "lucide-react";
+import { Lock, Mail, ArrowLeft, Scale, Gavel } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import logoPcsp from "@/assets/logo-pcsp.png";
@@ -85,16 +85,28 @@ const Login = () => {
           </CardContent>
         </Card>
 
-        <Button
-          variant="outline"
-          asChild
-          className="w-full font-display uppercase tracking-widest"
-        >
-          <Link to="/juridico">
-            <Scale className="mr-2 h-4 w-4" />
-            Acessar Jurídico
-          </Link>
-        </Button>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <Button
+            variant="outline"
+            asChild
+            className="w-full font-display uppercase tracking-widest"
+          >
+            <Link to="/juridico">
+              <Scale className="mr-2 h-4 w-4" />
+              Jurídico
+            </Link>
+          </Button>
+          <Button
+            variant="outline"
+            asChild
+            className="w-full font-display uppercase tracking-widest"
+          >
+            <Link to="/corregedoria">
+              <Gavel className="mr-2 h-4 w-4" />
+              Corregedoria
+            </Link>
+          </Button>
+        </div>
 
         <div className="text-center">
           <Button variant="ghost" asChild className="text-muted-foreground text-sm">

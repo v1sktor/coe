@@ -10,6 +10,7 @@ import { AppLayout } from "@/components/AppLayout";
 import { PublicLayout } from "@/components/PublicLayout";
 import { AccessGate } from "@/components/AccessGate";
 import { JuridicoGate } from "@/components/JuridicoGate";
+import { CorregedoriaGate } from "@/components/CorregedoriaGate";
 import { BarcaPanel } from "@/components/barca/BarcaPanel";
 import { RouteErrorBoundary } from "@/components/RouteErrorBoundary";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
@@ -27,6 +28,7 @@ const CCOMSOC = lazyWithRetry(() => import("./pages/CCOMSOC"), "ccomsoc");
 const Estaticas = lazyWithRetry(() => import("./pages/Estaticas"), "estaticas");
 const Diretrizes = lazyWithRetry(() => import("./pages/Diretrizes"), "diretrizes");
 const Juridico = lazyWithRetry(() => import("./pages/Juridico"), "juridico");
+const Corregedoria = lazyWithRetry(() => import("./pages/Corregedoria"), "corregedoria");
 const Cursos = lazyWithRetry(() => import("./pages/Cursos"), "cursos");
 const Institucional = lazyWithRetry(() => import("./pages/Institucional"), "institucional");
 const Edital = lazyWithRetry(() => import("./pages/Edital"), "edital");
@@ -101,6 +103,16 @@ const App = () => (
                     <Juridico />
                   </div>
                 </JuridicoGate>
+              }
+            />
+            <Route
+              path="/corregedoria"
+              element={
+                <CorregedoriaGate>
+                  <div className="min-h-screen bg-background p-6">
+                    <Corregedoria />
+                  </div>
+                </CorregedoriaGate>
               }
             />
 

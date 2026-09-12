@@ -3,6 +3,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
+import { ModuleSwitcher } from "@/components/ModuleSwitcher";
 import logoPcsp from "@/assets/logo-pcsp.png";
 
 export function AppLayout() {
@@ -24,7 +25,8 @@ export function AppLayout() {
                 </span>
               </div>
             </Link>
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center gap-2">
+              <ModuleSwitcher variant="light" />
               <BackButton variant="light" />
             </div>
           </header>

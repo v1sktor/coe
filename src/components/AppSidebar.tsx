@@ -1,4 +1,4 @@
-import { Shield, ShieldCheck, Network, Clock, FileText, LayoutDashboard, LogOut, Settings, Users, ScrollText, Star, Megaphone, MapPin, BookOpen, ClipboardList, KeyRound, Scale } from "lucide-react";
+import { Shield, ShieldCheck, Network, Clock, FileText, LayoutDashboard, LogOut, Settings, Users, ScrollText, Star, Megaphone, MapPin, BookOpen, ClipboardList, KeyRound, Scale, Gavel } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -22,6 +22,7 @@ const menuItems = [
   { title: "Relatórios / RSO", url: "/relatorios", icon: FileText },
   { title: "Estáticas", url: "/estaticas", icon: MapPin },
   { title: "Jurídico", url: "/juridico", icon: Scale },
+  { title: "Corregedoria", url: "/corregedoria", icon: Gavel },
 ];
 
 const docItems = [
