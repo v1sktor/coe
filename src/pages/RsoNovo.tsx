@@ -237,7 +237,7 @@ const RsoNovo = () => {
     const uploaded: { path: string; name: string; preview: string }[] = [];
     for (const file of Array.from(files)) {
       const ext = file.name.split(".").pop() || "jpg";
-      const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      const path = `envios/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
       const { error } = await supabase.storage.from("rso-anexos").upload(path, file, {
         contentType: file.type || undefined,
       });
