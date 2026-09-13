@@ -1,5 +1,0 @@
-UPDATE public.apresentacao_content SET conteudo = 'GARRA' WHERE chave = 'hero_titulo';
-UPDATE public.apresentacao_content SET conteudo = 'Grupo Armado de Repressão a Roubos e Assaltos · DOPE · Polícia Civil do Estado de São Paulo' WHERE chave = 'hero_subtitulo';
-UPDATE public.apresentacao_content SET conteudo = 'O GARRA — Grupo Armado de Repressão a Roubos e Assaltos — integra o DOPE (Departamento de Operações Policiais Estratégicas) da Polícia Civil do Estado de São Paulo. É formado por policiais civis especializados na repressão a roubos, assaltos, sequestros e crimes de alta complexidade, atuando em apoio operacional às delegacias e departamentos da instituição.' WHERE chave = 'historia';
-UPDATE public.apresentacao_content SET conteudo = 'Reprimir roubos, assaltos e sequestros, cumprir mandados de alto risco e prestar apoio tático às unidades da Polícia Civil, com técnica, disciplina e respeito aos direitos fundamentais.' WHERE chave = 'missao';
-UPDATE public.apresentacao_content SET conteudo = 'Para informações institucionais, entre em contato pelos canais oficiais do GARRA / DOPE — Polícia Civil de São Paulo.' WHERE chave = 'contato';

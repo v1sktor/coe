@@ -1,1 +1,0 @@
-ALTER TABLE public.denuncias ADD COLUMN IF NOT EXISTS provas_links text;

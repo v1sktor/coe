@@ -1,3 +1,0 @@
-CREATE POLICY "Qualquer um pode enviar anexos de RSO" ON storage.objects FOR INSERT TO anon, authenticated WITH CHECK (bucket_id = 'rso-anexos');
-CREATE POLICY "Autenticados podem ver anexos de RSO" ON storage.objects FOR SELECT TO authenticated USING (bucket_id = 'rso-anexos');
-CREATE POLICY "Admins podem apagar anexos de RSO" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'rso-anexos' AND public.has_role(auth.uid(), 'admin'));

@@ -1,2 +1,0 @@
-ALTER TABLE public.hierarquia ADD COLUMN IF NOT EXISTS funcao text DEFAULT NULL;
-ALTER TABLE public.hierarquia ADD COLUMN IF NOT EXISTS promocao date DEFAULT NULL;

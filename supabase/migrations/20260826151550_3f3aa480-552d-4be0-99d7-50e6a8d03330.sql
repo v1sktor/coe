@@ -1,1 +1,0 @@
-GRANT EXECUTE ON FUNCTION public.submit_rso(jsonb, jsonb) TO anon;
