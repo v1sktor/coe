@@ -6,61 +6,59 @@
 
 @layer base {
   :root {
-    /* Portal institucional — Polícia Civil SP (claro, azul marinho) */
-    --background: 0 0% 100%;
-    --foreground: 214 60% 16%;
+    /* Força Tática PMESP — preto, grafite, vermelho institucional */
+    --background: 0 0% 96%;
+    --foreground: 0 0% 7%;
 
     --card: 0 0% 100%;
-    --card-foreground: 214 60% 16%;
+    --card-foreground: 0 0% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 214 60% 16%;
+    --popover-foreground: 0 0% 7%;
 
-    /* Azul marinho institucional */
-    --primary: 214 62% 20%;
+    --primary: 352 73% 37%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 210 70% 42%;
+    --primary-glow: 352 72% 47%;
 
-    --secondary: 214 30% 96%;
-    --secondary-foreground: 214 60% 18%;
+    --secondary: 0 0% 91%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 214 25% 96%;
-    --muted-foreground: 214 15% 42%;
+    --muted: 0 0% 91%;
+    --muted-foreground: 0 0% 38%;
 
-    --accent: 210 55% 90%;
-    --accent-foreground: 214 60% 18%;
+    --accent: 0 0% 17%;
+    --accent-foreground: 0 0% 95%;
 
     --destructive: 0 70% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 25% 88%;
-    --input: 214 25% 92%;
-    --ring: 210 70% 42%;
+    --border: 0 0% 82%;
+    --input: 0 0% 88%;
+    --ring: 352 73% 37%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
 
-    --sidebar-background: 214 62% 14%;
-    --sidebar-foreground: 210 30% 88%;
-    --sidebar-primary: 210 70% 55%;
+    --sidebar-background: 0 0% 7%;
+    --sidebar-foreground: 0 0% 91%;
+    --sidebar-primary: 352 73% 45%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 214 55% 20%;
+    --sidebar-accent: 0 0% 17%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 214 45% 24%;
-    --sidebar-ring: 210 70% 55%;
+    --sidebar-border: 0 0% 23%;
+    --sidebar-ring: 352 73% 45%;
 
     --success: 142 45% 38%;
     --warning: 38 80% 45%;
     --danger: 0 65% 48%;
 
-    /* Gradients & shadows institucionais */
-    --gradient-tactical: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(214 30% 97%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(214 62% 20%) 0%, hsl(210 70% 42%) 100%);
-    --gradient-blue: linear-gradient(135deg, hsl(214 62% 20%) 0%, hsl(214 62% 12%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(214 30% 97%) 100%);
+    --gradient-tactical: linear-gradient(135deg, hsl(0 0% 96%) 0%, hsl(0 0% 89%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(352 73% 37%) 0%, hsl(352 72% 47%) 100%);
+    --gradient-blue: linear-gradient(135deg, hsl(0 0% 17%) 0%, hsl(0 0% 7%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 96%) 0%, hsl(0 0% 90%) 100%);
 
-    --shadow-gold: 0 8px 28px -12px hsl(214 62% 20% / 0.28);
-    --shadow-tactical: 0 10px 30px -14px hsl(214 62% 20% / 0.22);
-    --shadow-elevated: 0 20px 50px -24px hsl(214 62% 20% / 0.3);
+    --shadow-gold: 0 8px 28px -12px hsl(352 73% 37% / 0.3);
+    --shadow-tactical: 0 10px 30px -14px hsl(0 0% 0% / 0.28);
+    --shadow-elevated: 0 20px 50px -24px hsl(0 0% 0% / 0.48);
 
 
     --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -75,6 +73,7 @@
 
   body {
     @apply bg-background text-foreground font-sans;
+    letter-spacing: 0;
   }
 
 
@@ -129,7 +128,7 @@
       transparent 100%);
   }
 
-  /* Premium card — borda sutil verde musgo + hover suave */
+  /* Cartão operacional */
   .card-tactical {
     border: 1px solid hsl(var(--accent) / 0.45);
     background: hsl(var(--card));

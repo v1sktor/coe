@@ -14,9 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+        sans: ['"Hind"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
-        display: ['"Oswald"', 'sans-serif'],
+        display: ['"Archivo Black"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

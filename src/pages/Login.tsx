@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Lock, Mail, ArrowLeft, Scale, Gavel } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import logoPcsp from "@/assets/logo-pcsp.png";
+import logoForcaTatica from "@/assets/logo-forca-tatica.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -41,8 +41,10 @@ const Login = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center space-y-4">
           <img
-            src={logoPcsp}
-            alt="Brasão da Polícia Civil do Estado de São Paulo"
+            src={logoForcaTatica}
+            alt="Emblema da Força Tática"
+            width={1024}
+            height={1024}
             className="mx-auto h-24 w-24 object-contain"
           />
           <div>
@@ -68,7 +70,7 @@ const Login = () => {
                 <Label htmlFor="login-email" className="text-xs uppercase tracking-wider text-muted-foreground">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input id="login-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="usuario@pcesp.gov.br" className="pl-10 bg-secondary border-border" required />
+                  <Input id="login-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="usuario@pmesp.gov.br" className="pl-10 bg-secondary border-border" required />
                 </div>
               </div>
               <div className="space-y-2">

@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
-import logo from "@/assets/logo-pcsp.png";
+import logo from "@/assets/logo-forca-tatica.png";
 
 export function PublicLayout() {
   return (
@@ -11,13 +11,13 @@ export function PublicLayout() {
       <header className="relative z-10 bg-primary text-primary-foreground">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Brasão da Polícia Civil do Estado de São Paulo" className="h-9 w-9 object-contain" />
+            <img src={logo} alt="Emblema da Força Tática" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                Polícia Civil do Estado de São Paulo
+                Força Tática · PMESP
               </span>
               <span className="text-[11px] text-primary-foreground/70">
-                Secretaria da Segurança Pública
+                Polícia Militar do Estado de São Paulo
               </span>
             </span>
           </Link>
