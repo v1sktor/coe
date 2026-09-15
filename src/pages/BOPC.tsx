@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import logo from "@/assets/logo-pcsp.png";
+import logo from "@/assets/logo-forca-tatica.png";
 import { MULTAS_CTB, SEV_META, type Severity } from "@/lib/ctb-multas";
 
 type Membro = { nome: string; rg: string };
@@ -61,7 +61,7 @@ export default function BOPC() {
     () =>
       [
         `# BOPC Nº ${val(numero)}`,
-        `BOLETIM DE OCORRÊNCIA DA POLÍCIA CIVIL DE SÃO PAULO`,
+        `BOLETIM DE OCORRÊNCIA — FORÇA TÁTICA PMESP`,
         ``,
         `DATA: ${dataBR}  HORA: ${hora || D}`,
         `PREFIXO: ${val(prefixo)}`,
@@ -134,15 +134,15 @@ export default function BOPC() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="bg-primary text-primary-foreground">
+      <header className="bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Brasão da Polícia Civil do Estado de São Paulo" className="h-9 w-9 object-contain" />
+            <img src={logo} alt="Emblema da Força Tática" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                Polícia Civil do Estado de São Paulo
+                Força Tática · PMESP
               </span>
-              <span className="text-[11px] text-primary-foreground/70">Secretaria da Segurança Pública</span>
+              <span className="text-[11px] text-sidebar-foreground/65">Polícia Militar do Estado de São Paulo</span>
             </span>
           </Link>
           <Button variant="ghost" size="sm" asChild className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
@@ -153,7 +153,7 @@ export default function BOPC() {
 
       <div className="border-b bg-card">
         <div className="max-w-7xl mx-auto px-6 py-8">
-          <h1 className="font-display text-3xl font-bold text-primary">Boletim de Ocorrência Da Polícia Civil</h1>
+          <h1 className="font-display text-3xl uppercase text-primary">Boletim de Ocorrência</h1>
           <p className="text-sm text-muted-foreground mt-1">Preencha os campos e copie o boletim pronto para o MDT.</p>
         </div>
       </div>

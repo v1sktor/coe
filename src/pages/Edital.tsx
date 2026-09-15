@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollText, ChevronRight } from "lucide-react";
 import { BackButton } from "@/components/BackButton";
-import logoPcsp from "@/assets/logo-pcsp.png";
+import logoForcaTatica from "@/assets/logo-forca-tatica.png";
 
 function Bloco({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
@@ -24,16 +24,16 @@ export default function Edital() {
       <div className="absolute inset-0 bg-gradient-hero pointer-events-none" />
       <div className="absolute inset-0 bg-tactical-grid opacity-[0.05] pointer-events-none" />
 
-      <header className="relative z-10 bg-primary text-primary-foreground">
+      <header className="relative z-10 bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logoPcsp} alt="Brasão da Polícia Civil do Estado de São Paulo" className="h-9 w-9 object-contain" />
+            <img src={logoForcaTatica} alt="Emblema da Força Tática" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                Polícia Civil do Estado de São Paulo
+                Força Tática · PMESP
               </span>
               <span className="text-[11px] text-primary-foreground/70">
-                Secretaria da Segurança Pública
+                Polícia Militar do Estado de São Paulo
               </span>
             </span>
           </Link>
@@ -46,13 +46,13 @@ export default function Edital() {
       <main className="relative z-10 flex-1 px-6 lg:px-10 py-14 max-w-4xl mx-auto w-full">
         <div className="flex items-center gap-2 text-primary mb-2">
           <ScrollText className="h-4 w-4" />
-          <span className="font-mono text-[11px] uppercase tracking-[0.3em]">Edital PCESP</span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.3em]">Edital PMESP</span>
         </div>
         <h1 className="font-display text-3xl md:text-4xl uppercase tracking-tight">
-          Departamento de Polícia Civil do Estado de São Paulo
+          Força Tática · Polícia Militar do Estado de São Paulo
         </h1>
         <p className="mt-2 text-sm font-mono uppercase tracking-widest text-muted-foreground">
-          Academia de Polícia — ACADEPOL
+          Processo seletivo operacional
         </p>
 
         <Card className="mt-8 bg-card/70 backdrop-blur-md border-border/60">
@@ -62,7 +62,7 @@ export default function Edital() {
                 Comunicado oficial – Abertura de processo seletivo
               </h2>
               <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-                A Polícia Civil do Estado de São Paulo torna público que se encontram oficialmente
+                A Polícia Militar do Estado de São Paulo torna público que se encontram oficialmente
                 abertas as inscrições para o Processo Seletivo destinado ao provimento de cargos
                 operacionais no âmbito da corporação. O certame tem por finalidade a seleção de
                 candidatos aptos ao exercício das funções relacionadas à investigação criminal,
@@ -85,8 +85,7 @@ export default function Edital() {
             <Bloco titulo="Curso de formação">
               <p>
                 Os candidatos aprovados em todas as etapas serão convocados para o Curso de Formação
-                Técnico-Profissional, ministrado pela Academia de Polícia Civil do Estado de São
-                Paulo – ACADEPOL. Durante o período de formação, os alunos receberão instruções
+                 Técnico-Profissional da Polícia Militar do Estado de São Paulo. Durante o período de formação, os alunos receberão instruções
                 técnicas e operacionais nas seguintes áreas:
               </p>
               <ul className="list-disc pl-5 space-y-1.5">
@@ -135,7 +134,7 @@ export default function Edital() {
               </ul>
               <p>
                 Informações complementares, cronograma oficial e demais orientações serão divulgados
-                oportunamente por meio dos canais oficiais da Polícia Civil do Estado de São Paulo e
+                 oportunamente por meio dos canais oficiais da Polícia Militar do Estado de São Paulo e
                 do setor responsável pelo recrutamento institucional.
               </p>
             </Bloco>
@@ -152,7 +151,7 @@ export default function Edital() {
       </main>
 
       <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-        Polícia Civil do Estado de São Paulo
+        Força Tática · Polícia Militar do Estado de São Paulo
       </footer>
     </div>
   );
