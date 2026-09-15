@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Building2 } from "lucide-react";
 import { BackButton } from "@/components/BackButton";
 import { INSTITUCIONAL } from "@/lib/institucional";
-import logoPcsp from "@/assets/logo-pcsp.png";
+import logoForcaTatica from "@/assets/logo-forca-tatica.png";
 
 export default function Institucional() {
   const [ativa, setAtiva] = useState(INSTITUCIONAL[0].sigla);
@@ -16,16 +16,16 @@ export default function Institucional() {
       <div className="absolute inset-0 bg-gradient-hero pointer-events-none" />
       <div className="absolute inset-0 bg-tactical-grid opacity-[0.05] pointer-events-none" />
 
-      <header className="relative z-10 bg-primary text-primary-foreground">
+      <header className="relative z-10 bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logoPcsp} alt="Brasão da Polícia Civil do Estado de São Paulo" className="h-9 w-9 object-contain" />
+            <img src={logoForcaTatica} alt="Emblema da Força Tática" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                Polícia Civil do Estado de São Paulo
+                Força Tática · PMESP
               </span>
               <span className="text-[11px] text-primary-foreground/70">
-                Secretaria da Segurança Pública
+                Polícia Militar do Estado de São Paulo
               </span>
             </span>
           </Link>
@@ -41,10 +41,10 @@ export default function Institucional() {
           <span className="font-mono text-[11px] uppercase tracking-[0.3em]">Institucional</span>
         </div>
         <h1 className="font-display text-3xl md:text-5xl uppercase tracking-tight">
-          Conheça a Polícia Civil
+          Conheça a Força Tática
         </h1>
         <p className="mt-2 text-muted-foreground text-sm">
-          Missão, história e contato dos departamentos e unidades especializadas.
+          Missão, atuação e informações institucionais do patrulhamento tático.
         </p>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[240px_1fr]">
@@ -95,7 +95,7 @@ export default function Institucional() {
       </main>
 
       <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-        Polícia Civil do Estado de São Paulo
+        Força Tática · Polícia Militar do Estado de São Paulo
       </footer>
     </div>
   );

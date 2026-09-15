@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { supabase } from "@/integrations/supabase/client";
-import logo from "@/assets/logo-pcsp.png";
+import logo from "@/assets/logo-forca-tatica.png";
 
 type Grupamento = "TOR" | "ROCAM";
 
@@ -87,16 +87,16 @@ export default function GrupamentoPage({ tipo }: { tipo: Grupamento }) {
       <div className="absolute inset-0 bg-tactical-grid opacity-[0.06] pointer-events-none" />
 
       {/* Header */}
-      <header className="relative z-10 bg-primary text-primary-foreground">
+      <header className="relative z-10 bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Brasão da Polícia Civil do Estado de São Paulo" className="h-9 w-9 object-contain" />
+            <img src={logo} alt="Emblema da Força Tática" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                Polícia Civil do Estado de São Paulo
+                Força Tática · PMESP
               </span>
               <span className="text-[11px] text-primary-foreground/70">
-                Secretaria da Segurança Pública
+                Polícia Militar do Estado de São Paulo
               </span>
             </span>
           </Link>
