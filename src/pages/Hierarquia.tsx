@@ -69,15 +69,25 @@ const Hierarquia = ({
   const [filtroUnidade, setFiltroUnidade] = useState<string>("TODAS");
 
   const fetchData = async () => {
+    const { data: cargosData } = await supabase.from("cargos").select("id, nome, nivel_hierarquico, categoria, imagem_url").order("nivel_hierarquico");
+    const cargoPorId = new Map((cargosData ?? []).map((c) => [c.id, c]));
+
     let { data: hierData } = await supabase.from("hierarquia").select("*, cargos(nome, imagem_url, nivel_hierarquico, categoria)");
-    if (!hierData) {
+    if (!hierData || hierData.length === 0) {
       const { data: pub } = await (supabase.rpc as any)("get_hierarquia_publica");
-      hierData = (pub ?? []).map((h: any) => ({
-        ...h,
-        cargos: { nome: h.cargo_nome, imagem_url: h.cargo_imagem, nivel_hierarquico: h.cargo_nivel, categoria: null },
-      }));
+      hierData = (pub ?? []).map((h: any) => {
+        const cargo = h.cargo_id ? cargoPorId.get(h.cargo_id) : undefined;
+        return {
+          ...h,
+          cargos: {
+            nome: h.cargo_nome,
+            imagem_url: h.cargo_imagem,
+            nivel_hierarquico: h.cargo_nivel,
+            categoria: cargo?.categoria ?? null,
+          },
+        };
+      });
     }
-    const { data: cargosData } = await supabase.from("cargos").select("id, nome, nivel_hierarquico, imagem_url").order("nivel_hierarquico");
     if (hierData) {
       setItems(
         hierData.map((h: any) => ({
