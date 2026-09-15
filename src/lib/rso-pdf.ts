@@ -1,5 +1,5 @@
 import jsPDF from "jspdf";
-import logoUrl from "@/assets/logo-pcsp.png";
+import logoUrl from "@/assets/logo-forca-tatica.png";
 
 const loadDataUrl = async (url: string): Promise<string | null> => {
   try {
@@ -111,7 +111,7 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
     doc.setTextColor(20);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
-    const title = doc.splitTextToSize("POLÍCIA CIVIL DO ESTADO DE SÃO PAULO", centerW);
+    const title = doc.splitTextToSize("FORÇA TÁTICA — POLÍCIA MILITAR DO ESTADO DE SÃO PAULO", centerW);
     doc.text(title, centerX, y + 12, { align: "center" });
     doc.setFontSize(11);
     doc.text("REGISTRO DE DILIGÊNCIA", centerX, y + 26, { align: "center" });

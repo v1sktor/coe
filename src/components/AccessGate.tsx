@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import logo from "@/assets/logo-pcsp.png";
+import logo from "@/assets/logo-forca-tatica.png";
 
 const storageKey = (chave: string) => `access-code:${chave}`;
 
@@ -88,7 +88,7 @@ export function AccessGate({
     <div className="min-h-screen bg-background flex items-center justify-center px-6 py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="items-center text-center space-y-3">
-          <img src={logo} alt="Brasão da Polícia Civil do Estado de São Paulo" className="h-14 w-14 object-contain" />
+          <img src={logo} alt="Emblema da Força Tática" width={1024} height={1024} className="h-16 w-16 object-contain" />
           <CardTitle className="text-lg">{titulo}</CardTitle>
           <p className="text-sm text-muted-foreground">
             Área restrita. Informe o código de acesso semanal fornecido pelo comando.

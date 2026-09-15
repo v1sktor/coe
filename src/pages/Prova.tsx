@@ -10,7 +10,7 @@ import { ScrollText, ChevronRight, ChevronLeft, CheckCircle2 } from "lucide-reac
 import { BackButton } from "@/components/BackButton";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import logoPcsp from "@/assets/logo-pcsp.png";
+import logoForcaTatica from "@/assets/logo-forca-tatica.png";
 import {
   QUESTOES_PARTE_1,
   QUESTOES_PARTE_2,
@@ -132,17 +132,19 @@ export default function Prova() {
       <div className="absolute inset-0 bg-gradient-hero pointer-events-none" />
       <div className="absolute inset-0 bg-tactical-grid opacity-[0.05] pointer-events-none" />
 
-      <header className="relative z-10 bg-primary text-primary-foreground">
+      <header className="relative z-10 bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
             <img
-              src={logoPcsp}
-              alt="Brasão da Polícia Civil do Estado de São Paulo"
-              className="h-9 w-9 object-contain"
+              src={logoForcaTatica}
+              alt="Emblema da Força Tática"
+              width={1024}
+              height={1024}
+              className="h-11 w-11 object-contain"
             />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                Polícia Civil do Estado de São Paulo
+                Força Tática · PMESP
               </span>
               <span className="text-[11px] text-primary-foreground/70">
                 Processo Seletivo — ACADEPOL
@@ -162,7 +164,7 @@ export default function Prova() {
                 Prova enviada com sucesso
               </h1>
               <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                Sua prova foi encaminhada ao setor administrativo da Polícia Civil para correção e
+                 Sua prova foi encaminhada ao setor administrativo da Força Tática para correção e
                 análise. O resultado será divulgado pelos canais oficiais.
               </p>
               <Button asChild variant="outline">
@@ -175,7 +177,7 @@ export default function Prova() {
             <div className="flex items-center gap-2 text-primary mb-2">
               <ScrollText className="h-4 w-4" />
               <span className="font-mono text-[11px] uppercase tracking-[0.3em]">
-                Processo Seletivo PCESP
+                 Processo Seletivo PMESP
               </span>
             </div>
             <h1 className="font-display text-3xl uppercase tracking-tight">Prova Objetiva</h1>
@@ -251,7 +253,7 @@ export default function Prova() {
                 {step === 1 && (
                   <div className="space-y-5">
                     <h2 className="font-display text-lg uppercase tracking-wide text-primary">
-                      Prova Objetiva - PCESP
+                       Prova Objetiva - PMESP
                     </h2>
                     {QUESTOES_PARTE_1.map((q) => (
                       <Questao
@@ -267,7 +269,7 @@ export default function Prova() {
                 {step === 2 && (
                   <div className="space-y-5">
                     <h2 className="font-display text-lg uppercase tracking-wide text-primary">
-                      Prova Objetiva - PCESP
+                       Prova Objetiva - PMESP
                     </h2>
                     {QUESTOES_PARTE_2.map((q) => (
                       <Questao
@@ -316,7 +318,7 @@ export default function Prova() {
       </main>
 
       <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-        Polícia Civil do Estado de São Paulo
+         Força Tática · Polícia Militar do Estado de São Paulo
       </footer>
     </div>
   );
