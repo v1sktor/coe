@@ -71,10 +71,10 @@ export function CorregedoriaGate({ children }: { children: ReactNode }) {
         <div className="text-center space-y-3">
           <img src={logo} alt="Emblema da Força Tática" width={1024} height={1024} className="mx-auto h-20 w-20 object-contain" />
           <h1 className="font-display text-2xl font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-            <Gavel className="h-5 w-5" /> Corregedoria
+            <Gavel className="h-5 w-5" /> SJD
           </h1>
           <p className="text-sm text-muted-foreground">
-            Acesso exclusivo com credenciais da Corregedoria.
+            Acesso exclusivo com credenciais da SJD.
           </p>
         </div>
 

@@ -143,7 +143,7 @@ export const QUESTOES_PARTE_1: ProvaQuestao[] = [
 export const QUESTOES_PARTE_2: ProvaQuestao[] = [
   {
     n: 13,
-    enunciado: "Como a Corregedoria atua em casos de abuso policial?",
+    enunciado: "Como a SJD atua em casos de abuso policial?",
     opcoes: [
       "Acobertando policiais",
       "Investigando condutas irregulares",

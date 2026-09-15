@@ -105,7 +105,7 @@ const Login = () => {
           >
             <Link to="/corregedoria">
               <Gavel className="mr-2 h-4 w-4" />
-              Corregedoria
+              SJD
             </Link>
           </Button>
         </div>

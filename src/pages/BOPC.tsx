@@ -60,7 +60,7 @@ export default function BOPC() {
   const boletim = useMemo(
     () =>
       [
-        `# BOPC Nº ${val(numero)}`,
+        `# BOPM Nº ${val(numero)}`,
         `BOLETIM DE OCORRÊNCIA — FORÇA TÁTICA PMESP`,
         ``,
         `DATA: ${dataBR}  HORA: ${hora || D}`,
@@ -169,7 +169,7 @@ export default function BOPC() {
             </CardHeader>
             <CardContent className="grid gap-4 sm:grid-cols-3">
               <div className="space-y-1.5">
-                <Label className="text-[11px] uppercase tracking-wider text-muted-foreground">Nº BOPC</Label>
+                <Label className="text-[11px] uppercase tracking-wider text-muted-foreground">Nº BOPM</Label>
                 <Input value={numero} onChange={(e) => setNumero(e.target.value)} />
               </div>
               <div className="space-y-1.5">

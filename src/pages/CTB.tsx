@@ -206,8 +206,11 @@ export default function CTB() {
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-border/60 backdrop-blur-md bg-background/60">
-        <div className="px-6 lg:px-10 py-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-          Código Penal · Trânsito · Polícia Civil SP
+        <div className="px-6 lg:px-10 py-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground space-y-1">
+          <div>Código Penal · Trânsito · Força Tática Brasilândia PMESP</div>
+          <div className="normal-case tracking-normal text-muted-foreground/60">
+            Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Brasilândia.
+          </div>
         </div>
       </footer>
     </div>

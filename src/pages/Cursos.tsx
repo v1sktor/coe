@@ -53,8 +53,11 @@ export default function Cursos() {
         </Card>
       </main>
 
-      <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-        Força Tática · Polícia Militar do Estado de São Paulo
+      <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground space-y-1">
+        <p>Força Tática Brasilândia · Polícia Militar do Estado de São Paulo</p>
+        <p className="text-muted-foreground/60">
+          Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Brasilândia.
+        </p>
       </footer>
     </div>
   );
