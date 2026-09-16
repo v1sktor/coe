@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Network, ScrollText, Settings, Megaphone, FileText, ChevronRight, ShieldAlert, Siren, LogIn } from "lucide-react";
 import heroBanner from "@/assets/forca-tatica-hero.jpg";
 import { supabase } from "@/integrations/supabase/client";
+const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+// logo asset replaced by CDN pointer
 
 const Index = () => {
   const now = new Date();

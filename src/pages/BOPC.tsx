@@ -9,6 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { MULTAS_CTB, SEV_META, type Severity } from "@/lib/ctb-multas";
+const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+// logo asset replaced by CDN pointer
 
 type Membro = { nome: string; rg: string };
 const membroVazio: Membro = { nome: "", rg: "" };

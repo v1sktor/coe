@@ -11,6 +11,8 @@ import { BackButton } from "@/components/BackButton";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import {
+const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+// logo asset replaced by CDN pointer
   QUESTOES_PARTE_1,
   QUESTOES_PARTE_2,
   QUESTOES_DISSERTATIVAS,
