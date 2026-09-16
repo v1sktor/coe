@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import logo from "@/assets/logo-forca-tatica.png";
+const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+// logo asset replaced by CDN pointer
 import { MULTAS_CTB as MULTAS, SEV_META, formatBRL, type Severity } from "@/lib/ctb-multas";
 
 export default function CTB() {

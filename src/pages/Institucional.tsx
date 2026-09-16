@@ -5,7 +5,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Building2 } from "lucide-react";
 import { BackButton } from "@/components/BackButton";
 import { INSTITUCIONAL } from "@/lib/institucional";
-import logoForcaTatica from "@/assets/logo-forca-tatica.png";
+const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+// logo asset replaced by CDN pointer
 
 export default function Institucional() {
   const [ativa, setAtiva] = useState(INSTITUCIONAL[0].sigla);

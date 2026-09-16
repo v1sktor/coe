@@ -8,7 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import logo from "@/assets/logo-forca-tatica.png";
+const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+// logo asset replaced by CDN pointer
 import { MULTAS_CTB, SEV_META, type Severity } from "@/lib/ctb-multas";
 
 type Membro = { nome: string; rg: string };
