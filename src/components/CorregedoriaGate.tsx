@@ -8,7 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermission } from "@/hooks/usePermission";
-import logo from "@/assets/logo-forca-tatica.png";
+const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+// logo asset replaced by CDN pointer
 
 const STORAGE_KEY = "corregedoria-session";
 
@@ -69,12 +70,12 @@ export function CorregedoriaGate({ children }: { children: ReactNode }) {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-3">
-          <img src={logo} alt="Emblema da Força Tática" width={1024} height={1024} className="mx-auto h-20 w-20 object-contain" />
+          <img src={logoUrl} alt="Emblema da Força Tática" width={1024} height={1024} className="mx-auto h-20 w-20 object-contain" />
           <h1 className="font-display text-2xl font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-            <Gavel className="h-5 w-5" /> SJD
+            <Gavel className="h-5 w-5" /> Corregedoria
           </h1>
           <p className="text-sm text-muted-foreground">
-            Acesso exclusivo com credenciais da SJD.
+            Acesso exclusivo com credenciais da Corregedoria.
           </p>
         </div>
 

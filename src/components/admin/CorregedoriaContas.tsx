@@ -49,7 +49,7 @@ export default function CorregedoriaContas() {
     });
     setSalvando(false);
     if (error) return toast.error(error.message);
-    toast.success("Conta da SJD criada");
+    toast.success("Conta da corregedoria criada");
     setForm({ usuario: "", nome: "", senha: "" });
     carregar();
   };
@@ -84,10 +84,10 @@ export default function CorregedoriaContas() {
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="text-base flex items-center gap-2">
-          <Gavel className="h-4 w-4" /> Contas da SJD
+          <Gavel className="h-4 w-4" /> Contas da Corregedoria
         </CardTitle>
         <p className="text-sm text-muted-foreground">
-          Logins exclusivos da SJD. Somente administradores podem criar ou alterar.
+          Logins exclusivos da Corregedoria. Somente administradores podem criar ou alterar.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -127,7 +127,7 @@ export default function CorregedoriaContas() {
         {carregando ? (
           <p className="text-sm text-muted-foreground">Carregando...</p>
         ) : contas.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Nenhuma conta da SJD criada.</p>
+          <p className="text-sm text-muted-foreground">Nenhuma conta da corregedoria criada.</p>
         ) : (
           <div className="divide-y divide-border rounded border border-border">
             {contas.map((c) => (

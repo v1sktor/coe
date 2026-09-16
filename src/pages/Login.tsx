@@ -7,7 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Lock, Mail, ArrowLeft, Scale, Gavel } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import logoForcaTatica from "@/assets/logo-forca-tatica.png";
+const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+// logo asset replaced by CDN pointer
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -41,7 +42,7 @@ const Login = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center space-y-4">
           <img
-            src={logoForcaTatica}
+            src={logoUrl}
             alt="Emblema da Força Tática"
             width={1024}
             height={1024}
@@ -105,7 +106,7 @@ const Login = () => {
           >
             <Link to="/corregedoria">
               <Gavel className="mr-2 h-4 w-4" />
-              SJD
+              Corregedoria
             </Link>
           </Button>
         </div>

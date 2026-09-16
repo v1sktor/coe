@@ -112,11 +112,11 @@ const Denuncia = () => {
           </span>
           <div>
             <h1 className="font-display text-2xl font-bold text-primary">
-              Faça uma denúncia — SJD
+              Faça uma denúncia — Corregedoria da Polícia Civil
             </h1>
             <p className="mt-2 text-[14px] leading-relaxed text-muted-foreground">
-              Canal direto com a SJD para comunicar desvios de conduta, abuso de autoridade
-              ou irregularidades praticadas por policiais militares. A denúncia pode ser anônima e será
+              Canal direto com a CORREGEPOL para comunicar desvios de conduta, abuso de autoridade
+              ou irregularidades praticadas por servidores. A denúncia pode ser anônima e será
               apurada com sigilo.
             </p>
           </div>
@@ -129,7 +129,7 @@ const Denuncia = () => {
               Denúncia registrada
             </h2>
             <p className="mt-2 text-[14px] text-muted-foreground">
-              Guarde o número de protocolo para acompanhamento junto à SJD.
+              Guarde o número de protocolo para acompanhamento junto à Corregedoria.
             </p>
             <p className="mt-4 font-mono text-2xl font-bold tracking-widest text-primary">
               {protocolo}
@@ -141,7 +141,7 @@ const Denuncia = () => {
               <div>
                 <Label className="text-[14px]">Denúncia anônima</Label>
                 <p className="text-[12px] text-muted-foreground">
-                  Se desativado, seus dados serão vistos apenas pela SJD.
+                  Se desativado, seus dados serão vistos apenas pela Corregedoria.
                 </p>
               </div>
               <Switch checked={anonima} onCheckedChange={setAnonima} />

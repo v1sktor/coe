@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import logo from "@/assets/logo-forca-tatica.png";
 import { MULTAS_CTB as MULTAS, SEV_META, formatBRL, type Severity } from "@/lib/ctb-multas";
+const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+// logo asset replaced by CDN pointer
 
 export default function CTB() {
   const [search, setSearch] = useState("");
@@ -42,7 +43,7 @@ export default function CTB() {
       <header className="relative z-10 bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Emblema da Força Tática" width={1024} height={1024} className="h-11 w-11 object-contain" />
+            <img src={logoUrl} alt="Emblema da Força Tática" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
                 Força Tática · PMESP
@@ -73,7 +74,7 @@ export default function CTB() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5">
                 <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-primary">Tabela Oficial · Atualizada</span>
               </div>
-              <h1 className="font-display text-5xl md:text-7xl font-bold uppercase tracking-tight leading-none text-glow-gold">
+              <h1 className="font-display text-5xl md:text-7xl font-bold uppercase tracking-tight leading-none text-primary">
                 Código Penal
               </h1>
               <p className="font-display text-base md:text-lg uppercase tracking-[0.2em] text-primary/90">
@@ -185,7 +186,7 @@ export default function CTB() {
                           ? `Pena · ${m.pena} meses`
                           : "Valor da Multa"}
                     </span>
-                    <span className="font-display text-2xl font-bold text-primary text-glow-gold tabular-nums">
+                    <span className="font-display text-2xl font-bold text-primary tabular-nums">
                       {formatBRL(m.valor)}
                     </span>
                   </div>
@@ -206,11 +207,8 @@ export default function CTB() {
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-border/60 backdrop-blur-md bg-background/60">
-        <div className="px-6 lg:px-10 py-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground space-y-1">
-          <div>Código Penal · Trânsito · Força Tática Brasilândia PMESP</div>
-          <div className="normal-case tracking-normal text-muted-foreground/60">
-            Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Brasilândia.
-          </div>
+        <div className="px-6 lg:px-10 py-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+          Código Penal · Trânsito · Polícia Civil SP
         </div>
       </footer>
     </div>

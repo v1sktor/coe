@@ -13,7 +13,7 @@ import { ChevronDown } from "lucide-react";
 
 const MODULOS = [
   { key: "admin", label: "Administração", url: "/dashboard", icon: Settings },
-  { key: "corregedoria", label: "SJD", url: "/corregedoria", icon: Gavel },
+  { key: "corregedoria", label: "Corregedoria", url: "/corregedoria", icon: Gavel },
   { key: "juridico", label: "Jurídico", url: "/juridico", icon: Scale },
 ];
 

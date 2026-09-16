@@ -183,7 +183,7 @@ export default function Corregedoria() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-2xl font-bold text-primary flex items-center gap-2">
-            <Gavel className="h-6 w-6" /> SJD
+            <Gavel className="h-6 w-6" /> Corregedoria
           </h1>
           <p className="text-[13px] text-muted-foreground">
             Denúncias recebidas pelo canal público, com votação colegiada e parecer final.
@@ -398,7 +398,7 @@ export default function Corregedoria() {
                   <Textarea
                     rows={4}
                     defaultValue={aberta.parecer ?? ""}
-                    placeholder="Conclusão da SJD sobre a denúncia…"
+                    placeholder="Conclusão da Corregedoria sobre a denúncia…"
                     onBlur={(e) =>
                       e.target.value !== (aberta.parecer ?? "") &&
                       atualizarDenuncia(aberta, { parecer: e.target.value || null })

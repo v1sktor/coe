@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,6 @@ interface HierarquiaItem {
   cargo_nome?: string;
   cargo_imagem?: string | null;
   cargo_nivel?: number;
-  cargo_categoria?: string | null;
 }
 
 interface CargoOption {
@@ -69,25 +68,15 @@ const Hierarquia = ({
   const [filtroUnidade, setFiltroUnidade] = useState<string>("TODAS");
 
   const fetchData = async () => {
-    const { data: cargosData } = await supabase.from("cargos").select("id, nome, nivel_hierarquico, categoria, imagem_url").order("nivel_hierarquico");
-    const cargoPorId = new Map((cargosData ?? []).map((c) => [c.id, c]));
-
-    let { data: hierData } = await supabase.from("hierarquia").select("*, cargos(nome, imagem_url, nivel_hierarquico, categoria)");
-    if (!hierData || hierData.length === 0) {
+    let { data: hierData } = await supabase.from("hierarquia").select("*, cargos(nome, imagem_url, nivel_hierarquico)");
+    if (!hierData) {
       const { data: pub } = await (supabase.rpc as any)("get_hierarquia_publica");
-      hierData = (pub ?? []).map((h: any) => {
-        const cargo = h.cargo_id ? cargoPorId.get(h.cargo_id) : undefined;
-        return {
-          ...h,
-          cargos: {
-            nome: h.cargo_nome,
-            imagem_url: h.cargo_imagem,
-            nivel_hierarquico: h.cargo_nivel,
-            categoria: cargo?.categoria ?? null,
-          },
-        };
-      });
+      hierData = (pub ?? []).map((h: any) => ({
+        ...h,
+        cargos: { nome: h.cargo_nome, imagem_url: h.cargo_imagem, nivel_hierarquico: h.cargo_nivel },
+      }));
     }
+    const { data: cargosData } = await supabase.from("cargos").select("id, nome, nivel_hierarquico, imagem_url").order("nivel_hierarquico");
     if (hierData) {
       setItems(
         hierData.map((h: any) => ({
@@ -106,7 +95,6 @@ const Hierarquia = ({
           cargo_nome: h.cargos?.nome,
           cargo_imagem: h.cargos?.imagem_url,
           cargo_nivel: h.cargos?.nivel_hierarquico,
-          cargo_categoria: h.cargos?.categoria ?? null,
         }))
       );
     }
@@ -191,7 +179,7 @@ const Hierarquia = ({
             {filterGrupamento ? `Hierarquia · ${filterGrupamento}` : "Hierarquia"}
           </h1>
           <p className="text-muted-foreground mt-1">
-            {filterGrupamento ? `Efetivo do grupamento ${filterGrupamento}` : "Efetivo da Força Tática · PMESP"}
+            {filterGrupamento ? `Efetivo do grupamento ${filterGrupamento}` : "Efetivo da Polícia Civil de São Paulo"}
           </p>
         </div>
         {canEdit && (
@@ -310,53 +298,39 @@ const Hierarquia = ({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sortedItems.map((item, idx) => {
-                    const categoria = item.cargo_categoria ?? "Sem categoria";
-                    const novaCategoria =
-                      idx === 0 || (sortedItems[idx - 1].cargo_categoria ?? "Sem categoria") !== categoria;
-                    return (
-                      <Fragment key={item.id}>
-                        {novaCategoria && (
-                          <TableRow className="hover:bg-transparent">
-                            <TableCell colSpan={canEdit ? 9 : 8} className="bg-secondary/60 font-display uppercase tracking-widest text-[11px] text-primary py-2">
-                              {categoria}
-                            </TableCell>
-                          </TableRow>
+                  {sortedItems.map((item) => (
+                    <TableRow key={item.id}>
+                      <TableCell className="font-mono text-sm">{item.rg || "—"}</TableCell>
+                      <TableCell className="font-display font-semibold uppercase text-sm">{item.membro_nome}</TableCell>
+                      <TableCell className="font-mono text-sm">{item.discord_id || "—"}</TableCell>
+                      <TableCell>
+                        {item.cargo_imagem ? (
+                          <img src={item.cargo_imagem} alt={item.cargo_nome || ""} className="h-8 w-8 object-contain" />
+                        ) : (
+                          <span className="text-muted-foreground text-xs">—</span>
                         )}
-                        <TableRow>
-                          <TableCell className="font-mono text-sm">{item.rg || "—"}</TableCell>
-                          <TableCell className="font-display font-semibold uppercase text-sm">{item.membro_nome}</TableCell>
-                          <TableCell className="font-mono text-sm">{item.discord_id || "—"}</TableCell>
-                          <TableCell>
-                            {item.cargo_imagem ? (
-                              <img src={item.cargo_imagem} alt={item.cargo_nome || ""} className="h-8 w-8 object-contain" />
-                            ) : (
-                              <span className="text-muted-foreground text-xs">—</span>
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            {item.cargo_nome ? (
-                              <Badge variant="outline" className="text-xs border-primary/30 text-primary">{item.cargo_nome}</Badge>
-                            ) : (
-                              <span className="text-muted-foreground text-xs">—</span>
-                            )}
-                          </TableCell>
-                          <TableCell className="text-sm font-display uppercase">{item.batalhao || "—"}</TableCell>
-                          <TableCell className="text-sm">{item.funcao || "—"}</TableCell>
-                          <TableCell className="text-sm">{item.promocao || "—"}</TableCell>
-                          <TableCell className="text-sm">{item.data_entrada || "—"}</TableCell>
-                          {canEdit && (
-                            <TableCell className="text-right">
-                              <div className="flex justify-end gap-1">
-                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(item)}><Pencil className="h-3 w-3" /></Button>
-                                <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => handleDelete(item.id)}><Trash2 className="h-3 w-3" /></Button>
-                              </div>
-                            </TableCell>
-                          )}
-                        </TableRow>
-                      </Fragment>
-                    );
-                  })}
+                      </TableCell>
+                      <TableCell>
+                        {item.cargo_nome ? (
+                          <Badge variant="outline" className="text-xs border-primary/30 text-primary">{item.cargo_nome}</Badge>
+                        ) : (
+                          <span className="text-muted-foreground text-xs">—</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-sm font-display uppercase">{item.batalhao || "—"}</TableCell>
+                      <TableCell className="text-sm">{item.funcao || "—"}</TableCell>
+                      <TableCell className="text-sm">{item.promocao || "—"}</TableCell>
+                      <TableCell className="text-sm">{item.data_entrada || "—"}</TableCell>
+                      {canEdit && (
+                        <TableCell className="text-right">
+                          <div className="flex justify-end gap-1">
+                            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(item)}><Pencil className="h-3 w-3" /></Button>
+                            <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => handleDelete(item.id)}><Trash2 className="h-3 w-3" /></Button>
+                          </div>
+                        </TableCell>
+                      )}
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </div>

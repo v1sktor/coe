@@ -1088,12 +1088,14 @@ export type Database = {
           cargo_nivel: number
           cargo_nome: string
           data_entrada: string
+          discord_id: string
           funcao: string
           grupamento: Database["public"]["Enums"]["grupamento_tipo"]
           id: string
           membro_nome: string
           ordem: number
           promocao: string
+          rg: string
           superior_id: string
         }[]
       }

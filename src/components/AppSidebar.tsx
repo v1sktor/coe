@@ -1,4 +1,4 @@
-import { Shield, ShieldCheck, Network, Clock, FileText, LayoutDashboard, LogOut, Settings, Users, ScrollText, Star, Megaphone, MapPin, BookOpen, ClipboardList, KeyRound, Scale, Gavel, Shirt } from "lucide-react";
+import { Shield, ShieldCheck, Network, Clock, FileText, LayoutDashboard, LogOut, Settings, Users, ScrollText, Star, Megaphone, MapPin, BookOpen, ClipboardList, KeyRound, Scale, Gavel } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -22,11 +22,11 @@ const menuItems = [
   { title: "Relatórios / RSO", url: "/relatorios", icon: FileText },
   { title: "Estáticas", url: "/estaticas", icon: MapPin },
   { title: "Jurídico", url: "/juridico", icon: Scale },
-  { title: "SJD", url: "/corregedoria", icon: Gavel },
+  { title: "Corregedoria", url: "/corregedoria", icon: Gavel },
 ];
 
 const docItems = [
-  { title: "CCOMSOC", url: "/ccomsoc", icon: Megaphone },
+  { title: "APCS", url: "/ccomsoc", icon: Megaphone },
   { title: "Diretrizes", url: "/diretrizes", icon: ScrollText },
   { title: "Institucional", url: "/institucional", icon: BookOpen },
   { title: "Cursos", url: "/cursos", icon: BookOpen },
@@ -40,7 +40,6 @@ const adminItems = [
   { title: "Logs de Atividade", url: "/admin/logs", icon: ScrollText },
   { title: "Provas / Seletivo", url: "/admin/provas", icon: ClipboardList },
   { title: "Códigos de Acesso", url: "/admin/acessos", icon: KeyRound },
-  { title: "Fardamentos e Viaturas", url: "/admin/frota", icon: Shirt },
 ];
 
 export function AppSidebar() {

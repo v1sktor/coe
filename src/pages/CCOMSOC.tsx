@@ -297,10 +297,10 @@ export default function CCOMSOC() {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h1 className="font-display text-3xl uppercase tracking-wider flex items-center gap-3">
-            <Megaphone className="h-7 w-7 text-primary" /> CCOMSOC
+            <Megaphone className="h-7 w-7 text-primary" /> APCS
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
-            Centro de Comunicação Social
+            Assessoria de Imprensa e Comunicação Social da Polícia Civil SP ·
           </p>
         </div>
         {canManage && (
