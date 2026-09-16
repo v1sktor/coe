@@ -74,7 +74,7 @@ export default function CTB() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5">
                 <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-primary">Tabela Oficial · Atualizada</span>
               </div>
-              <h1 className="font-display text-5xl md:text-7xl font-bold uppercase tracking-tight leading-none text-glow-gold">
+              <h1 className="font-display text-5xl md:text-7xl font-bold uppercase tracking-tight leading-none text-primary">
                 Código Penal
               </h1>
               <p className="font-display text-base md:text-lg uppercase tracking-[0.2em] text-primary/90">
