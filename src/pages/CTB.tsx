@@ -186,7 +186,7 @@ export default function CTB() {
                           ? `Pena · ${m.pena} meses`
                           : "Valor da Multa"}
                     </span>
-                    <span className="font-display text-2xl font-bold text-primary text-glow-gold tabular-nums">
+                    <span className="font-display text-2xl font-bold text-primary tabular-nums">
                       {formatBRL(m.valor)}
                     </span>
                   </div>
