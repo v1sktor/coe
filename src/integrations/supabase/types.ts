@@ -208,6 +208,7 @@ export type Database = {
       cargos: {
         Row: {
           batalhao: string | null
+          categoria: string | null
           created_at: string
           id: string
           imagem_url: string | null
@@ -217,6 +218,7 @@ export type Database = {
         }
         Insert: {
           batalhao?: string | null
+          categoria?: string | null
           created_at?: string
           id?: string
           imagem_url?: string | null
@@ -226,6 +228,7 @@ export type Database = {
         }
         Update: {
           batalhao?: string | null
+          categoria?: string | null
           created_at?: string
           id?: string
           imagem_url?: string | null
@@ -497,6 +500,39 @@ export type Database = {
           inicio?: string
           local?: string
           observacoes?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      frota_itens: {
+        Row: {
+          categoria: string
+          created_at: string
+          descricao: string | null
+          id: string
+          imagem_url: string | null
+          nome: string
+          ordem: number
+          updated_at: string
+        }
+        Insert: {
+          categoria: string
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          imagem_url?: string | null
+          nome: string
+          ordem?: number
+          updated_at?: string
+        }
+        Update: {
+          categoria?: string
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          imagem_url?: string | null
+          nome?: string
+          ordem?: number
           updated_at?: string
         }
         Relationships: []
@@ -1052,12 +1088,14 @@ export type Database = {
           cargo_nivel: number
           cargo_nome: string
           data_entrada: string
+          discord_id: string
           funcao: string
           grupamento: Database["public"]["Enums"]["grupamento_tipo"]
           id: string
           membro_nome: string
           ordem: number
           promocao: string
+          rg: string
           superior_id: string
         }[]
       }
