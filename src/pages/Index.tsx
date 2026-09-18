@@ -207,7 +207,7 @@ const Index = () => {
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[12px] text-center">
           <span>© 4º BPChq COE — {now.getFullYear()}</span>
           <span className="text-sidebar-foreground/50">
-            Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Pirituba RP.
+            Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM RP.
           </span>
           <span className="text-sidebar-foreground/65">Portal operacional · Acesso restrito</span>
         </div>
