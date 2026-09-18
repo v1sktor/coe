@@ -65,7 +65,11 @@ Deno.serve(async (req) => {
 
     if (error) {
       console.error("create-user: auth account creation failed", error.message);
-      return new Response(JSON.stringify({ error: error.message }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      const weak = /weak|easy to guess|pwned|leaked/i.test(error.message);
+      const friendly = weak
+        ? "Senha muito fraca ou já vazada em outros sites. Use uma senha diferente, com pelo menos 8 caracteres, misturando letras, números e símbolos."
+        : error.message;
+      return new Response(JSON.stringify({ error: friendly }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
     if (data.user) {
