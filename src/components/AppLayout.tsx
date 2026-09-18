@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { ModuleSwitcher } from "@/components/ModuleSwitcher";
-const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
 // logo asset replaced by CDN pointer
 
 export function AppLayout() {
