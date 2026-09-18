@@ -109,8 +109,8 @@
   .bg-hazard-stripes {
     background-image: repeating-linear-gradient(
       45deg,
-      hsl(0 0% 88%) 0,
-      hsl(0 0% 88%) 12px,
+      hsl(45 88% 52%) 0,
+      hsl(45 88% 52%) 12px,
       hsl(0 0% 5%) 12px,
       hsl(0 0% 5%) 24px
     );
