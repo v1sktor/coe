@@ -4,8 +4,7 @@ import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { ModuleSwitcher } from "@/components/ModuleSwitcher";
-const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
-// logo asset replaced by CDN pointer
+import logo from "@/assets/logo-4bpchq.png";
 
 export function AppLayout() {
   return (
@@ -16,7 +15,7 @@ export function AppLayout() {
           <header className="h-16 flex items-center gap-4 px-4 bg-gradient-blue text-primary-foreground shadow-tactical border-b-2 border-primary">
             <SidebarTrigger className="text-primary-foreground hover:bg-primary-foreground/10" />
             <Link to="/" className="flex items-center gap-3 min-w-0">
-              <img src={logoUrl} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
+              <img src={logo} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
               <div className="leading-tight min-w-0">
                 <span className="block font-display text-sm md:text-base font-semibold uppercase tracking-wider truncate">
                   4º BPChq COE · PMESP

@@ -9,8 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { MULTAS_CTB, SEV_META, type Severity } from "@/lib/ctb-multas";
-const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
-// logo asset replaced by CDN pointer
+import logo from "@/assets/logo-4bpchq.png";
 
 type Membro = { nome: string; rg: string };
 const membroVazio: Membro = { nome: "", rg: "" };
@@ -61,7 +60,7 @@ export default function BOPC() {
   const boletim = useMemo(
     () =>
       [
-        `# BOPC Nº ${val(numero)}`,
+        `# BOPM Nº ${val(numero)}`,
         `BOLETIM DE OCORRÊNCIA — 4º BPCHQ COE — PMESP`,
         ``,
         `DATA: ${dataBR}  HORA: ${hora || D}`,
@@ -138,7 +137,7 @@ export default function BOPC() {
       <header className="bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logoUrl} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
+            <img src={logo} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
                 4º BPChq COE · PMESP
@@ -170,7 +169,7 @@ export default function BOPC() {
             </CardHeader>
             <CardContent className="grid gap-4 sm:grid-cols-3">
               <div className="space-y-1.5">
-                <Label className="text-[11px] uppercase tracking-wider text-muted-foreground">Nº BOPC</Label>
+                <Label className="text-[11px] uppercase tracking-wider text-muted-foreground">Nº BOPM</Label>
                 <Input value={numero} onChange={(e) => setNumero(e.target.value)} />
               </div>
               <div className="space-y-1.5">

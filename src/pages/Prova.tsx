@@ -10,8 +10,7 @@ import { ScrollText, ChevronRight, ChevronLeft, CheckCircle2 } from "lucide-reac
 import { BackButton } from "@/components/BackButton";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
-// logo asset replaced by CDN pointer
+import logo from "@/assets/logo-4bpchq.png";
 import {
   QUESTOES_PARTE_1,
   QUESTOES_PARTE_2,
@@ -137,7 +136,7 @@ export default function Prova() {
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
             <img
-              src={logoUrl}
+              src={logo}
               alt="Emblema do 4º BPChq COE"
               width={1024}
               height={1024}
@@ -318,8 +317,11 @@ export default function Prova() {
         )}
       </main>
 
-      <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-         4º BPChq COE · Polícia Militar do Estado de São Paulo
+      <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground space-y-1">
+        <p>4º BPChq COE · Polícia Militar do Estado de São Paulo</p>
+        <p className="text-muted-foreground/60">
+          Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Pirituba RP.
+        </p>
       </footer>
     </div>
   );

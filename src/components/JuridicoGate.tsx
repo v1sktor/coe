@@ -8,8 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermission } from "@/hooks/usePermission";
-const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
-// logo asset replaced by CDN pointer
+import logo from "@/assets/logo-4bpchq.png";
 
 const STORAGE_KEY = "juridico-session";
 
@@ -70,7 +69,7 @@ export function JuridicoGate({ children }: { children: ReactNode }) {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-3">
-          <img src={logoUrl} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="mx-auto h-20 w-20 object-contain" />
+          <img src={logo} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="mx-auto h-20 w-20 object-contain" />
           <h1 className="font-display text-2xl font-bold uppercase tracking-widest flex items-center justify-center gap-2">
             <Scale className="h-5 w-5" /> Jurídico
           </h1>

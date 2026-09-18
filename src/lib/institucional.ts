@@ -9,146 +9,47 @@ export interface UnidadeInstitucional {
 
 export const INSTITUCIONAL: UnidadeInstitucional[] = [
   {
-    sigla: "PCESP",
-    nome: "Polícia Civil do Estado de São Paulo",
-    subtitulo: "Polícia Judiciária · Estado de São Paulo",
+    sigla: "PMESP",
+    nome: "Polícia Militar do Estado de São Paulo",
+    subtitulo: "Polícia Militar do Estado de São Paulo",
     missao:
-      "Exercer as funções de polícia judiciária e investigação criminal, promovendo a apuração de infrações penais, a identificação de seus autores e o esclarecimento dos fatos, atuando de forma integrada com os demais órgãos de segurança pública e com respeito à legislação e aos direitos fundamentais.",
+      "Exercer a polícia ostensiva e a preservação da ordem pública em todo o território paulista, prevenindo e combatendo o crime, garantindo a incolumidade das pessoas, do patrimônio e dos direitos fundamentais, além de atuar em missões de defesa civil e resgate.",
     historia:
-      "A Polícia Civil do Estado de São Paulo é responsável pela atividade de polícia judiciária e pela investigação de crimes no território paulista. Sua estrutura é composta por diversos departamentos especializados, unidades territoriais e órgãos de apoio, permitindo o atendimento das mais diversas ocorrências e o desenvolvimento de investigações de diferentes níveis de complexidade.",
+      "Fundada em 15 de dezembro de 1831 pelo Brigadeiro Rafael Tobias de Aguiar (então Presidente da Província de São Paulo), nasceu com o nome de Corpo de Municipais Permanentes. Ao longo de quase dois séculos de história, a corporação passou por diversas denominações — como Força Pública de São Paulo — e combateu em conflitos marcantes da história brasileira, como a Guerra do Paraguai (1864–1870), a Revolução Constitucionalista de 1932 e a Segunda Guerra Mundial (enviando integrantes para a FEB). Em 1970, com a fusão da Força Pública e da Guarda Civil de São Paulo, assumiu a denominação atual de Polícia Militar do Estado de São Paulo.",
     contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais da Polícia Civil do Estado de São Paulo.",
+      "Para informações institucionais, entre em contato pelos canais oficiais da Polícia Militar do Estado de São Paulo.",
   },
   {
-    sigla: "GARRA",
-    nome: "Grupo Armado de Repressão a Roubos e Assaltos",
-    subtitulo: "Grupo Armado de Repressão a Roubos e Assaltos · Polícia Civil",
+    sigla: "CPChoque",
+    nome: "Comando de Policiamento de Choque",
+    subtitulo: "Comando de Policiamento de Choque · PMESP",
     missao:
-      "Reprimir roubos, assaltos e sequestros, cumprir ações de alto risco e prestar apoio tático às unidades da Polícia Civil, com técnica, disciplina e respeito aos direitos fundamentais.",
+      "Planejar, coordenar e fiscalizar as operações de policiamento tático especializado, controle de distúrbios civis e ações táticas especiais em todo o Estado de São Paulo, servindo como a principal reserva estratégica do Comando Geral para a restauração da ordem pública e enfrentamento da criminalidade violenta.",
     historia:
-      "O GARRA — Grupo Armado de Repressão a Roubos e Assaltos — é uma unidade especializada da Polícia Civil voltada à repressão de roubos, assaltos, sequestros e ocorrências de elevada complexidade. Atua também em apoio operacional às demais unidades da instituição.",
+      "A origem do policiamento de choque em São Paulo remonta às tropas de infantaria da antiga Força Pública no início do século XX. Com o aumento das manifestações populares, a expansão urbana e o surgimento de novas demandas de segurança pública nas décadas de 1960 e 1970, a PMESP centralizou suas unidades de pronta resposta e controle de distúrbios sob um único comando especializado, consolidando o CPChoque como o grande comando gestor das tropas de elite do Estado.",
     contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do GARRA — Polícia Civil.",
+      "Para informações institucionais, entre em contato pelos canais oficiais do CPChoque — Polícia Militar do Estado de São Paulo.",
   },
   {
-    sigla: "GOE",
-    nome: "Grupo de Operações Especiais",
-    subtitulo: "Grupo de Operações Especiais · Polícia Civil",
+    sigla: "GATE",
+    nome: "Grupo de Ações Táticas Especiais",
+    subtitulo: "Grupo de Ações Táticas Especiais (GATE) · 4º BPChoque",
     missao:
-      "Atuar em operações táticas de altíssimo risco, situações críticas e resgates que exijam treinamento especializado, planejamento operacional e elevado nível de preparo.",
+      "Atuar na resolução de crises operacionais de altíssima complexidade em meio urbano, incluindo resgate de reféns localizados, neutralização de atiradores ativos, desarmamento e varredura de artefatos explosivos (bombas), além de cumprimento de mandados de prisão contra alvos de altíssima periculosidade.",
     historia:
-      "O GOE — Grupo de Operações Especiais — é uma unidade especializada da Polícia Civil destinada à atuação em ocorrências de elevada complexidade e risco. Suas equipes são empregadas em operações especiais, resgates e situações que demandem intervenção tática especializada.",
+      "Criado em 3 de agosto de 1988 e vinculado ao 4º Batalhão de Policiamento de Choque (4º BPChoque), o GATE nasceu da necessidade de criar uma equipe técnica de elite para gerenciar crises urbanas de alta gravidade. Inspirado em doutrinas internacionais de SWAT e unidades de contraterrorismo, foi estruturado para atuar em ocorrências que exigiam táticas de negociação, invasão tática e manipulação de explosivos.",
     contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do GOE — Polícia Civil.",
+      "Para informações institucionais, entre em contato pelos canais oficiais do GATE — 4º BPChoque.",
   },
   {
-    sigla: "GER",
-    nome: "Grupo Especial de Reação",
-    subtitulo: "Grupo Especial de Reação · Polícia Civil",
+    sigla: "COE",
+    nome: "Comandos e Operações Especiais",
+    subtitulo: "Comandos e Operações Especiais (COE) · 4º BPChoque",
     missao:
-      "Atuar na reação imediata a ocorrências de elevado risco, prestando apoio tático às unidades da Polícia Civil em situações que demandem resposta rápida e especializada.",
+      "Executar operações policiais de alto risco em ambientes rurais, de mata ou terrenos hostis, realizar busca, resgate e neutralização de criminosos encurralados em locais de difícil acesso, e prestar apoio tático especializado em ações contraterrorismo e missões de busca em áreas de risco.",
     historia:
-      "O GER — Grupo Especial de Reação — é uma unidade operacional destinada ao emprego em situações críticas, oferecendo resposta imediata e suporte tático às equipes policiais durante ocorrências de maior complexidade.",
+      "Originou-se da Companhia de Operações Especiais fundada em 1970, sendo posteriormente incorporada ao 4º BPChoque. Sua criação foi motivada pela necessidade de combater focos de guerrilha rural no Vale do Ribeira e operar em terrenos de difícil acesso, evoluindo ao longo das décadas para se tornar a referência da corporação em operações de selva e patrulhamento em ambientes de alta criticidade geográfica.",
     contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do GER — Polícia Civil.",
-  },
-  {
-    sigla: "DEIC",
-    nome: "Departamento de Investigações sobre Crime Organizado",
-    subtitulo: "Departamento de Investigações sobre Crime Organizado · Polícia Civil",
-    missao:
-      "Investigar e combater organizações criminosas e delitos de elevada complexidade, promovendo ações especializadas de investigação, inteligência e repressão criminal.",
-    historia:
-      "O DEIC — Departamento de Investigações sobre Crime Organizado — concentra atividades especializadas de investigação e combate ao crime organizado, atuando na identificação de organizações criminosas, seus integrantes e estruturas de atuação.",
-    contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do DEIC — Polícia Civil.",
-  },
-  {
-    sigla: "SAT",
-    nome: "Serviço Aerotático Policial",
-    subtitulo: "Serviço Aerotático Policial · Polícia Civil",
-    missao:
-      "Prestar apoio aéreo às operações da Polícia Civil, realizando patrulhamento, transporte tático, acompanhamento de ocorrências e suporte às unidades em operações de maior complexidade.",
-    historia:
-      "O SAT — Serviço Aerotático Policial — é responsável pelo emprego de recursos aéreos em apoio às atividades operacionais da Polícia Civil, ampliando a capacidade de resposta e mobilidade das equipes policiais.",
-    contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do SAT — Polícia Civil.",
-  },
-  {
-    sigla: "DHPP",
-    nome: "Departamento de Homicídios e Proteção à Pessoa",
-    subtitulo: "Departamento de Homicídios e Proteção à Pessoa · Polícia Civil",
-    missao:
-      "Investigar homicídios, desaparecimentos e crimes relacionados à proteção da pessoa, buscando esclarecer os fatos, identificar seus responsáveis e garantir a adequada apuração das ocorrências.",
-    historia:
-      "O DHPP — Departamento de Homicídios e Proteção à Pessoa — é especializado na investigação de crimes contra a vida e ocorrências envolvendo pessoas desaparecidas ou em situação de risco, utilizando técnicas investigativas e análise de evidências.",
-    contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do DHPP — Polícia Civil.",
-  },
-  {
-    sigla: "DENARC",
-    nome: "Departamento de Investigações sobre Narcóticos",
-    subtitulo: "Departamento de Investigações sobre Narcóticos · Polícia Civil",
-    missao:
-      "Investigar e combater o tráfico de drogas e demais crimes relacionados a entorpecentes, atuando na identificação de envolvidos, pontos de distribuição e organizações criminosas.",
-    historia:
-      "O DENARC — Departamento de Investigações sobre Narcóticos — é especializado na repressão ao tráfico de drogas e na investigação de crimes relacionados à produção, armazenamento, distribuição e comercialização de entorpecentes.",
-    contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do DENARC — Polícia Civil.",
-  },
-  {
-    sigla: "DECAP",
-    nome: "Departamento de Polícia Judiciária da Capital",
-    subtitulo: "Departamento de Polícia Judiciária da Capital · Polícia Civil",
-    missao:
-      "Coordenar e supervisionar as atividades das unidades de polícia judiciária da Capital, garantindo o funcionamento das delegacias e a adequada prestação dos serviços policiais à população.",
-    historia:
-      "O DECAP — Departamento de Polícia Judiciária da Capital — é responsável pela coordenação das delegacias e unidades policiais situadas na Capital, promovendo a integração das atividades de atendimento, registro e investigação criminal.",
-    contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do DECAP — Polícia Civil.",
-  },
-  {
-    sigla: "CORREGEPOL",
-    nome: "Corregedoria Geral da Polícia Civil",
-    subtitulo: "Corregedoria Geral da Polícia Civil · Polícia Civil",
-    missao:
-      "Fiscalizar a conduta funcional dos integrantes da Polícia Civil, apurar irregularidades e garantir o cumprimento das normas disciplinares e administrativas da instituição.",
-    historia:
-      "A CORREGEPOL — Corregedoria Geral da Polícia Civil — atua na fiscalização interna da instituição, recebendo denúncias, realizando apurações e conduzindo procedimentos relacionados a possíveis infrações funcionais e disciplinares.",
-    contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais da CORREGEPOL — Polícia Civil.",
-  },
-  {
-    sigla: "CERCO",
-    nome: "Serviço de Cerco e Bloqueio",
-    subtitulo: "Serviço de Cerco e Bloqueio · Polícia Civil",
-    missao:
-      "Realizar ações de cerco, bloqueio e contenção, proporcionando apoio às equipes policiais na localização, acompanhamento e interceptação de indivíduos ou veículos envolvidos em ocorrências.",
-    historia:
-      "O CERCO — Serviço de Cerco e Bloqueio — é destinado ao apoio operacional em ocorrências que demandem contenção de áreas, bloqueio de vias e estabelecimento de perímetros para auxiliar na localização e interceptação de suspeitos.",
-    contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do CERCO — Polícia Civil.",
-  },
-  {
-    sigla: "IML",
-    nome: "Instituto Médico Legal",
-    subtitulo: "Instituto Médico Legal · Polícia Civil",
-    missao:
-      "Realizar exames médico-legais e procedimentos necroscópicos, fornecendo elementos técnicos para auxiliar na identificação de vítimas e no esclarecimento de ocorrências de interesse policial.",
-    historia:
-      "O IML — Instituto Médico Legal — é responsável pela realização de exames médico-legais, necropsias e demais procedimentos técnicos relacionados à medicina legal, contribuindo para as investigações conduzidas pela Polícia Civil.",
-    contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do IML — Polícia Civil.",
-  },
-  {
-    sigla: "DGP",
-    nome: "Delegacia Geral de Polícia",
-    subtitulo: "Delegacia Geral de Polícia · Polícia Civil",
-    missao:
-      "Exercer a direção geral da Polícia Civil, coordenando suas unidades, departamentos e atividades administrativas e operacionais, garantindo o funcionamento integrado da instituição.",
-    historia:
-      "A DGP — Delegacia Geral de Polícia — constitui a estrutura de direção superior da Polícia Civil, responsável pela coordenação geral da instituição, definição de diretrizes e supervisão de seus departamentos e unidades.",
-    contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais da DGP — Polícia Civil.",
+      "Para informações institucionais, entre em contato pelos canais oficiais do COE — 4º BPChoque.",
   },
 ];

@@ -7,8 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Lock, Mail, ArrowLeft, Scale, Gavel } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
-// logo asset replaced by CDN pointer
+import logo from "@/assets/logo-4bpchq.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -42,7 +41,7 @@ const Login = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center space-y-4">
           <img
-            src={logoUrl}
+            src={logo}
             alt="Emblema do 4º BPChq COE"
             width={1024}
             height={1024}
@@ -106,7 +105,7 @@ const Login = () => {
           >
             <Link to="/corregedoria">
               <Gavel className="mr-2 h-4 w-4" />
-              Corregedoria
+              SJD
             </Link>
           </Button>
         </div>

@@ -1,18 +1,29 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Fragment } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Pencil, Trash2, Star, Upload, Image } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+
+const CATEGORIAS = [
+  "Oficiais Superiores",
+  "Oficiais Intermediários",
+  "Oficiais Subalternos",
+  "Praças Especiais",
+  "Praças Graduados",
+  "Praças",
+];
 
 interface Patente {
   id: string;
   nome: string;
   nivel_hierarquico: number;
+  categoria: string | null;
   imagem_url: string | null;
 }
 
@@ -23,12 +34,13 @@ const AdminPatentes = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formNome, setFormNome] = useState("");
   const [formNivel, setFormNivel] = useState(1);
+  const [formCategoria, setFormCategoria] = useState<string>(CATEGORIAS[0]);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadTargetId, setUploadTargetId] = useState<string | null>(null);
 
   const fetchData = async () => {
-    const { data } = await supabase.from("cargos").select("id, nome, nivel_hierarquico, imagem_url").order("nivel_hierarquico");
+    const { data } = await supabase.from("cargos").select("id, nome, nivel_hierarquico, categoria, imagem_url").order("nivel_hierarquico");
     if (data) setPatentes(data as Patente[]);
   };
 
@@ -38,6 +50,7 @@ const AdminPatentes = () => {
     setEditingId(null);
     setFormNome("");
     setFormNivel(patentes.length + 1);
+    setFormCategoria(CATEGORIAS[0]);
     setDialogOpen(true);
   };
 
@@ -45,17 +58,18 @@ const AdminPatentes = () => {
     setEditingId(p.id);
     setFormNome(p.nome);
     setFormNivel(p.nivel_hierarquico);
+    setFormCategoria(p.categoria ?? CATEGORIAS[0]);
     setDialogOpen(true);
   };
 
   const handleSave = async () => {
     if (!formNome.trim()) return;
     if (editingId) {
-      const { error } = await supabase.from("cargos").update({ nome: formNome, nivel_hierarquico: formNivel }).eq("id", editingId);
+      const { error } = await supabase.from("cargos").update({ nome: formNome, nivel_hierarquico: formNivel, categoria: formCategoria }).eq("id", editingId);
       if (error) { toast({ title: "Erro", description: error.message, variant: "destructive" }); return; }
       toast({ title: "Patente atualizada" });
     } else {
-      const { error } = await supabase.from("cargos").insert({ nome: formNome, nivel_hierarquico: formNivel });
+      const { error } = await supabase.from("cargos").insert({ nome: formNome, nivel_hierarquico: formNivel, categoria: formCategoria });
       if (error) { toast({ title: "Erro", description: error.message, variant: "destructive" }); return; }
       toast({ title: "Patente criada" });
     }
@@ -133,9 +147,20 @@ const AdminPatentes = () => {
                 <Input value={formNome} onChange={(e) => setFormNome(e.target.value)} placeholder="Ex: Agente de 2ª Classe" className="bg-secondary border-border" />
               </div>
               <div className="space-y-2">
+                <Label className="text-xs uppercase tracking-wider text-muted-foreground">Categoria</Label>
+                <Select value={formCategoria} onValueChange={setFormCategoria}>
+                  <SelectTrigger className="bg-secondary border-border"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {CATEGORIAS.map((c) => (
+                      <SelectItem key={c} value={c}>{c}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Nível Hierárquico</Label>
                 <Input type="number" min={1} value={formNivel} onChange={(e) => setFormNivel(Number(e.target.value))} className="bg-secondary border-border" />
-                <p className="text-xs text-muted-foreground">1 = mais alto (Delegado Geral), 10 = mais baixo</p>
+                <p className="text-xs text-muted-foreground">1 = mais alto (Coronel PM), quanto maior o número mais baixo na hierarquia</p>
               </div>
               <Button onClick={handleSave} className="w-full font-display uppercase tracking-wider">
                 {editingId ? "Salvar" : "Criar"}
@@ -165,34 +190,47 @@ const AdminPatentes = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {patentes.map((p) => (
-                <TableRow key={p.id}>
-                  <TableCell className="font-mono text-primary font-bold">{p.nivel_hierarquico}</TableCell>
-                  <TableCell>
-                    {p.imagem_url ? (
-                      <img src={p.imagem_url} alt={p.nome} className="h-8 w-8 object-contain" />
-                    ) : (
-                      <div className="h-8 w-8 rounded bg-secondary flex items-center justify-center">
-                        <Image className="h-4 w-4 text-muted-foreground" />
-                      </div>
+              {patentes.map((p, idx) => {
+                const categoria = p.categoria ?? "Sem categoria";
+                const novaCategoria = idx === 0 || (patentes[idx - 1].categoria ?? "Sem categoria") !== categoria;
+                return (
+                  <Fragment key={p.id}>
+                    {novaCategoria && (
+                      <TableRow key={`cat-${categoria}`} className="hover:bg-transparent">
+                        <TableCell colSpan={4} className="bg-secondary/60 font-display uppercase tracking-widest text-[11px] text-primary py-2">
+                          {categoria}
+                        </TableCell>
+                      </TableRow>
                     )}
-                  </TableCell>
-                  <TableCell className="font-display font-semibold uppercase">{p.nome}</TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-1">
-                      <Button variant="ghost" size="icon" onClick={() => handleUploadClick(p.id)} disabled={uploading} title="Upload insígnia">
-                        <Upload className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => openEdit(p)}>
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(p.id)} className="text-destructive hover:text-destructive">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    <TableRow key={p.id}>
+                      <TableCell className="font-mono text-primary font-bold">{p.nivel_hierarquico}</TableCell>
+                      <TableCell>
+                        {p.imagem_url ? (
+                          <img src={p.imagem_url} alt={p.nome} className="h-8 w-8 object-contain" />
+                        ) : (
+                          <div className="h-8 w-8 rounded bg-secondary flex items-center justify-center">
+                            <Image className="h-4 w-4 text-muted-foreground" />
+                          </div>
+                        )}
+                      </TableCell>
+                      <TableCell className="font-display font-semibold uppercase">{p.nome}</TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-1">
+                          <Button variant="ghost" size="icon" onClick={() => handleUploadClick(p.id)} disabled={uploading} title="Upload insígnia">
+                            <Upload className="h-4 w-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon" onClick={() => openEdit(p)}>
+                            <Pencil className="h-4 w-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon" onClick={() => handleDelete(p.id)} className="text-destructive hover:text-destructive">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  </Fragment>
+                );
+              })}
               {patentes.length === 0 && (
                 <TableRow><TableCell colSpan={4} className="text-center text-muted-foreground py-8">Nenhuma patente cadastrada.</TableCell></TableRow>
               )}

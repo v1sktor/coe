@@ -6,8 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { supabase } from "@/integrations/supabase/client";
-const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
-// logo asset replaced by CDN pointer
+import logo from "@/assets/logo-4bpchq.png";
 
 type Grupamento = "TOR" | "ROCAM";
 
@@ -91,7 +90,7 @@ export default function GrupamentoPage({ tipo }: { tipo: Grupamento }) {
       <header className="relative z-10 bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logoUrl} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
+            <img src={logo} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
                 4º BPChq COE · PMESP

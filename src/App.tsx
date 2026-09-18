@@ -32,6 +32,7 @@ const Corregedoria = lazyWithRetry(() => import("./pages/Corregedoria"), "correg
 const Cursos = lazyWithRetry(() => import("./pages/Cursos"), "cursos");
 const Institucional = lazyWithRetry(() => import("./pages/Institucional"), "institucional");
 const Edital = lazyWithRetry(() => import("./pages/Edital"), "edital");
+const FardamentosViaturas = lazyWithRetry(() => import("./pages/FardamentosViaturas"), "fardamentos-viaturas");
 const Denuncia = lazyWithRetry(() => import("./pages/Denuncia"), "denuncia");
 const Prova = lazyWithRetry(() => import("./pages/Prova"), "prova");
 const AdminCargos = lazyWithRetry(() => import("./pages/admin/AdminCargos"), "admin-cargos");
@@ -40,6 +41,7 @@ const AdminUsuarios = lazyWithRetry(() => import("./pages/admin/AdminUsuarios"),
 const AdminLogs = lazyWithRetry(() => import("./pages/admin/AdminLogs"), "admin-logs");
 const AdminProvas = lazyWithRetry(() => import("./pages/admin/AdminProvas"), "admin-provas");
 const AdminAcessos = lazyWithRetry(() => import("./pages/admin/AdminAcessos"), "admin-acessos");
+const AdminFrota = lazyWithRetry(() => import("./pages/admin/AdminFrota"), "admin-frota");
 const NotFound = lazyWithRetry(() => import("./pages/NotFound"), "not-found");
 
 const queryClient = new QueryClient();
@@ -69,13 +71,14 @@ const App = () => (
             <Route path="/cursos" element={<Cursos />} />
             <Route path="/institucional" element={<Institucional />} />
             <Route path="/edital" element={<Edital />} />
+            <Route path="/frota" element={<FardamentosViaturas />} />
             <Route path="/prova" element={<Prova />} />
             <Route element={<PublicLayout />}>
               <Route path="/hierarquia" element={<Hierarquia />} />
               <Route
                 path="/rso/novo"
                 element={
-                  <AccessGate chave="diligencias" titulo="Relatório de Diligências">
+                  <AccessGate chave="diligencias" titulo="Relatório de Serviço Operacional">
                     <RsoNovo />
                   </AccessGate>
                 }
@@ -90,7 +93,7 @@ const App = () => (
             <Route
               path="/bopc"
               element={
-                <AccessGate chave="bopc" titulo="BOPC / BIC">
+                <AccessGate chave="bopc" titulo="Modelo BOPM">
                   <BOPC />
                 </AccessGate>
               }
@@ -124,7 +127,7 @@ const App = () => (
                 <Route
                   path="/relatorios"
                   element={
-                    <AccessGate chave="diligencias" titulo="Relatório de Diligências">
+                    <AccessGate chave="diligencias" titulo="Relatório de Serviço Operacional">
                       <Relatorios />
                     </AccessGate>
                   }
@@ -146,6 +149,7 @@ const App = () => (
                 <Route path="/admin/logs" element={<AdminLogs />} />
                 <Route path="/admin/provas" element={<AdminProvas />} />
                 <Route path="/admin/acessos" element={<AdminAcessos />} />
+                <Route path="/admin/frota" element={<AdminFrota />} />
               </Route>
             </Route>
 

@@ -6,8 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { MULTAS_CTB as MULTAS, SEV_META, formatBRL, type Severity } from "@/lib/ctb-multas";
-const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
-// logo asset replaced by CDN pointer
+import logo from "@/assets/logo-4bpchq.png";
 
 export default function CTB() {
   const [search, setSearch] = useState("");
@@ -43,7 +42,7 @@ export default function CTB() {
       <header className="relative z-10 bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logoUrl} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
+            <img src={logo} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
                 4º BPChq COE · PMESP
@@ -207,8 +206,11 @@ export default function CTB() {
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-border/60 backdrop-blur-md bg-background/60">
-        <div className="px-6 lg:px-10 py-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-          Código Penal · Trânsito · Polícia Civil SP
+        <div className="px-6 lg:px-10 py-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground space-y-1">
+          <div>Código Penal · Trânsito · 4º BPChq COE PMESP</div>
+          <div className="normal-case tracking-normal text-muted-foreground/60">
+            Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Pirituba RP.
+          </div>
         </div>
       </footer>
     </div>

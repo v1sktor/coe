@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Network, ScrollText, Settings, Megaphone, FileText, ChevronRight, ShieldAlert, Siren, LogIn } from "lucide-react";
+import { Network, ScrollText, Settings, Megaphone, FileText, ChevronRight, ShieldAlert, Siren, LogIn, Shirt } from "lucide-react";
 import heroBanner from "@/assets/forca-tatica-hero.jpg";
 import { supabase } from "@/integrations/supabase/client";
-const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
-// logo asset replaced by CDN pointer
+import logo from "@/assets/logo-4bpchq.png";
 
 const Index = () => {
   const now = new Date();
@@ -28,7 +27,7 @@ const Index = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 min-h-20 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
             <img
-              src={logoUrl}
+              src={logo}
               alt="Emblema do 4º BPChq COE"
               width={1024}
               height={1024}
@@ -78,13 +77,13 @@ const Index = () => {
             <div className="mt-8 grid w-full max-w-lg grid-cols-1 gap-3 sm:grid-cols-2">
               <Button asChild size="lg" className="w-full font-semibold uppercase">
                 <Link to="/bopc">
-                  BOPC/BIC <ChevronRight className="ml-1 h-4 w-4" />
+                  Modelo BOPM <ChevronRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full font-semibold uppercase border-sidebar-border bg-sidebar-accent text-sidebar-accent-foreground hover:bg-secondary hover:text-secondary-foreground">
-                <Link to="/rso/novo">Relatório de Diligências</Link>
+                <Link to="/rso/novo">RSO</Link>
               </Button>
-              <Button asChild size="lg" variant="ghost" className="w-full font-semibold uppercase text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-foreground sm:col-span-2">
+              <Button asChild size="lg" className="w-full font-semibold uppercase bg-white text-black hover:bg-white/90 sm:col-span-2">
                 <Link to="/edital">Edital 4º BPChq COE</Link>
               </Button>
             </div>
@@ -116,11 +115,12 @@ const Index = () => {
             </Button>
           </div>
           <div className="bg-card border-l-4 border-foreground p-6 shadow-tactical">
-            <h2 className="font-display text-base uppercase">Acesso rápido</h2>
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <Button asChild variant="secondary" size="sm"><Link to="/edital">Editais</Link></Button>
-              <Button asChild variant="secondary" size="sm"><Link to="/ccomsoc">Comunicados</Link></Button>
-            </div>
+            <Shirt className="h-7 w-7 text-primary" />
+            <h2 className="mt-4 font-display text-base uppercase">Fardamentos e viaturas</h2>
+            <p className="mt-2 text-sm text-muted-foreground">Uniformes, equipamentos e viaturas em uso pela tropa.</p>
+            <Button asChild variant="link" className="mt-3 h-auto p-0 font-semibold uppercase text-foreground">
+              <Link to="/frota">Ver catálogo <ChevronRight className="ml-1 h-4 w-4" /></Link>
+            </Button>
           </div>
           <div className="bg-card border-l-4 border-foreground p-6 shadow-tactical">
             <h2 className="font-display text-base uppercase">Administração</h2>
@@ -137,7 +137,7 @@ const Index = () => {
         </div>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <ServiceCard to="/hierarquia" icon={Network} title="Hierarquia" desc="Estrutura de comando e efetivo das unidades." />
-          <ServiceCard to="/rso/novo" icon={FileText} title="RSO" desc="Registro de serviço e diligências operacionais." />
+          <ServiceCard to="/rso/novo" icon={FileText} title="RSO" desc="Relatório de Serviço Operacional." />
           <ServiceCard to="/ccomsoc" icon={Megaphone} title="Comunicação" desc="Notícias, comunicados e releases oficiais." />
           <ServiceCard to="/diretrizes" icon={ScrollText} title="Diretrizes" desc="Manuais internos, normas e procedimentos." />
         </div>
@@ -204,8 +204,11 @@ const Index = () => {
 
       {/* Rodapé */}
       <footer className="bg-sidebar text-sidebar-foreground mt-auto border-t-2 border-primary">
-        <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[12px]">
-          <span>© 4º BPChq COE — PMESP — {now.getFullYear()}</span>
+        <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[12px] text-center">
+          <span>© 4º BPChq COE — {now.getFullYear()}</span>
+          <span className="text-sidebar-foreground/50">
+            Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Pirituba RP.
+          </span>
           <span className="text-sidebar-foreground/65">Portal operacional · Acesso restrito</span>
         </div>
       </footer>

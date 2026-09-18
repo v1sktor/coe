@@ -1,6 +1,5 @@
 import jsPDF from "jspdf";
-const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
-// logo asset replaced by CDN pointer
+import logo from "@/assets/logo-4bpchq.png";
 
 const loadDataUrl = async (url: string): Promise<string | null> => {
   try {
@@ -59,7 +58,7 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
   const M = 48;
   let y = M;
 
-  const logo = await loadDataUrl(logoUrl);
+  const logo = await loadDataUrl(logo);
 
   const footer = () => {
     const pages = doc.getNumberOfPages();
