@@ -28,10 +28,10 @@ export default function Edital() {
       <header className="relative z-10 bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logoUrl} alt="Emblema da Força Tática" width={1024} height={1024} className="h-11 w-11 object-contain" />
+            <img src={logoUrl} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                Força Tática · PMESP
+                4º BPChq COE · PMESP
               </span>
               <span className="text-[11px] text-primary-foreground/70">
                 Polícia Militar do Estado de São Paulo
@@ -50,7 +50,7 @@ export default function Edital() {
           <span className="font-mono text-[11px] uppercase tracking-[0.3em]">Edital PMESP</span>
         </div>
         <h1 className="font-display text-3xl md:text-4xl uppercase tracking-tight">
-          Força Tática · Polícia Militar do Estado de São Paulo
+          4º BPChq COE · Polícia Militar do Estado de São Paulo
         </h1>
         <p className="mt-2 text-sm font-mono uppercase tracking-widest text-muted-foreground">
           Processo seletivo operacional
@@ -152,7 +152,7 @@ export default function Edital() {
       </main>
 
       <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-        Força Tática · Polícia Militar do Estado de São Paulo
+        4º BPChq COE · Polícia Militar do Estado de São Paulo
       </footer>
     </div>
   );

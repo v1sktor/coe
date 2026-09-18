@@ -112,7 +112,7 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
     doc.setTextColor(20);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
-    const title = doc.splitTextToSize("FORÇA TÁTICA — POLÍCIA MILITAR DO ESTADO DE SÃO PAULO", centerW);
+    const title = doc.splitTextToSize("4º BPCHQ — COE — POLÍCIA MILITAR DO ESTADO DE SÃO PAULO", centerW);
     doc.text(title, centerX, y + 12, { align: "center" });
     doc.setFontSize(11);
     doc.text("REGISTRO DE DILIGÊNCIA", centerX, y + 26, { align: "center" });

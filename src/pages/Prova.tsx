@@ -138,14 +138,14 @@ export default function Prova() {
           <Link to="/" className="flex items-center gap-3">
             <img
               src={logoUrl}
-              alt="Emblema da Força Tática"
+              alt="Emblema do 4º BPChq COE"
               width={1024}
               height={1024}
               className="h-11 w-11 object-contain"
             />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                Força Tática · PMESP
+                4º BPChq COE · PMESP
               </span>
               <span className="text-[11px] text-primary-foreground/70">
                 Processo Seletivo — ACADEPOL
@@ -165,7 +165,7 @@ export default function Prova() {
                 Prova enviada com sucesso
               </h1>
               <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                 Sua prova foi encaminhada ao setor administrativo da Força Tática para correção e
+                 Sua prova foi encaminhada ao setor administrativo da 4º BPChq COE para correção e
                 análise. O resultado será divulgado pelos canais oficiais.
               </p>
               <Button asChild variant="outline">
@@ -319,7 +319,7 @@ export default function Prova() {
       </main>
 
       <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-         Força Tática · Polícia Militar do Estado de São Paulo
+         4º BPChq COE · Polícia Militar do Estado de São Paulo
       </footer>
     </div>
   );

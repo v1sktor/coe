@@ -29,14 +29,14 @@ const Index = () => {
           <Link to="/" className="flex items-center gap-3">
             <img
               src={logoUrl}
-              alt="Emblema da Força Tática"
+              alt="Emblema do 4º BPChq COE"
               width={1024}
               height={1024}
               className="h-14 w-14 object-contain"
             />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-lg uppercase">
-                Força Tática
+                4º BPChq COE
               </span>
               <span className="text-[11px] uppercase text-sidebar-foreground/65">
                 Polícia Militar do Estado de São Paulo
@@ -67,7 +67,7 @@ const Index = () => {
               <span className="font-semibold text-xs uppercase">Patrulhamento tático</span>
             </div>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl uppercase leading-tight text-sidebar-foreground">
-              Força Tática
+              4º BPChq COE
             </h1>
             <p className="mt-3 font-display text-lg uppercase text-sidebar-foreground/75">
               Polícia Militar do Estado de São Paulo
@@ -85,14 +85,14 @@ const Index = () => {
                 <Link to="/rso/novo">Relatório de Diligências</Link>
               </Button>
               <Button asChild size="lg" variant="ghost" className="w-full font-semibold uppercase text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-foreground sm:col-span-2">
-                <Link to="/edital">Edital Força Tática</Link>
+                <Link to="/edital">Edital 4º BPChq COE</Link>
               </Button>
             </div>
           </div>
           <div className="relative min-h-[340px] lg:min-h-full overflow-hidden">
             <img
               src={heroBanner}
-              alt="Equipe e viaturas da Força Tática em prontidão"
+              alt="Equipe e viaturas da 4º BPChq COE em prontidão"
               width={1600}
               height={900}
               className="absolute inset-0 h-full w-full object-cover"
@@ -205,7 +205,7 @@ const Index = () => {
       {/* Rodapé */}
       <footer className="bg-sidebar text-sidebar-foreground mt-auto border-t-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[12px]">
-          <span>© Força Tática PMESP — {now.getFullYear()}</span>
+          <span>© 4º BPChq COE — PMESP — {now.getFullYear()}</span>
           <span className="text-sidebar-foreground/65">Portal operacional · Acesso restrito</span>
         </div>
       </footer>

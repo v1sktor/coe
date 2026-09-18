@@ -43,7 +43,7 @@ const Login = () => {
         <div className="text-center space-y-4">
           <img
             src={logoUrl}
-            alt="Emblema da Força Tática"
+            alt="Emblema do 4º BPChq COE"
             width={1024}
             height={1024}
             className="mx-auto h-24 w-24 object-contain"
