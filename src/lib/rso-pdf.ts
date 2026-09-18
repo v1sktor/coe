@@ -93,9 +93,9 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
     const status = String(rso.status || "").toUpperCase() || "—";
     const dataFimPatrulha = fmtDateTime(rso.patrulha_fim);
 
-    if (logo) {
+    if (logoData) {
       try {
-        doc.addImage(logo, "PNG", M, y - 6, 54, 54);
+        doc.addImage(logoData, "PNG", M, y - 6, 54, 54);
       } catch {
         /* ignore */
       }
