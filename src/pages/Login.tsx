@@ -42,7 +42,7 @@ const Login = () => {
         <div className="text-center space-y-4">
           <img
             src={logo}
-            alt="Emblema do 4º BPChq COE"
+            alt="Emblema do 4º BPChq COE/GATE"
             width={1024}
             height={1024}
             className="mx-auto h-24 w-24 object-contain"
