@@ -31,25 +31,14 @@ export const INSTITUCIONAL: UnidadeInstitucional[] = [
       "Para informações institucionais, entre em contato pelos canais oficiais do CPChoque — Polícia Militar do Estado de São Paulo.",
   },
   {
-    sigla: "GATE",
-    nome: "Grupo de Ações Táticas Especiais",
-    subtitulo: "Grupo de Ações Táticas Especiais (GATE) · 4º BPChoque",
+    sigla: "COE/GATE",
+    nome: "Comandos e Operações Especiais / Grupo de Ações Táticas Especiais",
+    subtitulo: "Comandos e Operações Especiais (COE) · Grupo de Ações Táticas Especiais (GATE) · 4º BPChq",
     missao:
-      "Atuar na resolução de crises operacionais de altíssima complexidade em meio urbano, incluindo resgate de reféns localizados, neutralização de atiradores ativos, desarmamento e varredura de artefatos explosivos (bombas), além de cumprimento de mandados de prisão contra alvos de altíssima periculosidade.",
+      "Atuar de forma integrada na resolução de crises operacionais de altíssima complexidade, tanto em meio urbano quanto em ambientes rurais, de mata ou terrenos hostis. O COE executa operações de alto risco, busca, resgate e neutralização de criminosos encurralados em locais de difícil acesso, enquanto o GATE atua no resgate de reféns, neutralização de atiradores ativos, desarmamento e varredura de artefatos explosivos e cumprimento de mandados contra alvos de altíssima periculosidade.",
     historia:
-      "Criado em 3 de agosto de 1988 e vinculado ao 4º Batalhão de Policiamento de Choque (4º BPChoque), o GATE nasceu da necessidade de criar uma equipe técnica de elite para gerenciar crises urbanas de alta gravidade. Inspirado em doutrinas internacionais de SWAT e unidades de contraterrorismo, foi estruturado para atuar em ocorrências que exigiam táticas de negociação, invasão tática e manipulação de explosivos.",
+      "O COE originou-se da Companhia de Operações Especiais fundada em 1970, posteriormente incorporada ao 4º Batalhão de Policiamento de Choque, com a missão de combater focos de guerrilha rural e operar em terrenos de difícil acesso. Já o GATE foi criado em 3 de agosto de 1988, também vinculado ao 4º BPChq, para gerenciar crises urbanas de alta gravidade, inspirado em doutrinas internacionais de SWAT e unidades de contraterrorismo. Hoje, ambos operam de forma unificada como a referência da corporação em operações táticas especiais.",
     contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do GATE — 4º BPChoque.",
-  },
-  {
-    sigla: "COE",
-    nome: "Comandos e Operações Especiais",
-    subtitulo: "Comandos e Operações Especiais (COE) · 4º BPChoque",
-    missao:
-      "Executar operações policiais de alto risco em ambientes rurais, de mata ou terrenos hostis, realizar busca, resgate e neutralização de criminosos encurralados em locais de difícil acesso, e prestar apoio tático especializado em ações contraterrorismo e missões de busca em áreas de risco.",
-    historia:
-      "Originou-se da Companhia de Operações Especiais fundada em 1970, sendo posteriormente incorporada ao 4º BPChoque. Sua criação foi motivada pela necessidade de combater focos de guerrilha rural no Vale do Ribeira e operar em terrenos de difícil acesso, evoluindo ao longo das décadas para se tornar a referência da corporação em operações de selva e patrulhamento em ambientes de alta criticidade geográfica.",
-    contato:
-      "Para informações institucionais, entre em contato pelos canais oficiais do COE — 4º BPChoque.",
+      "Para informações institucionais, entre em contato pelos canais oficiais do COE/GATE — 4º BPChq.",
   },
 ];
