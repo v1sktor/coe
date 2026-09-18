@@ -1,5 +1,5 @@
 import jsPDF from "jspdf";
-import logo from "@/assets/logo-4bpchq.png";
+import logoSrc from "@/assets/logo-4bpchq.png";
 
 const loadDataUrl = async (url: string): Promise<string | null> => {
   try {
@@ -58,7 +58,7 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
   const M = 48;
   let y = M;
 
-  const logo = await loadDataUrl(logo);
+  const logoData = await loadDataUrl(logoSrc);
 
   const footer = () => {
     const pages = doc.getNumberOfPages();
@@ -93,9 +93,9 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
     const status = String(rso.status || "").toUpperCase() || "—";
     const dataFimPatrulha = fmtDateTime(rso.patrulha_fim);
 
-    if (logo) {
+    if (logoData) {
       try {
-        doc.addImage(logo, "PNG", M, y - 6, 54, 54);
+        doc.addImage(logoData, "PNG", M, y - 6, 54, 54);
       } catch {
         /* ignore */
       }
