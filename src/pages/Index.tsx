@@ -28,14 +28,14 @@ const Index = () => {
           <Link to="/" className="flex items-center gap-3">
             <img
               src={logo}
-              alt="Emblema do 4º BPChq COE"
+              alt="Emblema do 4º BPChq COE/GATE"
               width={1024}
               height={1024}
               className="h-14 w-14 object-contain"
             />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-lg uppercase">
-                4º BPChq COE
+                4º BPChq COE/GATE
               </span>
               <span className="text-[11px] uppercase text-sidebar-foreground/65">
                 Polícia Militar do Estado de São Paulo
@@ -66,7 +66,7 @@ const Index = () => {
               <span className="font-semibold text-xs uppercase">Patrulhamento tático</span>
             </div>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl uppercase leading-tight text-sidebar-foreground">
-              4º BPChq COE
+              4º BPChq COE/GATE
             </h1>
             <p className="mt-3 font-display text-lg uppercase text-sidebar-foreground/75">
               Polícia Militar do Estado de São Paulo
@@ -84,14 +84,14 @@ const Index = () => {
                 <Link to="/rso/novo">RSO</Link>
               </Button>
               <Button asChild size="lg" className="w-full font-semibold uppercase bg-white text-black hover:bg-white/90 sm:col-span-2">
-                <Link to="/edital">Edital 4º BPChq COE</Link>
+                <Link to="/edital">Edital 4º BPChq COE/GATE</Link>
               </Button>
             </div>
           </div>
           <div className="relative min-h-[340px] lg:min-h-full overflow-hidden">
             <img
               src={heroBanner}
-              alt="Equipe e viaturas da 4º BPChq COE em prontidão"
+              alt="Equipe e viaturas da 4º BPChq COE/GATE em prontidão"
               width={1600}
               height={900}
               className="absolute inset-0 h-full w-full object-cover"
@@ -205,7 +205,7 @@ const Index = () => {
       {/* Rodapé */}
       <footer className="bg-sidebar text-sidebar-foreground mt-auto border-t-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[12px] text-center">
-          <span>© 4º BPChq COE — {now.getFullYear()}</span>
+          <span>© 4º BPChq COE/GATE — {now.getFullYear()}</span>
           <span className="text-sidebar-foreground/50">
             Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM RP.
           </span>

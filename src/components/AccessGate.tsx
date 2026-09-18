@@ -88,7 +88,7 @@ export function AccessGate({
     <div className="min-h-screen bg-background flex items-center justify-center px-6 py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="items-center text-center space-y-3">
-          <img src={logo} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-16 w-16 object-contain" />
+          <img src={logo} alt="Emblema do 4º BPChq COE/GATE" width={1024} height={1024} className="h-16 w-16 object-contain" />
           <CardTitle className="text-lg">{titulo}</CardTitle>
           <p className="text-sm text-muted-foreground">
             Área restrita. Informe o código de acesso semanal fornecido pelo comando.
