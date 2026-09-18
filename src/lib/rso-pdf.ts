@@ -1,5 +1,5 @@
 import jsPDF from "jspdf";
-import logo from "@/assets/logo-4bpchq.png";
+import logoSrc from "@/assets/logo-4bpchq.png";
 
 const loadDataUrl = async (url: string): Promise<string | null> => {
   try {
