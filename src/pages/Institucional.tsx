@@ -97,7 +97,7 @@ export default function Institucional() {
       <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground space-y-1">
         <p>4º BPChq COE · Polícia Militar do Estado de São Paulo</p>
         <p className="text-muted-foreground/60">
-          Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Pirituba RP.
+          Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM RP.
         </p>
       </footer>
     </div>
