@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { ModuleSwitcher } from "@/components/ModuleSwitcher";
-const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
 // logo asset replaced by CDN pointer
 
 export function AppLayout() {
@@ -16,10 +16,10 @@ export function AppLayout() {
           <header className="h-16 flex items-center gap-4 px-4 bg-gradient-blue text-primary-foreground shadow-tactical border-b-2 border-primary">
             <SidebarTrigger className="text-primary-foreground hover:bg-primary-foreground/10" />
             <Link to="/" className="flex items-center gap-3 min-w-0">
-              <img src={logoUrl} alt="Emblema da Força Tática" width={1024} height={1024} className="h-11 w-11 object-contain" />
+              <img src={logoUrl} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
               <div className="leading-tight min-w-0">
                 <span className="block font-display text-sm md:text-base font-semibold uppercase tracking-wider truncate">
-                  Força Tática · PMESP
+                  4º BPChq COE · PMESP
                 </span>
                 <span className="block text-[11px] uppercase tracking-[0.2em] text-primary-foreground/70">
                   Comando operacional

@@ -6,59 +6,59 @@
 
 @layer base {
   :root {
-    /* Força Tática PMESP — preto, grafite, vermelho institucional */
-    --background: 0 0% 96%;
-    --foreground: 0 0% 7%;
+    /* 4º BPChq COE — PMESP · preto fosco, grafite, dourado e verde musgo */
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 352 73% 37%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 352 72% 47%;
+    --primary: 45 88% 52%;
+    --primary-foreground: 0 0% 8%;
+    --primary-glow: 45 92% 62%;
 
-    --secondary: 0 0% 91%;
-    --secondary-foreground: 0 0% 10%;
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 0 0% 92%;
 
-    --muted: 0 0% 91%;
-    --muted-foreground: 0 0% 38%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 0 0% 17%;
-    --accent-foreground: 0 0% 95%;
+    --accent: 72 35% 30%;
+    --accent-foreground: 0 0% 96%;
 
     --destructive: 0 70% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 82%;
-    --input: 0 0% 88%;
-    --ring: 352 73% 37%;
+    --border: 72 25% 24%;
+    --input: 0 0% 20%;
+    --ring: 45 88% 52%;
 
     --radius: 0.25rem;
 
-    --sidebar-background: 0 0% 7%;
-    --sidebar-foreground: 0 0% 91%;
-    --sidebar-primary: 352 73% 45%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 17%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 23%;
-    --sidebar-ring: 352 73% 45%;
+    --sidebar-background: 0 0% 9%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 45 88% 52%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 72 30% 22%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 72 22% 20%;
+    --sidebar-ring: 45 88% 52%;
 
-    --success: 142 45% 38%;
-    --warning: 38 80% 45%;
+    --success: 142 45% 42%;
+    --warning: 38 85% 52%;
     --danger: 0 65% 48%;
 
-    --gradient-tactical: linear-gradient(135deg, hsl(0 0% 96%) 0%, hsl(0 0% 89%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(352 73% 37%) 0%, hsl(352 72% 47%) 100%);
-    --gradient-blue: linear-gradient(135deg, hsl(0 0% 17%) 0%, hsl(0 0% 7%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(0 0% 96%) 0%, hsl(0 0% 90%) 100%);
+    --gradient-tactical: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 6%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(45 88% 46%) 0%, hsl(45 92% 62%) 100%);
+    --gradient-blue: linear-gradient(135deg, hsl(72 30% 22%) 0%, hsl(0 0% 8%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 9%) 0%, hsl(0 0% 5%) 100%);
 
-    --shadow-gold: 0 8px 28px -12px hsl(352 73% 37% / 0.3);
-    --shadow-tactical: 0 10px 30px -14px hsl(0 0% 0% / 0.28);
-    --shadow-elevated: 0 20px 50px -24px hsl(0 0% 0% / 0.48);
+    --shadow-gold: 0 8px 28px -12px hsl(45 88% 52% / 0.35);
+    --shadow-tactical: 0 10px 30px -14px hsl(0 0% 0% / 0.6);
+    --shadow-elevated: 0 20px 50px -24px hsl(0 0% 0% / 0.75);
 
 
     --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -109,8 +109,8 @@
   .bg-hazard-stripes {
     background-image: repeating-linear-gradient(
       45deg,
-      hsl(0 0% 88%) 0,
-      hsl(0 0% 88%) 12px,
+      hsl(45 88% 52%) 0,
+      hsl(45 88% 52%) 12px,
       hsl(0 0% 5%) 12px,
       hsl(0 0% 5%) 24px
     );

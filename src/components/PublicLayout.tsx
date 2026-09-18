@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
-const logoUrl = "/__l5e/assets-v1/9be673cc-c46a-43d3-8043-abca159df6fa/logo-forca-tatica.png";
+const logoUrl = "/__l5e/assets-v1/1672f8a9-23e8-4b79-a040-30bfeca818fb/logo-coe-bpchq.png";
 // logo asset replaced by CDN pointer
 
 export function PublicLayout() {
@@ -12,10 +12,10 @@ export function PublicLayout() {
       <header className="relative z-10 bg-primary text-primary-foreground">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logoUrl} alt="Emblema da Força Tática" width={1024} height={1024} className="h-11 w-11 object-contain" />
+            <img src={logoUrl} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                Força Tática · PMESP
+                4º BPChq COE · PMESP
               </span>
               <span className="text-[11px] text-primary-foreground/70">
                 Polícia Militar do Estado de São Paulo
