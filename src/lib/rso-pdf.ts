@@ -58,7 +58,7 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
   const M = 48;
   let y = M;
 
-  const logo = await loadDataUrl(logo);
+  const logoData = await loadDataUrl(logoSrc);
 
   const footer = () => {
     const pages = doc.getNumberOfPages();
