@@ -60,8 +60,8 @@ export default function BOPC() {
   const boletim = useMemo(
     () =>
       [
-        `# BOPM Nº ${val(numero)}`,
-        `BOLETIM DE OCORRÊNCIA — 4º BPCHQ COE — PMESP`,
+        `# BON Nº ${val(numero)}`,
+        `BOLETIM DE OCORRÊNCIA — MARINHA DO BRASIL`,
         ``,
         `DATA: ${dataBR}  HORA: ${hora || D}`,
         `PREFIXO: ${val(prefixo)}`,
@@ -137,12 +137,12 @@ export default function BOPC() {
       <header className="bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
+            <img src={logo} alt="Emblema da Marinha do Brasil" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                4º BPChq COE · PMESP
+                Vida Carioca · Marinha
               </span>
-              <span className="text-[11px] text-sidebar-foreground/65">Polícia Militar do Estado de São Paulo</span>
+              <span className="text-[11px] text-sidebar-foreground/65">Marinha do Brasil</span>
             </span>
           </Link>
           <Button variant="ghost" size="sm" asChild className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
@@ -169,7 +169,7 @@ export default function BOPC() {
             </CardHeader>
             <CardContent className="grid gap-4 sm:grid-cols-3">
               <div className="space-y-1.5">
-                <Label className="text-[11px] uppercase tracking-wider text-muted-foreground">Nº BOPM</Label>
+                <Label className="text-[11px] uppercase tracking-wider text-muted-foreground">Nº BON</Label>
                 <Input value={numero} onChange={(e) => setNumero(e.target.value)} />
               </div>
               <div className="space-y-1.5">

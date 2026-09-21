@@ -12,23 +12,23 @@ import CorregedoriaContas from "@/components/admin/CorregedoriaContas";
 type Codigo = { id: string; chave: string; codigo: string; updated_at: string };
 
 const LABELS: Record<string, string> = {
-  bopc: "Modelo BOPM",
+  bopc: "BON",
   diligencias: "Relatório de Serviço Operacional",
-  juridico: "Jurídico",
+  juridico: "JMU",
   corregedoria: "SJD",
 };
 
-// BOPM e RSO usam sempre o mesmo código de acesso — alterar um altera o outro.
+// BON e RSO usam sempre o mesmo código de acesso — alterar um altera o outro.
 const CHAVES_SINCRONIZADAS = ["bopc", "diligencias"];
 
 function gerarCodigo() {
   const numeros = String(Math.floor(Math.random() * 10000)).padStart(4, "0");
-  return `PMESP-${numeros}`;
+  return `MB-${numeros}`;
 }
 
 function formatarCodigo(valor: string) {
   const digitos = valor.replace(/[^0-9]/g, "").slice(0, 4);
-  return digitos ? `PMESP-${digitos}` : "";
+  return digitos ? `MB-${digitos}` : "";
 }
 
 export default function AdminAcessos() {

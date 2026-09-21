@@ -42,7 +42,7 @@ const Login = () => {
         <div className="text-center space-y-4">
           <img
             src={logo}
-            alt="Emblema do 4º BPChq COE"
+            alt="Emblema da Marinha do Brasil"
             width={1024}
             height={1024}
             className="mx-auto h-24 w-24 object-contain"
@@ -70,7 +70,7 @@ const Login = () => {
                 <Label htmlFor="login-email" className="text-xs uppercase tracking-wider text-muted-foreground">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input id="login-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="usuario@pmesp.gov.br" className="pl-10 bg-secondary border-border" required />
+                  <Input id="login-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="usuario@marinha.mil.br" className="pl-10 bg-secondary border-border" required />
                 </div>
               </div>
               <div className="space-y-2">
@@ -95,7 +95,7 @@ const Login = () => {
           >
             <Link to="/juridico">
               <Scale className="mr-2 h-4 w-4" />
-              Jurídico
+              JMU
             </Link>
           </Button>
           <Button

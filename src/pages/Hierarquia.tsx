@@ -191,7 +191,7 @@ const Hierarquia = ({
             {filterGrupamento ? `Hierarquia · ${filterGrupamento}` : "Hierarquia"}
           </h1>
           <p className="text-muted-foreground mt-1">
-            {filterGrupamento ? `Efetivo do grupamento ${filterGrupamento}` : "Efetivo do 4º BPChq COE · PMESP"}
+            {filterGrupamento ? `Efetivo do grupamento ${filterGrupamento}` : "Efetivo do Vida Carioca · Marinha"}
           </p>
         </div>
         {canEdit && (

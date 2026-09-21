@@ -88,7 +88,7 @@ export function AccessGate({
     <div className="min-h-screen bg-background flex items-center justify-center px-6 py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="items-center text-center space-y-3">
-          <img src={logo} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-16 w-16 object-contain" />
+          <img src={logo} alt="Emblema da Marinha do Brasil" width={1024} height={1024} className="h-16 w-16 object-contain" />
           <CardTitle className="text-lg">{titulo}</CardTitle>
           <p className="text-sm text-muted-foreground">
             Área restrita. Informe o código de acesso semanal fornecido pelo comando.
@@ -100,11 +100,11 @@ export function AccessGate({
               <Label className="text-[11px] uppercase tracking-wider text-muted-foreground">Código de acesso</Label>
               <Input
                 autoFocus
-                placeholder="PMESP-0000"
+                placeholder="MB-0000"
                 value={codigo}
                 onChange={(e) => {
                   const digitos = e.target.value.replace(/[^0-9]/g, "").slice(0, 4);
-                  setCodigo(digitos ? `PMESP-${digitos}` : "");
+                  setCodigo(digitos ? `MB-${digitos}` : "");
                 }}
                 className="font-mono tracking-widest"
               />

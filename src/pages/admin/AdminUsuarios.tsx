@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Users, ShieldCheck, Plus, Settings, KeyRound, Scale } from "lucide-react";
+import { Users, ShieldCheck, Plus, Settings, KeyRound, Scale, Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -59,6 +59,7 @@ const AdminUsuarios = () => {
   const [newPwd, setNewPwd] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
   const [savingPwd, setSavingPwd] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const fetchData = async () => {
     const [
@@ -186,7 +187,7 @@ const AdminUsuarios = () => {
       toast({ title: "Erro", description: error.message, variant: "destructive" });
       return;
     }
-    toast({ title: jaTem ? "Acesso ao Jurídico removido" : "Acesso ao Jurídico concedido" });
+    toast({ title: jaTem ? "Acesso à JMU removido" : "Acesso à JMU concedido" });
     fetchData();
   };
 
@@ -279,6 +280,22 @@ const AdminUsuarios = () => {
     }
     toast({ title: "Senha alterada com sucesso" });
     setPwdDialogOpen(false);
+  };
+
+  const deleteUser = async (user: UserWithDetails) => {
+    if (!confirm(`Remover "${user.profile.nome}" da gestão de usuários? O login da pessoa continua existindo, só some da lista e perde cargo/permissões.`)) return;
+    setDeletingId(user.profile.user_id);
+
+    await supabase.from("user_roles").delete().eq("user_id", user.profile.user_id);
+    const { error } = await supabase.from("profiles").delete().eq("user_id", user.profile.user_id);
+
+    setDeletingId(null);
+    if (error) {
+      toast({ title: "Erro ao remover usuário", description: error.message, variant: "destructive" });
+      return;
+    }
+    toast({ title: "Usuário removido da gestão" });
+    fetchData();
   };
 
   return (
@@ -399,7 +416,7 @@ const AdminUsuarios = () => {
                         </Button>
                         <Button variant="ghost" size="sm" onClick={() => toggleJuridico(u)} className="font-display uppercase text-xs tracking-wider">
                           <Scale className="mr-1 h-3 w-3" />
-                          {getPermNomes(u.permissoes).includes("juridico") ? "Tirar Jurídico" : "Dar Jurídico"}
+                          {getPermNomes(u.permissoes).includes("juridico") ? "Tirar JMU" : "Dar JMU"}
                         </Button>
                         <Button variant="ghost" size="sm" onClick={() => openPwdDialog(u)} className="font-display uppercase text-xs tracking-wider">
                           <KeyRound className="mr-1 h-3 w-3" />
@@ -408,6 +425,16 @@ const AdminUsuarios = () => {
                         <Button variant="ghost" size="sm" onClick={() => toggleAdmin(u.profile.user_id, u.isAdmin)} className="font-display uppercase text-xs tracking-wider">
                           <ShieldCheck className="mr-1 h-3 w-3" />
                           {u.isAdmin ? "Remover Admin" : "Tornar Admin"}
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => deleteUser(u)}
+                          disabled={deletingId === u.profile.user_id}
+                          className="font-display uppercase text-xs tracking-wider text-destructive hover:text-destructive"
+                        >
+                          <Trash2 className="mr-1 h-3 w-3" />
+                          Remover
                         </Button>
                       </div>
                     </TableCell>

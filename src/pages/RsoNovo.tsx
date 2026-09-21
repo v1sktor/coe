@@ -421,8 +421,8 @@ const RsoNovo = () => {
 
       <div className="pt-4 space-y-4">
         <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Prisões (BOPM)</Label>
-          <Textarea value={form.prisoes_bopm} onChange={(e) => set("prisoes_bopm", e.target.value)} placeholder="Descreva as prisões com BOPM..." className="bg-secondary border-border min-h-[60px]" />
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Prisões (BON)</Label>
+          <Textarea value={form.prisoes_bopm} onChange={(e) => set("prisoes_bopm", e.target.value)} placeholder="Descreva as prisões com BON..." className="bg-secondary border-border min-h-[60px]" />
         </div>
         <div className="space-y-2">
           <Label className="text-xs uppercase tracking-wider text-muted-foreground">Multas</Label>

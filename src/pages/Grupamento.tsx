@@ -90,13 +90,13 @@ export default function GrupamentoPage({ tipo }: { tipo: Grupamento }) {
       <header className="relative z-10 bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
+            <img src={logo} alt="Emblema da Marinha do Brasil" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                4º BPChq COE · PMESP
+                Vida Carioca · Marinha
               </span>
               <span className="text-[11px] text-primary-foreground/70">
-                Polícia Militar do Estado de São Paulo
+                Marinha do Brasil
               </span>
             </span>
           </Link>

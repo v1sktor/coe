@@ -27,13 +27,13 @@ export default function Edital() {
       <header className="relative z-10 bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
+            <img src={logo} alt="Emblema da Marinha do Brasil" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                4º BPChq COE · PMESP
+                Vida Carioca · Marinha
               </span>
               <span className="text-[11px] text-primary-foreground/70">
-                Polícia Militar do Estado de São Paulo
+                Marinha do Brasil
               </span>
             </span>
           </Link>
@@ -46,10 +46,10 @@ export default function Edital() {
       <main className="relative z-10 flex-1 px-6 lg:px-10 py-14 max-w-4xl mx-auto w-full">
         <div className="flex items-center gap-2 text-primary mb-2">
           <ScrollText className="h-4 w-4" />
-          <span className="font-mono text-[11px] uppercase tracking-[0.3em]">Edital PMESP</span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.3em]">Edital Marinha</span>
         </div>
         <h1 className="font-display text-3xl md:text-4xl uppercase tracking-tight">
-          4º BPChq COE · Polícia Militar do Estado de São Paulo
+          Vida Carioca · Marinha do Brasil
         </h1>
         <p className="mt-2 text-sm font-mono uppercase tracking-widest text-muted-foreground">
           Processo seletivo operacional
@@ -62,12 +62,12 @@ export default function Edital() {
                 Comunicado oficial – Abertura de processo seletivo
               </h2>
               <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-                A Polícia Militar do Estado de São Paulo torna público que se encontram oficialmente
+                A Marinha do Brasil torna público que se encontram oficialmente
                 abertas as inscrições para o Processo Seletivo destinado ao provimento de cargos
                 operacionais no âmbito da corporação. O certame tem por finalidade a seleção de
-                candidatos aptos ao exercício das funções relacionadas à investigação criminal,
-                combate ao crime organizado, operações especiais e preservação da ordem pública no
-                município de Brasilândia.
+                candidatos aptos ao exercício das funções relacionadas ao patrulhamento naval,
+                operações especiais, mergulho de combate e apoio às unidades do Corpo de Fuzileiros
+                Navais.
               </p>
             </section>
 
@@ -85,17 +85,17 @@ export default function Edital() {
             <Bloco titulo="Curso de formação">
               <p>
                 Os candidatos aprovados em todas as etapas serão convocados para o Curso de Formação
-                 Técnico-Profissional da Polícia Militar do Estado de São Paulo. Durante o período de formação, os alunos receberão instruções
+                 Técnico-Profissional da Marinha do Brasil. Durante o período de formação, os alunos receberão instruções
                 técnicas e operacionais nas seguintes áreas:
               </p>
               <ul className="list-disc pl-5 space-y-1.5">
-                <li>Procedimentos operacionais policiais;</li>
-                <li>Técnicas de abordagem;</li>
-                <li>Investigação criminal;</li>
-                <li>Legislação penal e processual;</li>
-                <li>Direção operacional;</li>
+                <li>Ordem unida e disciplina militar;</li>
+                <li>Procedimentos operacionais navais;</li>
+                <li>Navegação, embarque e desembarque;</li>
+                <li>Legislação militar e regulamentos da Marinha;</li>
+                <li>Primeiros socorros e sobrevivência no mar;</li>
                 <li>Uso progressivo da força;</li>
-                <li>Operações táticas urbanas.</li>
+                <li>Operações táticas em ambiente naval e ribeirinho.</li>
               </ul>
             </Bloco>
 
@@ -105,7 +105,7 @@ export default function Edital() {
                 requisitos:
               </p>
               <ul className="list-disc pl-5 space-y-1.5">
-                <li>Ser cidadão residente no Estado de São Paulo;</li>
+                <li>Ser cidadão brasileiro;</li>
                 <li>Possuir idade mínima de 18 (dezoito) anos completos;</li>
                 <li>Apresentar conduta ilibada e idoneidade moral;</li>
                 <li>Não possuir antecedentes criminais incompatíveis com a função pública;</li>
@@ -115,7 +115,7 @@ export default function Edital() {
                   Apresentar aptidão física e psicológica compatível com as atribuições do cargo;
                 </li>
                 <li>
-                  Possuir conhecimentos básicos sobre legislação municipal e normas institucionais.
+                  Possuir conhecimentos básicos sobre legislação federal e normas institucionais da Marinha.
                 </li>
               </ul>
             </Bloco>
@@ -134,7 +134,7 @@ export default function Edital() {
               </ul>
               <p>
                 Informações complementares, cronograma oficial e demais orientações serão divulgados
-                 oportunamente por meio dos canais oficiais da Polícia Militar do Estado de São Paulo e
+                 oportunamente por meio dos canais oficiais da Marinha do Brasil e
                 do setor responsável pelo recrutamento institucional.
               </p>
             </Bloco>
@@ -151,9 +151,9 @@ export default function Edital() {
       </main>
 
       <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground space-y-1">
-        <p>4º BPChq COE · Polícia Militar do Estado de São Paulo</p>
+        <p>Vida Carioca · Marinha do Brasil</p>
         <p className="text-muted-foreground/60">
-          Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Pirituba RP.
+          Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Vida Carioca.
         </p>
       </footer>
     </div>

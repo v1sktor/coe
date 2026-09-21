@@ -314,7 +314,7 @@ const Relatorios = () => {
                 <Info label="Ações Setada" value={viewRso.acoes_setada} />
                 <Info label="Tráfico de Drogas" value={viewRso.trafico_drogas} />
                 <Info label="190" value={viewRso.chamados_190} />
-                <Info label="Prisões (BOPM)" value={viewRso.prisoes_bopm} />
+                <Info label="Prisões (BON)" value={viewRso.prisoes_bopm} />
                 <Info label="Multas" value={viewRso.multas_descricao} />
                 <Info label="Outras Ocorrências" value={viewRso.outras_ocorrencias} />
               </Section>

@@ -70,13 +70,13 @@ export default function FardamentosViaturas() {
       <header className="relative z-10 bg-sidebar text-sidebar-foreground border-b-2 border-primary">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Emblema do 4º BPChq COE" width={1024} height={1024} className="h-11 w-11 object-contain" />
+            <img src={logo} alt="Emblema da Marinha do Brasil" width={1024} height={1024} className="h-11 w-11 object-contain" />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                4º BPChq COE
+                Vida Carioca
               </span>
               <span className="text-[11px] text-primary-foreground/70">
-                Polícia Militar do Estado de São Paulo
+                Marinha do Brasil
               </span>
             </span>
           </Link>
@@ -95,7 +95,7 @@ export default function FardamentosViaturas() {
           Fardamentos e Viaturas
         </h1>
         <p className="mt-2 text-muted-foreground text-sm">
-          Uniformes, equipamentos e viaturas em uso pelo 4º BPChq COE.
+          Uniformes, equipamentos e viaturas em uso pelo Vida Carioca.
         </p>
 
         <Tabs defaultValue="fardamentos" className="mt-8">
@@ -124,9 +124,9 @@ export default function FardamentosViaturas() {
       </main>
 
       <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground space-y-1">
-        <p>4º BPChq COE · Polícia Militar do Estado de São Paulo</p>
+        <p>Vida Carioca · Marinha do Brasil</p>
         <p className="text-muted-foreground/60">
-          Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Pirituba RP.
+          Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Vida Carioca.
         </p>
       </footer>
     </div>

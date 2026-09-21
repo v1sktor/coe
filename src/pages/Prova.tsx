@@ -137,14 +137,14 @@ export default function Prova() {
           <Link to="/" className="flex items-center gap-3">
             <img
               src={logo}
-              alt="Emblema do 4º BPChq COE"
+              alt="Emblema da Marinha do Brasil"
               width={1024}
               height={1024}
               className="h-11 w-11 object-contain"
             />
             <span className="flex flex-col leading-tight">
               <span className="font-display text-base font-semibold tracking-wide">
-                4º BPChq COE · PMESP
+                Vida Carioca · Marinha
               </span>
               <span className="text-[11px] text-primary-foreground/70">
                 Processo Seletivo — ACADEPOL
@@ -164,7 +164,7 @@ export default function Prova() {
                 Prova enviada com sucesso
               </h1>
               <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                 Sua prova foi encaminhada ao setor administrativo da 4º BPChq COE para correção e
+                 Sua prova foi encaminhada ao setor administrativo da Vida Carioca para correção e
                 análise. O resultado será divulgado pelos canais oficiais.
               </p>
               <Button asChild variant="outline">
@@ -177,7 +177,7 @@ export default function Prova() {
             <div className="flex items-center gap-2 text-primary mb-2">
               <ScrollText className="h-4 w-4" />
               <span className="font-mono text-[11px] uppercase tracking-[0.3em]">
-                 Processo Seletivo PMESP
+                 Processo Seletivo Marinha
               </span>
             </div>
             <h1 className="font-display text-3xl uppercase tracking-tight">Prova Objetiva</h1>
@@ -253,7 +253,7 @@ export default function Prova() {
                 {step === 1 && (
                   <div className="space-y-5">
                     <h2 className="font-display text-lg uppercase tracking-wide text-primary">
-                       Prova Objetiva - PMESP
+                       Prova Objetiva - Marinha
                     </h2>
                     {QUESTOES_PARTE_1.map((q) => (
                       <Questao
@@ -269,7 +269,7 @@ export default function Prova() {
                 {step === 2 && (
                   <div className="space-y-5">
                     <h2 className="font-display text-lg uppercase tracking-wide text-primary">
-                       Prova Objetiva - PMESP
+                       Prova Objetiva - Marinha
                     </h2>
                     {QUESTOES_PARTE_2.map((q) => (
                       <Questao
@@ -318,9 +318,9 @@ export default function Prova() {
       </main>
 
       <footer className="relative z-10 border-t border-border/60 py-6 text-center text-xs text-muted-foreground space-y-1">
-        <p>4º BPChq COE · Polícia Militar do Estado de São Paulo</p>
+        <p>Vida Carioca · Marinha do Brasil</p>
         <p className="text-muted-foreground/60">
-          Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Pirituba RP.
+          Conteúdo fictício destinado ao uso exclusivo no servidor de FiveM Vida Carioca.
         </p>
       </footer>
     </div>

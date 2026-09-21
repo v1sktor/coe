@@ -111,7 +111,7 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
     doc.setTextColor(20);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
-    const title = doc.splitTextToSize("4º BPCHQ — COE — POLÍCIA MILITAR DO ESTADO DE SÃO PAULO", centerW);
+    const title = doc.splitTextToSize("VIDA CARIOCA — MARINHA DO BRASIL", centerW);
     doc.text(title, centerX, y + 12, { align: "center" });
     doc.setFontSize(11);
     doc.text("REGISTRO DE DILIGÊNCIA", centerX, y + 26, { align: "center" });
@@ -260,7 +260,7 @@ export const generateRsoPdf = async ({ rso, membrosMap, anexosUrls = [], duracao
     ["Tráfico de Drogas", rso.trafico_drogas],
     ["Chamados 190", rso.chamados_190],
   ]);
-  if (rso.prisoes_bopm) block("Prisões (BOPM)", rso.prisoes_bopm);
+  if (rso.prisoes_bopm) block("Prisões (BON)", rso.prisoes_bopm);
   if (rso.multas_descricao) block("Multas Aplicadas", rso.multas_descricao);
   if (rso.outras_ocorrencias) block("Outras Ocorrências", rso.outras_ocorrencias);
 

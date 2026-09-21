@@ -276,7 +276,7 @@ export default function Juridico() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-2xl font-bold text-primary flex items-center gap-2">
-            <Scale className="h-6 w-6" /> Jurídico
+            <Scale className="h-6 w-6" /> JMU
           </h1>
           <p className="text-[13px] text-muted-foreground">
             Repositório de investigações, inquéritos e pareceres com anexos sigilosos.

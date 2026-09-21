@@ -11,8 +11,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 const CATEGORIAS = [
+  "Oficiais Generais",
   "Oficiais Superiores",
-  "Oficiais Intermediários",
   "Oficiais Subalternos",
   "Praças Especiais",
   "Praças Graduados",
@@ -144,7 +144,7 @@ const AdminPatentes = () => {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Nome</Label>
-                <Input value={formNome} onChange={(e) => setFormNome(e.target.value)} placeholder="Ex: Agente de 2ª Classe" className="bg-secondary border-border" />
+                <Input value={formNome} onChange={(e) => setFormNome(e.target.value)} placeholder="Ex: 2º Tenente" className="bg-secondary border-border" />
               </div>
               <div className="space-y-2">
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Categoria</Label>
@@ -160,7 +160,7 @@ const AdminPatentes = () => {
               <div className="space-y-2">
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Nível Hierárquico</Label>
                 <Input type="number" min={1} value={formNivel} onChange={(e) => setFormNivel(Number(e.target.value))} className="bg-secondary border-border" />
-                <p className="text-xs text-muted-foreground">1 = mais alto (Coronel PM), quanto maior o número mais baixo na hierarquia</p>
+                <p className="text-xs text-muted-foreground">1 = mais alto (Almirante de Esquadra), quanto maior o número mais baixo na hierarquia</p>
               </div>
               <Button onClick={handleSave} className="w-full font-display uppercase tracking-wider">
                 {editingId ? "Salvar" : "Criar"}
